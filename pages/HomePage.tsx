@@ -14,7 +14,7 @@ export default function HomePage({ navigation }: HomePageProps) {
             <Text style={styles.text}>
                 Home Page
             </Text>
-            <Button color="pink" title="navigate" onPress={() => navigation.navigate('ArtistPage', { name: 'Joe', age: '32' })} />
+            <Button color="pink" title="navigate" onPress={() => navigation.navigate('Profile', { name: 'Joe', age: '32' })} />
         </View>
     );
 }

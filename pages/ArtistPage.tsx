@@ -13,7 +13,7 @@ export default function ArtistPage({ route, navigation }: ArtistPageProps) {
     return (
         <View style={styles.container}>
             <Image source={require('../assets/app-media/audio-swipe-banner.jpeg')} style={styles.img} />
-            <Button color="green" title="Navigate" onPress={() => navigation.navigate('HomePage')} />
+            <Button color="green" title="Navigate" onPress={() => navigation.goBack()} />
         </View>
     );
 }

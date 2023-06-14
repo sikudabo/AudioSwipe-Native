@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
 import { ArtistPage, HomePage } from './pages';
+import Svg, { Circle, Rect } from 'react-native-svg';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,68 +35,77 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     return <AppLoading />;
   }
 
+  function RandomHeader() {
+    return (
+      <View style={styles.header} />
+    );
+  }
+
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="ArtistPage" >
-          <Stack.Screen 
-            component={HomePage}
-            name="HomePage"
-            options={{ gestureEnabled: true, title: 'Home' }}
-          />
-          <Stack.Screen 
-            component={ArtistPage}
-            initialParams={{ name: 'Simeon', age: 30 }}
-            name="ArtistPage"
-            options={{ title: 'Profile' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <SafeAreaView style={styles.safe}>
+      <ScrollView StickyHeaderComponent={RandomHeader} style={styles.scrollView}>
+        <Text style={styles.text}>
+          
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+    height: 400,
+  },
+  scrollView: {
+    backgroundColor: 'pink',
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',
-    fontWeight: "900",
-    fontFamily: 'VarelaRound_400Regular',
-    fontSize: 32,
-    padding: '20px',
+    height: '50%',
     width: '100vw',
-    height: '50vh',
+  },
+  header: {
+    width: '100%',
+    color: '#fff',
+    height: 40,
+  },
+  tealBackground: {
+    alignItems: 'center',
+    backgroundColor: '#00778B',
+    display: 'flex',
+    height: '100vh',
+    justifyContent: 'center',
+    width: '100vw',
+  },
+  logoText: {
+    alignSelf: 'center',
+    color: '#fff',
+    fontFamily: 'VarelaRound_400Regular',
+    fontSize: 200,
+    fontWeight: '500',
+  },
+  backgroundImage: {
+    height: '100vh',
+    width: '100vw',
   },
   text: {
-    paddingTop: 40,
-    fontSize: 40,
-    fontWeight: '900',
-    fontFamily: 'VarelaRound_400Regular',
     color: '#fff',
-  },
-  firstRow: {
     fontSize: 20,
-    fontFamily: 'VarelaRound_400Regular',
+    fontWeight: '900',
+  },
+  firstItem: {
     flex: 3,
+    backgroundColor: 'red',
   },
-  secondRow: {
-    paddingTop: 30,
-    fontSize: 15,
-    fontFamily: 'VarelaRound_400Regular',
+  secondItem: {
     flex: 2,
+    backgroundColor: 'green',
   },
-  thirdRow: {
-    paddingTop: 30,
-    fontSize: 10,
-    fontFamily: 'VarelaRound_400Regular',
+  thirdItem: {
     flex: 1,
-  },
-  testButton: {
-    backgroundColor: '#00778B',
-    color: '#fff',
-    fontWeight: '700',
-    borderRadius: 5,
-    fontFamily: 'VarelaRound_400Regular',
+    backgroundColor: 'orange',
   },
 });
 
