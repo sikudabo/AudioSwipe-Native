@@ -1,18 +1,54 @@
+import React, { useCallback, useMemo } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import styled from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
+import { Button, configureFonts, FAB, IconButton, MD3Colors, MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
 import { ArtistPage, HomePage } from './pages';
 import Svg, { Circle, Rect } from 'react-native-svg';
+import * as SplashScreen from 'expo-splash-screen';
 
 const Stack = createNativeStackNavigator();
 
 type AppDisplayLayerProps = {
   fontsLoaded: boolean;
+};
+
+SplashScreen.preventAutoHideAsync()
+
+const fontConfig = {
+  default: {
+    regular: {
+      fontFamily: 'VarelaRound_400Regular',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'VarelaRound_400Regular',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'VarelaRound_400Regular',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'VarelaRound_400Regular',
+      fontWeight: 'normal',
+    },
+  },
+};
+
+const theme = {
+  ...DefaultTheme,
+  bogusColor: true,
+  colors: {
+    primary: '#00778B',
+    bogusColor: 'orange',
+    error: 'orange',
+  },
+  fonts: configureFonts(fontConfig as any),
 };
 
 const StyledButton = styled(Button)`
@@ -25,14 +61,22 @@ const StyledButton = styled(Button)`
   padding: 30px;
 `;
 
+
 export default function App() {
   return <App_DisplayLayer {...useDataLayer()} />
 }
 
 
 function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   function RandomHeader() {
@@ -42,29 +86,44 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <ScrollView StickyHeaderComponent={RandomHeader} style={styles.scrollView}>
-        <Text style={styles.text}>
-          
-        </Text>
-      </ScrollView>
-    </SafeAreaView>
+    <PaperProvider theme={theme as any}>
+      <View style={{ marginTop: 50 }} onLayout={onLayoutRootView}>
+        <Button buttonColor="red" icon="send" textColor="white">
+          Press 
+        </Button>
+      </View>
+    </PaperProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  fab: {
+    backgroundColor: '#a1248b',
+    borderRadius: 50,
+    color: 'white',
+    position: 'absolute',
+    marginLeft: 30,
+    marginTop: 100,
+  },
+  btn: {
+    borderColor: '#0080C6',
+    borderRadius: 5,
+    fontFamily: 'VarelaRound_400Regular',
+    width: '50%',
+  },
   safe: {
     flex: 1,
     height: 400,
   },
   scrollView: {
-    backgroundColor: 'pink',
+    backgroundColor: '#fff',
   },
   container: {
     display: 'flex',
     flexDirection: 'row',
     height: '50%',
-    width: '100vw',
+    padding: 100,
+    width: '100%',
   },
   header: {
     width: '100%',
@@ -77,7 +136,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: '100vh',
     justifyContent: 'center',
-    width: '100vw',
+    width: '100%',
   },
   logoText: {
     alignSelf: 'center',
@@ -88,7 +147,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     height: '100vh',
-    width: '100vw',
+    width: '100%',
   },
   text: {
     color: '#fff',
