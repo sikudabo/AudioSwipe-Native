@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
 import { Avatar, Button, Card, Checkbox, configureFonts, FAB, IconButton, MD3Colors, MD3LightTheme as DefaultTheme, PaperProvider, RadioButton, Text, Portal, Dialog, ProgressBar } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ImageBackground, PanResponder, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
 import { colors } from './components';
 import { ArtistPage, HomePage } from './pages';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import * as SplashScreen from 'expo-splash-screen';
 import { Audio } from 'expo-av';
+import ReactTinderCard from 'react-tinder-card';
 const Mp3File = require('./assets/app-media/joshuarogers.mp3');
 const ColorfulColor = require('./assets/app-media/joshuarogers.jpeg');
 
@@ -47,6 +48,25 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   let audioRef: any = useRef(undefined);
   const [audioTime, setAudioTime] = useState('0:00');
   const [audioProgress, setAudioProgress] = useState(0.0);
+  const panResponder = useMemo(() => 
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+    })
+  , []);
+  const mediaCardRef = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+    })
+  )
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -68,8 +88,11 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     }
   }, [audioRef.current]);
 
+  function onSwipe(direction: any) {
+    console.log('The swipe direction was:', direction);
+  }
+
   async function handleAudioTimeUpdate(status: any) {
-    console.log('The status is:', status);
     if (status.positionMillis > 31000 || status.positionMillis >= status.durationMillis) {
       setAudioProgress(0.0);
       setIsPlaying(false);
@@ -192,28 +215,32 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   return (
     <PaperProvider theme={theme}>
         <View onLayout={onLayoutRootView} style={styles.container}>
-          <Card elevation={5} style={styles.card}>
-            <View style={styles.imgContainer}>
-              <ImageBackground source={ColorfulColor} style={styles.img} />
+          <ReactTinderCard onSwipe={onSwipe} preventSwipe={['down', 'up']}>
+            <View {...panResponder.panHandlers}>
+            <Card elevation={5} style={styles.card}>
+              <View style={styles.imgContainer}>
+                <ImageBackground source={ColorfulColor} style={styles.img} />
+              </View>
+              <Card.Content style={styles.contentSection}>
+                <Text style={styles.text} variant="titleLarge">
+                  Joshua Rogers - Unconditional
+                </Text>
+                <Text style={styles.text} variant="bodySmall">
+                  So Good!
+                </Text>
+              </Card.Content>
+              <View>
+                <ProgressBar animatedValue={audioProgress} color={colors.primary} />
+                <Text style={styles.audioTime}>{audioTime}</Text>
+              </View>
+              <View style={styles.actionsContainer}>
+                <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onPress={handleIsUpdatingChange} size="small" style={styles.downVoteBtn} />
+                <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onPress={playSound} onTouchEnd={playSound} size="large" style={styles.playBtn} />
+                <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onPress={handleIsUpdatingChange} onTouchEnd={() => console.log('This was pressed')} size="small" style={styles.upVoteBtn} />
+              </View>
+            </Card>
             </View>
-            <Card.Content style={styles.contentSection}>
-              <Text style={styles.text} variant="titleLarge">
-                Joshua Rogers - Unconditional
-              </Text>
-              <Text style={styles.text} variant="bodySmall">
-                So Good!
-              </Text>
-            </Card.Content>
-            <View>
-              <ProgressBar animatedValue={audioProgress} color={colors.primary} />
-              <Text style={styles.audioTime}>{audioTime}</Text>
-            </View>
-            <View style={styles.actionsContainer}>
-              <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onPress={handleIsUpdatingChange} size="small" style={styles.downVoteBtn} />
-              <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onPress={playSound} size="large" style={styles.playBtn} />
-              <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onPress={handleIsUpdatingChange} size="small" style={styles.upVoteBtn} />
-            </View>
-          </Card>
+          </ReactTinderCard>
         </View>
     </PaperProvider>
   );
