@@ -12,8 +12,8 @@ import { ArtistPage, HomePage } from './pages';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import * as SplashScreen from 'expo-splash-screen';
 import { Audio } from 'expo-av';
-const RacheeseMp3 = require('./assets/app-media/racheese.mp3');
-const ColorfulColor = require('./assets/app-media/racheesecover.jpeg');
+const Mp3File = require('./assets/app-media/joshuarogers.mp3');
+const ColorfulColor = require('./assets/app-media/joshuarogers.jpeg');
 
 const Stack = createNativeStackNavigator();
 
@@ -64,15 +64,16 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
 
   useEffect(() => {
     if (!audioRef.current) {
-      setAudioProgress(0.00);
+      setAudioProgress(0.0);
     }
   }, [audioRef.current]);
 
   async function handleAudioTimeUpdate(status: any) {
-    if (status.positionMillis > 31000) {
-      await audioRef.current.unloadAsync();
-      setAudioProgress(0.00);
+    console.log('The status is:', status);
+    if (status.positionMillis > 31000 || status.positionMillis >= status.durationMillis) {
+      setAudioProgress(0.0);
       setIsPlaying(false);
+      await audioRef.current.unloadAsync();
       audioRef.current = null;
       return;
     }
@@ -146,6 +147,8 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
       setAudioProgress(0.92);
     } else if (status.positionMillis > 29500 && status.positionMillis <= 31000) {
       setAudioProgress(1);
+    } else if(status.positionMillis >= status.durationMillis) {
+      setAudioProgress(0);
     }
   }  
 
@@ -157,7 +160,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
       shouldDuckAndroid: false,
     });
     if (!audioRef.current) {
-      const { sound } = await Audio.Sound.createAsync(require('./assets/app-media/racheese.mp3'), {
+      const { sound } = await Audio.Sound.createAsync(Mp3File, {
         shouldPlay: true,
       }, 
         (status: any) => handleAudioTimeUpdate(status),
@@ -195,10 +198,10 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
             </View>
             <Card.Content style={styles.contentSection}>
               <Text style={styles.text} variant="titleLarge">
-                Irie Eyes Racheese - 1990 Decade
+                Joshua Rogers - Unconditional
               </Text>
               <Text style={styles.text} variant="bodySmall">
-                Size Em' Up (Beat Em' Down)
+                So Good!
               </Text>
             </Card.Content>
             <View>
