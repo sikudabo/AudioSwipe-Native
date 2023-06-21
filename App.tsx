@@ -46,6 +46,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   const [isUpdating, setIsUpdating] = useState(false);
   let soundRef = useRef(new Audio.Sound());
   let audioRef: any = useRef(undefined);
+  let statusRef: any = useRef(undefined);
   const [audioTime, setAudioTime] = useState('0:00');
   const [audioProgress, setAudioProgress] = useState(0.0);
   const panResponder = useMemo(() => 
@@ -93,11 +94,14 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   }
 
   async function handleAudioTimeUpdate(status: any) {
+    statusRef.current = status;
     if (status.positionMillis > 31000 || status.positionMillis >= status.durationMillis) {
       setAudioProgress(0.0);
       setIsPlaying(false);
-      await audioRef.current.unloadAsync();
-      audioRef.current = null;
+      if (audioRef.current) {
+       await audioRef.current.unloadAsync();
+      }
+      audioRef.current = undefined;
       return;
     }
     if (!status.isPlaying) {
@@ -110,7 +114,15 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     } else {
       setAudioTime('0:00');
     }
-    if (status.positionMillis >= 1000 && status.positionMillis <= 1500) {
+    if(status.positionMillis >= status.durationMillis) {
+      setAudioProgress(0);
+      if (audioRef.current) {
+        await audioRef.current.unloadAsync();
+      }
+      audioRef.current = undefined;
+      return;
+    }
+    else if (status.positionMillis >= 1000 && status.positionMillis <= 1500) {
       setAudioProgress(0.01);
     } else if (status.positionMillis >= 2000 && status.positionMillis <= 2500) {
       setAudioProgress(0.02);
@@ -170,8 +182,10 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
       setAudioProgress(0.92);
     } else if (status.positionMillis > 29500 && status.positionMillis <= 31000) {
       setAudioProgress(1);
-    } else if(status.positionMillis >= status.durationMillis) {
-      setAudioProgress(0);
+      if (audioRef.current) {
+        await audioRef.current.unloadAsync();
+      }
+      audioRef.current = undefined;
     }
   }  
 
@@ -190,13 +204,9 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
       );
       audioRef.current = sound;
     }
-    
-    if (!mediaSound) {
-     await audioRef.current.playAsync();
-    }
 
     if (isPlaying) {
-      setIsPlaying(!isPlaying);
+      setIsPlaying(false);
      await audioRef.current.pauseAsync();
     } else {
       setIsPlaying(!isPlaying);
@@ -235,7 +245,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
               </View>
               <View style={styles.actionsContainer}>
                 <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onPress={handleIsUpdatingChange} size="small" style={styles.downVoteBtn} />
-                <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onPress={playSound} onTouchEnd={playSound} size="large" style={styles.playBtn} />
+                <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={playSound} size="large" style={styles.playBtn} />
                 <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onPress={handleIsUpdatingChange} onTouchEnd={() => console.log('This was pressed')} size="small" style={styles.upVoteBtn} />
               </View>
             </Card>
