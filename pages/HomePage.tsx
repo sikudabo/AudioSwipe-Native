@@ -1,8 +1,19 @@
 import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, View, Text, StyleSheet } from 'react-native';
+
+const Stack = createNativeStackNavigator();
 
 type HomePageProps = {
     navigation: any;
+}
+
+function AnotherComponent() {
+    return (
+        <View>
+            Another component
+        </View>
+    );
 }
 
 export default function HomePage({ navigation }: HomePageProps) {
@@ -14,7 +25,11 @@ export default function HomePage({ navigation }: HomePageProps) {
             <Text style={styles.text}>
                 Home Page
             </Text>
-            <Button color="pink" title="navigate" onPress={() => navigation.navigate('Profile', { name: 'Joe', age: '32' })} />
+            <Button color="pink" title="navigate" onPress={() => navigation.navigate('ArtistPage', { screen: 'AnotherComponent' })} />
+            <Stack.Screen 
+                component={AnotherComponent}
+                name="Another"
+            />
         </View>
     );
 }
