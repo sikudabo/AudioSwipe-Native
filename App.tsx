@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.primary,
     fontFamily: 'VarelaRound_400Regular',
-    fontWeight: '700',
+    fontWeight: '900',
   },
   upVoteBtn: {
     backgroundColor: colors.primary,
