@@ -13,8 +13,50 @@ import Svg, { Circle, Rect } from 'react-native-svg';
 import * as SplashScreen from 'expo-splash-screen';
 import { Audio } from 'expo-av';
 import ReactTinderCard from 'react-tinder-card';
-const Mp3File = require('./assets/app-media/joshuarogers.mp3');
-const ColorfulColor = require('./assets/app-media/joshuarogers.jpeg');
+const CeCeCover = require('./assets/app-media/cece.jpeg');
+const CeCeMp3 = require('./assets/app-media/cece.mp3');
+const JoshuaRogersMp3 = require('./assets/app-media/joshuarogers.mp3');
+const JoshuaRogersCover = require('./assets/app-media/joshuarogers.jpeg');
+const JMossCover = require('./assets/app-media/jmoss.jpeg');
+const JMossMp3 = require('./assets/app-media/jmoss.mp3');
+const KirkCover = require('./assets/app-media/kirkfranklin.jpeg')
+const KirkMp3 = require('./assets/app-media/kirkfranklin.mp3');
+
+const db = [
+  {
+    albumName: 'Unconditional',
+    artistName: 'Joshua Rogers',
+    coverArtSource: JoshuaRogersCover,
+    id: 1,
+    mp3File: JoshuaRogersMp3,
+    songName: 'So Good!',
+  },
+  {
+    albumName: 'God is so Good',
+    artistName: 'CeCe Winans',
+    coverArtSource: CeCeCover,
+    id: 2,
+    mp3File: CeCeMp3,
+    songName: 'Praise God',
+  },
+  {
+    albumName: 'Praise Him',
+    artistName: 'J Moss',
+    coverArtSource: JMossCover,
+    id: 3,
+    mp3File: JMossMp3,
+    songName: 'Praise in the Sanctuary',
+  },
+  {
+    albumName: 'God is Good',
+    artistName: 'Kirk Franklin',
+    coverArtSource: KirkCover,
+    id: 4,
+    mp3File: KirkMp3,
+    songName: 'God lifts us up!'
+  }
+];
+
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +91,47 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   let statusRef: any = useRef(undefined);
   const [audioTime, setAudioTime] = useState('0:00');
   const [audioProgress, setAudioProgress] = useState(0.0);
+  const [songList, setSongList] = useState(db);
+  const [currentSongIndex, setCurrentSongIndex] = useState(db.length - 1);
+  const [lastDirection, setLastDirection] = useState('');
+  const currentSongIndexRef = useRef(currentSongIndex);
+  const canSwipe = currentSongIndex >= 0;
+  const songListRef = useRef(db);
+  const [shouldDisplay, setShouldDisplay] = useState(true);
+
+  const childRefs: any = useMemo(
+    () =>
+      Array(songListRef.current.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    []
+  );
+
+  function updateCurrentIndex(val: number) {
+    setCurrentSongIndex(val);
+    currentSongIndexRef.current = val;
+  }
+
+  function swiped(direction: string, index: number) {
+    return;
+  }
+
+  async function swipe(direction: string) {
+    await childRefs[currentSongIndexRef.current].current.swipe(direction);
+  }
+
+  async function cardLeftScreen(direction: string, id: number, index: number) {
+    setAudioProgress(0.0);
+    setAudioTime('0:00');
+    setLastDirection(direction);
+    updateCurrentIndex(index - 1);
+    songListRef.current = songListRef.current.filter((song) => song.id !== id);
+    if (audioRef.current) {
+      await audioRef.current.unloadAsync();
+      audioRef.current = undefined;
+      playSound();
+    }
+  }
   const panResponder = useMemo(() => 
     PanResponder.create({
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
@@ -82,6 +165,13 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     setIsPlaying(true);
     playSound();
   }, []);
+
+  useEffect(() => {
+    if (songListRef.current.length === 0) {
+      setShouldDisplay(false);
+    }
+    console.log('Should display is:', shouldDisplay);
+  }, [songListRef.current.length]);
 
   useEffect(() => {
     if (!audioRef.current) {
@@ -190,6 +280,12 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   }  
 
   async function playSound() {
+    if (songListRef.current.length <= 0) {
+      return;
+    }
+    if (!shouldDisplay) {
+      return;
+    }
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       playsInSilentModeIOS: true,
@@ -197,7 +293,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
       shouldDuckAndroid: false,
     });
     if (!audioRef.current) {
-      const { sound } = await Audio.Sound.createAsync(Mp3File, {
+      const { sound } = await Audio.Sound.createAsync(songListRef.current[currentSongIndexRef.current].mp3File, {
         shouldPlay: true,
       }, 
         (status: any) => handleAudioTimeUpdate(status),
@@ -224,34 +320,55 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
 
   return (
     <PaperProvider theme={theme}>
-        <View onLayout={onLayoutRootView} style={styles.container}>
-          <ReactTinderCard onSwipe={onSwipe} preventSwipe={['down', 'up']}>
-            <View {...panResponder.panHandlers}>
-            <Card elevation={5} style={styles.card}>
-              <View style={styles.imgContainer}>
-                <ImageBackground source={ColorfulColor} style={styles.img} />
-              </View>
-              <Card.Content style={styles.contentSection}>
-                <Text style={styles.text} variant="titleLarge">
-                  Joshua Rogers - Unconditional
-                </Text>
-                <Text style={styles.text} variant="bodySmall">
-                  So Good!
-                </Text>
-              </Card.Content>
-              <View>
-                <ProgressBar animatedValue={audioProgress} color={colors.primary} />
-                <Text style={styles.audioTime}>{audioTime}</Text>
-              </View>
-              <View style={styles.actionsContainer}>
-                <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onPress={handleIsUpdatingChange} size="small" style={styles.downVoteBtn} />
-                <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={playSound} size="large" style={styles.playBtn} />
-                <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onPress={handleIsUpdatingChange} onTouchEnd={() => console.log('This was pressed')} size="small" style={styles.upVoteBtn} />
-              </View>
-            </Card>
+        {shouldDisplay ? (
+          <View onLayout={onLayoutRootView} style={styles.container}>
+          {songListRef.current.map((song, index) => (
+            <View style={styles.swipe}>
+              <ReactTinderCard 
+                key={song.id}
+                onCardLeftScreen={(direction) => cardLeftScreen(direction, song.id, index)}
+                onSwipe={(direction) => swiped(direction, index)}
+                preventSwipe={['down', 'up']}
+                ref={childRefs[index]}
+                swipeRequirementType="position"
+              >
+                <View {...panResponder.panHandlers}>
+                  <Card elevation={5} style={styles.card}>
+                    <View style={styles.imgContainer}>
+                      <ImageBackground source={song.coverArtSource} style={styles.img} />
+                    </View>
+                    <Card.Content style={styles.contentSection}>
+                      <Text style={styles.text} variant="titleLarge">
+                        {song.artistName} - {song.albumName}
+                      </Text>
+                      <Text style={styles.text} variant="bodySmall">
+                        {song.songName}
+                      </Text>
+                    </Card.Content>
+                    <View>
+                      <ProgressBar animatedValue={audioProgress} color={colors.primary} />
+                      <Text style={styles.audioTime}>{audioTime}</Text>
+                    </View>
+                    <View style={styles.actionsContainer}>
+                      <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onTouchStart={() => swipe('left')} size="small" style={styles.downVoteBtn} />
+                      <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={playSound} size="large" style={styles.playBtn} />
+                      <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onTouchStart={() => swipe('right')} size="small" style={styles.upVoteBtn} />
+                    </View>
+                  </Card>
+                </View>
+              </ReactTinderCard>
             </View>
-          </ReactTinderCard>
+          ))} 
         </View>
+        ) : (
+          <View>
+            <View style={styles.container}>
+              <Text style={styles.textEmpty}>
+                No More Songs Available 
+              </Text>
+            </View>
+          </View>
+        )}
     </PaperProvider>
   );
 }
@@ -286,7 +403,7 @@ const styles = StyleSheet.create({
     paddingBottom: 200,
     paddingLeft: 0,
     paddingRight: 0,
-    width: '100%',
+    width: 350,
   },
   cardCover: {
     width: '100%',
@@ -317,6 +434,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginRight: 'auto',
   },
+  emptyStateContent: {
+    paddingTop: 200,
+  },
   iconButton: {
     backgroundColor: colors.white,
     borderColor: colors.white,
@@ -342,11 +462,19 @@ const styles = StyleSheet.create({
     color: colors.white,
     marginBottom: 10,
   },
+  swipe: {
+    position: 'absolute',
+  },
   topTitle: {
     alignSelf: 'center',
   },
   text: {
     color: colors.primary,
+    fontFamily: 'VarelaRound_400Regular',
+    fontWeight: '900',
+  },
+  textEmpty: {
+    color: colors.white,
     fontFamily: 'VarelaRound_400Regular',
     fontWeight: '900',
   },
