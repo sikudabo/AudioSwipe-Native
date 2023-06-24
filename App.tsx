@@ -32,14 +32,6 @@ const db = [
     songName: 'So Good!',
   },
   {
-    albumName: 'God is so Good',
-    artistName: 'CeCe Winans',
-    coverArtSource: CeCeCover,
-    id: 2,
-    mp3File: CeCeMp3,
-    songName: 'Praise God',
-  },
-  {
     albumName: 'Praise Him',
     artistName: 'J Moss',
     coverArtSource: JMossCover,
@@ -54,7 +46,15 @@ const db = [
     id: 4,
     mp3File: KirkMp3,
     songName: 'God lifts us up!'
-  }
+  },
+  {
+    albumName: 'God is so Good',
+    artistName: 'CeCe Winans',
+    coverArtSource: CeCeCover,
+    id: 2,
+    mp3File: CeCeMp3,
+    songName: 'Praise God',
+  },
 ];
 
 
@@ -116,8 +116,9 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     return;
   }
 
-  async function swipe(direction: string) {
+  async function swipe(direction: string, index: number) {
     await childRefs[currentSongIndexRef.current].current.swipe(direction);
+    updateCurrentIndex(index - 1);
   }
 
   async function cardLeftScreen(direction: string, id: number, index: number) {
@@ -302,8 +303,10 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     }
 
     if (isPlaying) {
-      setIsPlaying(false);
-     await audioRef.current.pauseAsync();
+     setIsPlaying(false);
+     if (audioRef.current) {
+      await audioRef.current.pauseAsync();
+     }
     } else {
       setIsPlaying(!isPlaying);
       await audioRef.current.playAsync();
@@ -350,15 +353,15 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
                       <Text style={styles.audioTime}>{audioTime}</Text>
                     </View>
                     <View style={styles.actionsContainer}>
-                      <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onTouchStart={() => swipe('left')} size="small" style={styles.downVoteBtn} />
+                      <FAB disabled={isUpdating} icon="thumb-down-outline" color={colors.white} onTouchStart={() => swipe('left', index)} size="small" style={styles.downVoteBtn} />
                       <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={playSound} size="large" style={styles.playBtn} />
-                      <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onTouchStart={() => swipe('right')} size="small" style={styles.upVoteBtn} />
+                      <FAB disabled={isUpdating} icon="thumb-up-outline" color={colors.white} onTouchStart={() => swipe('right', index)} size="small" style={styles.upVoteBtn} />
                     </View>
                   </Card>
                 </View>
               </ReactTinderCard>
             </View>
-          ))} 
+          ))}
         </View>
         ) : (
           <View>
@@ -463,6 +466,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   swipe: {
+    paddingTop: 75,
     position: 'absolute',
   },
   topTitle: {
