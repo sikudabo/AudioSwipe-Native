@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
+import SignUpHeader from './components/SignUpHeader';
 import { AudioSwipeText, colors } from '../../components';
 import { NavigationType } from '../../typings';
-import MusicCelebrationImage from '../../assets/app-media/music-celebration.jpeg';
+import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
+const MusicCelebrationImage = require('../../assets/app-media/music-celebration.jpeg');
 
 export default function FanSignUpPage({ navigation }: NavigationType) {
     return <FanSignUpPage_DisplayLayer {...useDataLayer({ navigation })} />;
@@ -16,14 +18,11 @@ type FanSignUpPageDisplayLayerProps = {
 function FanSignUpPage_DisplayLayer({ handleNavigation }: FanSignUpPageDisplayLayerProps) {
     return (
         <View style={styles.container}>
-            <AudioSwipeText 
-                customStyle={{
-                    alignSelf: 'center',
-                }}
-                size={32} 
-                text="Sign Up Page" 
-                weight="normal"
-            />
+            <AudioSwipeBackgroundContainer
+                src={MusicCelebrationImage}
+            >
+               <SignUpHeader onPress={handleNavigation} />
+            </AudioSwipeBackgroundContainer>
         </View>
     );
 }
@@ -37,15 +36,12 @@ function useDataLayer({ navigation }: NavigationType) {
     
     return {
         handleNavigation,
-    }
+    };
 }
 
 const styles = StyleSheet.create({
     container: {
-        bacground: `url(${MusicCelebrationImage})`,
-        backgroundSize: 'cover',
         height: '100%',
-        opacity: 0.7,
         width: '100%',
     },
 });
