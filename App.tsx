@@ -37,7 +37,12 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     <PaperProvider theme={theme}>
         <NavigationContainer>
           <View style={styles.appContainer}>
-          <Stack.Navigator initialRouteName="FanLogin">
+          <Stack.Navigator 
+            initialRouteName="FanLogin"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
             <Stack.Screen 
               component={FanSignUpPage}
               name="FanSignUp"
