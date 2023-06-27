@@ -14,13 +14,11 @@ type AudioSwipeTextProps = {
 
 /**
  * 
- * @param 
- * custom style - a custom style that can be added to the text component. 
- * size - this handles the font size of the text.
- * text - This is what is rendered as "children" within the component. 
- * weight - this handles the font weight. 
- * @returns 
- * A react-native-paper text component that is reusable and customizable based on our styles. 
+ * @param customStyle a custom style that can be added to the text component. 
+ * @param size this handles the font size of the text.
+ * @param text This is what is rendered as "children" within the component. 
+ * @param weight this handles the font weight. 
+ * @returns A react-native-paper text component that is reusable and customizable based on our styles. 
  */
 export default function AudioSwipeText({
     color = colors.white,

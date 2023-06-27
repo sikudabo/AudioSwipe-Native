@@ -3,6 +3,14 @@ import { ImageBackground, StyleSheet, } from 'react-native';
 import { ImageBackgroundProps } from '../../typings';
 import { screenHeight, screenWidth } from '../../utils/constants';
 
+/**
+ * 
+ * @param children React.ReactNode
+ * @param customStyle custom css styling
+ * @param paddingTop Controls upper padding. 
+ * @param src Source for the background image. This will likely never be a URI
+ * @returns The AudioSwipeBackgroundContainer component
+ */
 export default function AudioSwipeBackgroundContainer({
     children,
     customStyle = {},
