@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleProp, StyleSheet, TextStyle } from 'react-native';
 import { Text } from 'react-native-paper';
+import { colors } from './colors';
 
 type AudioSwipeTextProps = {
+    color?: string;
     customStyle?: StyleProp<TextStyle>;
     size?: number;
     text: string;
@@ -20,6 +22,7 @@ type AudioSwipeTextProps = {
  * A react-native-paper text component that is reusable and customizable based on our styles. 
  */
 export default function AudioSwipeText({
+    color = colors.white,
     customStyle = {},
     size = 16,
     text,
@@ -27,6 +30,7 @@ export default function AudioSwipeText({
 }: AudioSwipeTextProps) {
     const textStyles = StyleSheet.create({
         text: {
+            color: color as TextStyle["color"],
             fontFamily: 'VarelaRound_400Regular',
             fontSize: size,
             fontWeight: weight.toString() as TextStyle["fontWeight"],
