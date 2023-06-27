@@ -1,9 +1,27 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { Text } from 'react-native-paper';
-import { colors } from '../../components';
-import MusicCelebrationImage from '../../assets/app-media/music-celebration.jpeg';
+import { AudioSwipeText, colors } from '../../components';
+
+export default function FanSignUpPage() {
+    return <FanSignUpPage_DisplayLayer {...useDataLayer()} />;
+}
+
+
+function FanSignUpPage_DisplayLayer() {
+    return (
+        <View style={styles.container}>
+            <AudioSwipeText size={32} text="Hello, world!" weight={500} />
+        </View>
+    );
+}
+
+
+function useDataLayer() {
+    return {
+
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
