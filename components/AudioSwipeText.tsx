@@ -6,6 +6,7 @@ import { colors } from './colors';
 type AudioSwipeTextProps = {
     color?: string;
     customStyle?: StyleProp<TextStyle>;
+    onPress?: any;
     size?: number;
     text: string;
     weight?: number | string;
@@ -24,6 +25,7 @@ type AudioSwipeTextProps = {
 export default function AudioSwipeText({
     color = colors.white,
     customStyle = {},
+    onPress = () => {},
     size = 16,
     text,
     weight = 900,
@@ -39,7 +41,7 @@ export default function AudioSwipeText({
     });
 
     return (
-        <Text style={textStyles.text}>
+        <Text onPress={onPress} style={textStyles.text}>
             {text}
         </Text>
     );

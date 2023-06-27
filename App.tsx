@@ -7,6 +7,7 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-roun
 import { colors } from './components';
 import * as SplashScreen from 'expo-splash-screen';
 import { FanSignUpPage } from './pages';
+import FanLoginPage from './pages/FanLoginPage/FanLoginPage';
 
 
 
@@ -36,10 +37,20 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     <PaperProvider theme={theme}>
         <NavigationContainer>
           <View style={styles.appContainer}>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName="FanLogin">
             <Stack.Screen 
               component={FanSignUpPage}
               name="FanSignUp"
+              options={{
+                title: "Sign Up"
+              }}
+            />
+            <Stack.Screen 
+              component={FanLoginPage}
+              name="FanLogin"
+              options={{
+                title: "Login",
+              }}
             />
           </Stack.Navigator>
           </View>

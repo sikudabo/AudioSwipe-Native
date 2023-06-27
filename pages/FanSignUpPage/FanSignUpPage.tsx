@@ -11,7 +11,14 @@ export default function FanSignUpPage() {
 function FanSignUpPage_DisplayLayer() {
     return (
         <View style={styles.container}>
-            <AudioSwipeText size={32} text="Hello, world!" weight={500} />
+            <AudioSwipeText 
+                customStyle={{
+                    alignSelf: 'center',
+                }}
+                size={32} 
+                text="Sign Up Page" 
+                weight="normal"
+            />
         </View>
     );
 }
