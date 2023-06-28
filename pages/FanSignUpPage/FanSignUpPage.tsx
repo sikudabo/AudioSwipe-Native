@@ -16,6 +16,7 @@ const MusicCelebrationImage = require('../../assets/app-media/music-fun.jpeg');
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import { useShowDialog } from '../../hooks';
+import { checkValidAge, checkValidEmail, formatUserBirthday } from '../../utils/helpers';
 
 /**
  * 
@@ -28,14 +29,19 @@ export default function FanSignUpPage({ navigation }: NavigationType) {
 
 type FanSignUpPageDisplayLayerProps = {
     birthday: Date;
+    email: string;
     formatPhoneNumber: (newValue: string) => void;
     handleBirthdayChange: (event: DateTimePickerEvent, date?: any) => void;
     handleNavigation: () => void;
     handleSubmit: () => void;
     gender: string;
+    password: string;
     phoneNumber: string;
     phoneRef: any;
+    setEmail: React.Dispatch<React.SetStateAction<string>>;
     setFirstName: React.Dispatch<React.SetStateAction<string>>;
+    setLastName: React.Dispatch<React.SetStateAction<string>>;
+    setPassword: React.Dispatch<React.SetStateAction<string>>;
     showBirthdayPicker: boolean;
     takePicture: () => void;
     toggleDateTimePicker: (isOpen: boolean) => void;
@@ -48,14 +54,19 @@ type FanSignUpPageDisplayLayerProps = {
  */
 function FanSignUpPage_DisplayLayer({ 
     birthday,
+    email,
     handleBirthdayChange,
     handleNavigation,
     handleSubmit,
     formatPhoneNumber,
     gender,
+    password,
     phoneNumber,
     phoneRef,
+    setEmail,
     setFirstName,
+    setLastName,
+    setPassword,
     showBirthdayPicker,
     takePicture,
     toggleDateTimePicker,
@@ -63,9 +74,22 @@ function FanSignUpPage_DisplayLayer({
 }: FanSignUpPageDisplayLayerProps) {
     const [isOpen, setIsOpen] = useState(false);
 
-    function handleFirstNameChange(e: any) {
-        console.log('e is:', e);
+    function handleFirstNameChange(value: string) {
+        setFirstName(value);
     }
+
+    function handleLastNameChange(value: string) {
+        setLastName(value);
+    }
+
+    function handleEmailChange(value: string) {
+        setEmail(value.trim());
+    }
+
+    function handlePasswordChange(value: string) {
+        setPassword(value);
+    }
+
     return (
         <View style={styles.container}>
             <AudioSwipeBackgroundContainer
@@ -83,7 +107,7 @@ function FanSignUpPage_DisplayLayer({
                                 left={<TextInput.Icon icon="account" />}
                                 outlineColor={colors.secondary}
                                 mode="outlined"
-                                onChange={handleFirstNameChange}
+                                onChangeText={handleFirstNameChange}
                                 placeholder="First Name"
                                 style={styles.textInput}
                             />
@@ -97,6 +121,7 @@ function FanSignUpPage_DisplayLayer({
                                 label="Last Name"
                                 style={styles.bottomInputs}
                                 left={<TextInput.Icon icon="account" />}
+                                onChangeText={handleLastNameChange}
                                 mode="outlined"
                                 outlineColor={colors.secondary}
                                 placeholder="Last Name"
@@ -111,6 +136,8 @@ function FanSignUpPage_DisplayLayer({
                                 label="Email"
                                 left={<TextInput.Icon icon="email" />}
                                 style={styles.bottomInputs}
+                                value={email}
+                                onChangeText={handleEmailChange}
                                 mode="outlined"
                                 outlineColor={colors.secondary}
                                 placeholder="Email"
@@ -129,6 +156,8 @@ function FanSignUpPage_DisplayLayer({
                                 label="Password"
                                 left={<TextInput.Icon icon="lock" />}
                                 style={styles.bottomInputs}
+                                onChangeText={handlePasswordChange}
+                                value={password}
                                 mode="outlined"
                                 outlineColor={colors.secondary}
                                 placeholder="Password"
@@ -325,8 +354,8 @@ function useDataLayer({ navigation }: NavigationType) {
     }
 
     function handleBirthdayChange(event: DateTimePickerEvent, date: any) {
-        console.log('The new date is:', date);
-        setBirthday(date as Date);
+        const newDate = new Date(date);
+        setBirthday(newDate);
     }
 
     function handleNavigation() {
@@ -335,10 +364,61 @@ function useDataLayer({ navigation }: NavigationType) {
 
     function handleSubmit() {
         if (!firstName.trim()) {
+            setDialogMessage("You must enter a first name.");
+            handleDialogMessageChange(true)
+            return;
+        }
 
+        else if (!lastName.trim()) {
+            setDialogMessage("You must enter a last name.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (!email.trim()) {
+            setDialogMessage("You must enter an email.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (!password.trim()) {
+            setDialogMessage("You must enter a password.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (!checkValidEmail(email)) {
+            setDialogMessage("You must enter a valid email.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (phoneNumber.length !== 10) {
+            setDialogMessage("You must enter a valid 10-digit phone number.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (!checkValidAge(formatUserBirthday(birthday))) {
+            setDialogMessage("You must enter a birthday and be at least 13-years old to join.");
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        else if (!avatar || !name || !uri) {
+            setDialogMessage("You must enter an Avatar picture.");
+            handleDialogMessageChange(true);
+            return;
         }
 
         const fd = new FormData();
+        fd.append('firstName', firstName);
+        fd.append('lastName', lastName);
+        fd.append('email', email);
+        fd.append('password', password);
+        fd.append('birthday', birthday as any);
+        fd.append('phoneNumber', phoneNumber);
+        fd.append('gender', gender);
         fd.append('avatar', JSON.stringify({ uri, name: 'avatar', type: 'image/jpg' }));
     }
 
@@ -349,11 +429,18 @@ function useDataLayer({ navigation }: NavigationType) {
         handleBirthdayChange,
         handleNavigation,
         handleSubmit,
+        email,
         formatPhoneNumber,
+        firstName,
         gender,
+        lastName,
+        password,
         phoneNumber,
         phoneRef,
+        setEmail,
         setFirstName,
+        setLastName,
+        setPassword,
         showBirthdayPicker,
         takePicture,
         toggleDateTimePicker,

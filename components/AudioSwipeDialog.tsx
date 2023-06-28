@@ -51,7 +51,7 @@ function AudioSwipeDialog_DisplayLayer({
                             textColor={colors.secondary}
                             onPress={handleClose}
                         >
-                            OK 
+                           OK
                         </Button>
                     </Dialog.Actions>
                 </Dialog>

@@ -9,7 +9,6 @@ type ArtistPageProps = {
 
 export default function ArtistPage({ route, navigation }: ArtistPageProps) {
     const { age, name } = route.params;
-    console.log('The age is', age, 'and the name is', name);
     return (
         <View style={styles.container}>
             <Image source={require('../assets/app-media/audio-swipe-banner.jpeg')} style={styles.img} />
