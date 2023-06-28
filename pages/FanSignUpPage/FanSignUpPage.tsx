@@ -5,20 +5,17 @@ import {
     View, 
     SafeAreaView,
     ScrollView,
-    StyleSheet, 
-    NativeSyntheticEvent
+    StyleSheet,
 } from 'react-native';
-import { useForm } from 'react-hook-form';
 import SignUpHeader from './components/SignUpHeader';
-import TextInputMask from 'react-native-text-input-mask';
 import { AudioSwipeButton, AudioSwipeText, FormContainer, colors } from '../../components';
 import { NavigationType } from '../../typings';
 import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
 import { HelperText, RadioButton, TextInput } from 'react-native-paper';
 const MusicCelebrationImage = require('../../assets/app-media/music-fun.jpeg');
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'expo-image-picker';
+import { useShowDialog } from '../../hooks';
 
 /**
  * 
@@ -31,12 +28,14 @@ export default function FanSignUpPage({ navigation }: NavigationType) {
 
 type FanSignUpPageDisplayLayerProps = {
     birthday: Date;
+    formatPhoneNumber: (newValue: string) => void;
     handleBirthdayChange: (event: DateTimePickerEvent, date?: any) => void;
     handleNavigation: () => void;
-    formatPhoneNumber: (newValue: string) => void;
+    handleSubmit: () => void;
     gender: string;
     phoneNumber: string;
     phoneRef: any;
+    setFirstName: React.Dispatch<React.SetStateAction<string>>;
     showBirthdayPicker: boolean;
     takePicture: () => void;
     toggleDateTimePicker: (isOpen: boolean) => void;
@@ -51,16 +50,22 @@ function FanSignUpPage_DisplayLayer({
     birthday,
     handleBirthdayChange,
     handleNavigation,
+    handleSubmit,
     formatPhoneNumber,
     gender,
     phoneNumber,
     phoneRef,
+    setFirstName,
     showBirthdayPicker,
     takePicture,
     toggleDateTimePicker,
     toggleGender,
 }: FanSignUpPageDisplayLayerProps) {
     const [isOpen, setIsOpen] = useState(false);
+
+    function handleFirstNameChange(e: any) {
+        console.log('e is:', e);
+    }
     return (
         <View style={styles.container}>
             <AudioSwipeBackgroundContainer
@@ -78,6 +83,7 @@ function FanSignUpPage_DisplayLayer({
                                 left={<TextInput.Icon icon="account" />}
                                 outlineColor={colors.secondary}
                                 mode="outlined"
+                                onChange={handleFirstNameChange}
                                 placeholder="First Name"
                                 style={styles.textInput}
                             />
@@ -244,7 +250,7 @@ function FanSignUpPage_DisplayLayer({
                             <View style={styles.submitButtonContainer}>
                                 <AudioSwipeButton 
                                     color={colors.white}
-                                    onPress={() => console.log('Submitting')}
+                                    onPress={handleSubmit}
                                     text="Submit"
                                     fullWidth 
                                 />
@@ -265,7 +271,10 @@ function FanSignUpPage_DisplayLayer({
 function useDataLayer({ navigation }: NavigationType) {
 
     const phoneRef = useRef();
-
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [birthday, setBirthday] = useState(new Date(2023, 2, 20));
     const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
@@ -273,6 +282,7 @@ function useDataLayer({ navigation }: NavigationType) {
     const [avatar, setAvatar] = useState<any>();
     const [uri, setUri] = useState<Blob | null>(null);
     const [name, setName] = useState('');
+    const { handleDialogMessageChange, message, setDialogMessage } = useShowDialog();
 
     async function takePicture() {
         await ImagePicker.requestCameraPermissionsAsync();
@@ -324,8 +334,8 @@ function useDataLayer({ navigation }: NavigationType) {
     }
 
     function handleSubmit() {
-        if (!avatar || !uri || !name) {
-            return;
+        if (!firstName.trim()) {
+
         }
 
         const fd = new FormData();
@@ -336,12 +346,14 @@ function useDataLayer({ navigation }: NavigationType) {
     
     return {
         birthday,
-        handleNavigation,
         handleBirthdayChange,
+        handleNavigation,
+        handleSubmit,
         formatPhoneNumber,
         gender,
         phoneNumber,
         phoneRef,
+        setFirstName,
         showBirthdayPicker,
         takePicture,
         toggleDateTimePicker,

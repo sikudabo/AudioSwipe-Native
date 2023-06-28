@@ -3,7 +3,7 @@ import { StyleSheet, TextStyle } from 'react-native';
 import { Button, ButtonProps } from 'react-native-paper';
 import { colors } from './colors';
 
-type AudioSwipeButtonProps = Omit<ButtonProps, 'buttonColor' | 'children' | 'mode'> | any & {
+type AudioSwipeButtonProps = Omit<ButtonProps, 'buttonColor' | 'children'> | any & {
     backgroundColor?: string;
     buttonHeight?: number;
     buttonType?: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal';
