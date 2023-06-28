@@ -323,7 +323,7 @@ function useDataLayer({ navigation }: NavigationType) {
         }
 
         const fd = new FormData();
-        fd.append('avatar', JSON.stringify({ uri, name, type: 'image/jpg' }));
+        fd.append('avatar', JSON.stringify({ uri, name: 'avatar', type: 'image/jpg' }));
     }
 
 
