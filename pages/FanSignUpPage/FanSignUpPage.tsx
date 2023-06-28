@@ -165,6 +165,9 @@ function FanSignUpPage_DisplayLayer({
                                         text="Birthday"
                                         fullWidth
                                     />
+                                    <HelperText type="info">
+                                        Required* (Must be at least 13)
+                                    </HelperText>
                                 </View>
                             )}
                             {isOpen && (
@@ -234,6 +237,9 @@ function FanSignUpPage_DisplayLayer({
                                     text="Avatar"
                                     fullWidth 
                                 />
+                                <HelperText type="info">
+                                    Required* 
+                                </HelperText>
                             </View>
                             <View style={styles.submitButtonContainer}>
                                 <AudioSwipeButton 
