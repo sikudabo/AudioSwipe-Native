@@ -3,6 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useForm } from 'react-hook-form';
 import { AudioSwipeText, colors } from '../../components';
+import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
+import LoginHeader from './components/LoginHeader';
+const ConcertImage = require('../../assets/app-media/photo_concert.jpeg');
 
 export default function FanLoginPage({ navigation }: FanLoginProps) {
     return <FanLoginPage_DisplayLayer navigation={navigation} {...useDataLayer({ navigation })} />;
@@ -26,15 +29,16 @@ function FanLoginPage_DisplayLayer({
 }: FanLoginPage_DisplayLayerProps) {
     return (
         <View style={styles.container}>
-            <AudioSwipeText 
-                customStyle={{
-                    alignSelf: 'center',
-                }}
-                onPress={handleNavigate}
-                size={32} 
-                text="Login Page" 
-                weight="normal"
-            />
+            <AudioSwipeBackgroundContainer
+                src={ConcertImage}
+            >
+                <AudioSwipeText
+                    onPress={handleNavigate}
+                    size={32}
+                    text="Log In"
+                    weight={900}
+                />
+            </AudioSwipeBackgroundContainer>
         </View>
     );
 }
@@ -53,10 +57,11 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.secondary,
         height: '100%',
-        opacity: 0.7,
-        paddingTop: 50,
+        padding: 0,
         width: '100%',
+    },
+    headerContainer: {
+        paddingBottom: 30,
     },
 });

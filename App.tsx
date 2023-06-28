@@ -44,23 +44,22 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
           <View onLayout={onLayoutRootView} style={styles.appContainer}>
             <AudioSwipeDialog />
             <Stack.Navigator 
-              initialRouteName="FanLogin"
               screenOptions={{
                 headerShown: false,
               }}
             >
               <Stack.Screen 
-                component={FanSignUpPage}
-                name="FanSignUp"
-                options={{
-                  title: "Sign Up"
-                }}
-              />
-              <Stack.Screen 
                 component={FanLoginPage}
                 name="FanLogin"
                 options={{
                   title: "Login",
+                }}
+              />
+              <Stack.Screen 
+                component={FanSignUpPage}
+                name="FanSignUp"
+                options={{
+                  title: "Sign Up"
                 }}
               />
             </Stack.Navigator>
