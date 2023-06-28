@@ -14,7 +14,11 @@ type AudioSwipeDialogDisplayLayerProps = {
     message: string;
 }
 
-function AudioSwipeDisplayLayer({
+export default function AudioSwipeDialog() {
+    return <AudioSwipeDialog_DisplayLayer {...useDataLayer()} />;
+}
+
+function AudioSwipeDialog_DisplayLayer({
     handleClose,
     isOpen,
     message,
@@ -34,6 +38,22 @@ function AudioSwipeDisplayLayer({
                             weight={900}
                         />
                     </Dialog.Title>
+                    <Dialog.Content>
+                        <AudioSwipeText 
+                            color={colors.black}
+                            size={20}
+                            weight={900}
+                            text={message}
+                        />
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                        <AudioSwipeButton
+                            buttonType="text"
+                            color={colors.secondary}
+                            onPress={handleClose}
+                            text="OK"
+                        />
+                    </Dialog.Actions>
                 </Dialog>
             </Portal>
         </View>
