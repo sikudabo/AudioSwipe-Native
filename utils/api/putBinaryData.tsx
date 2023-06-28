@@ -7,11 +7,11 @@ type PostBinaryDataProps = {
 };
 
 export const putBinaryData = async ({ data, url }: PostBinaryDataProps) => {
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
     return await axios({
-        data,
+        data: data,
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Content-Encoding': 'mutipart/form-data',
         },
         method: 'PUT',
         url: `${baseUrl}${url}`,

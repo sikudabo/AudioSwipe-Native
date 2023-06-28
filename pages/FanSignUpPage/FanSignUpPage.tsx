@@ -18,7 +18,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useShowDialog } from '../../hooks';
 import { checkValidAge, checkValidEmail, formatUserBirthday } from '../../utils/helpers';
 import { putBinaryData } from '../../utils/api';
-
+import FormData from 'form-data';
 /**
  * 
  * @param navigation 
@@ -311,14 +311,15 @@ function useDataLayer({ navigation }: NavigationType) {
     const [gender, setGender] = useState('female');
     const [avatar, setAvatar] = useState<any>();
     const [uri, setUri] = useState<Blob | null>(null);
+    const [fileType, setFileType] = useState(null);
     const [name, setName] = useState('');
     const { handleDialogMessageChange, message, setDialogMessage } = useShowDialog();
 
     async function takePicture() {
         await ImagePicker.requestCameraPermissionsAsync();
         const result = await ImagePicker.launchCameraAsync({
-            allowsEditing: true,
-            aspect: [4, 3],
+            allowsEditing: false,
+            aspect: [16, 9],
         });
 
         if (result.canceled) {
@@ -326,10 +327,13 @@ function useDataLayer({ navigation }: NavigationType) {
         }
 
         const localUri = result.assets[0].uri;
+        
         const filename = localUri.split('/').pop();
 
+
+        setFileType(result.assets[0].type);
         setAvatar(result as any);
-        setUri(localUri as any);
+        setUri(localUri as string);
         setName(filename as string);
     }
 
@@ -417,10 +421,19 @@ function useDataLayer({ navigation }: NavigationType) {
         fd.append('lastName', lastName);
         fd.append('email', email);
         fd.append('password', password);
-        fd.append('birthday', birthday as any);
+        fd.append('birthday', String(birthday));
         fd.append('phoneNumber', phoneNumber);
         fd.append('gender', gender);
-        fd.append('avatar', JSON.stringify({ uri, name: 'avatar', type: 'image/jpg' }));
+        const currentUri = "file://" + uri
+        console.log('The avatar is:', avatar);
+        const obj = {
+            name,
+            uri,
+        };
+        console.log('The obj is:', obj);
+        fd.append('avatar', { name, uri, type: "image" });
+
+        console.log('The birthday is:', birthday as any);
 
         await putBinaryData({
             data: fd,
@@ -430,7 +443,7 @@ function useDataLayer({ navigation }: NavigationType) {
             setDialogMessage("Welcome to AudioSwipe");
             handleDialogMessageChange(true);
         }).catch(e => {
-            setDialogMessage("Error. Please try again");
+            setDialogMessage("Error. Please try again!");
             handleDialogMessageChange(true);
         });
     }
