@@ -331,9 +331,9 @@ function useDataLayer({ navigation }: NavigationType) {
         const filename = localUri.split('/').pop();
 
 
-        setFileType(result.assets[0].type);
+        setFileType(result.assets[0].type as any);
         setAvatar(result as any);
-        setUri(localUri as string);
+        setUri(localUri as any);
         setName(filename as string);
     }
 
@@ -439,9 +439,15 @@ function useDataLayer({ navigation }: NavigationType) {
             data: fd,
             url: 'api/saveFan'
         }).then(response => {
-            console.log('The response was:', response);
-            setDialogMessage("Welcome to AudioSwipe");
+            const { message, success } = response;
+            if (!success) {
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                return;
+            }
+            setDialogMessage("Welcome to AudioSwipe!");
             handleDialogMessageChange(true);
+            return;
         }).catch(e => {
             setDialogMessage("Error. Please try again!");
             handleDialogMessageChange(true);
