@@ -17,6 +17,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import * as ImagePicker from 'expo-image-picker';
 import { useShowDialog } from '../../hooks';
 import { checkValidAge, checkValidEmail, formatUserBirthday } from '../../utils/helpers';
+import { putBinaryData } from '../../utils/api';
 
 /**
  * 
@@ -362,7 +363,7 @@ function useDataLayer({ navigation }: NavigationType) {
         navigation.navigate('FanLogin');
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (!firstName.trim()) {
             setDialogMessage("You must enter a first name.");
             handleDialogMessageChange(true)
@@ -420,6 +421,18 @@ function useDataLayer({ navigation }: NavigationType) {
         fd.append('phoneNumber', phoneNumber);
         fd.append('gender', gender);
         fd.append('avatar', JSON.stringify({ uri, name: 'avatar', type: 'image/jpg' }));
+
+        await putBinaryData({
+            data: fd,
+            url: 'api/saveFan'
+        }).then(response => {
+            console.log('The response was:', response);
+            setDialogMessage("Welcome to AudioSwipe");
+            handleDialogMessageChange(true);
+        }).catch(e => {
+            setDialogMessage("Error. Please try again");
+            handleDialogMessageChange(true);
+        });
     }
 
 
