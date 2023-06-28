@@ -43,11 +43,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
         <NavigationContainer>
           <View onLayout={onLayoutRootView} style={styles.appContainer}>
             <AudioSwipeDialog />
-            <Stack.Navigator 
-              screenOptions={{
-                headerShown: false,
-              }}
-            >
+            <Stack.Navigator>
               <Stack.Screen 
                 component={FanLoginPage}
                 name="FanLogin"

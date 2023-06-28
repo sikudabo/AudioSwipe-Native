@@ -28,7 +28,7 @@ function AudioSwipeDialog_DisplayLayer({
             <Portal>
                 <Dialog 
                     visible={isOpen}
-                    onDismiss={() => {}}
+                    onDismiss={handleClose}
                 >
                     <Dialog.Title style={styles.alertHeader}>
                         <AudioSwipeText

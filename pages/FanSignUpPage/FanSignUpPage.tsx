@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import PhoneInput from 'react-native-phone-input';
 import { 
     KeyboardAvoidingView,
     View, 
@@ -97,7 +96,7 @@ function FanSignUpPage_DisplayLayer({
                 src={MusicCelebrationImage}
             >
                <View style={styles.headerContainer}>
-                <SignUpHeader onPress={handleNavigation} />
+                    <SignUpHeader onPress={handleNavigation} />
                </View>
                <SafeAreaView style={styles.formWrapper}>
                     <ScrollView>
@@ -182,7 +181,7 @@ function FanSignUpPage_DisplayLayer({
                                         mode="outlined"
                                         onChangeText={formatPhoneNumber}
                                         outlineColor={colors.secondary}
-                                        placeholder="e.g. (17655068385)"
+                                        placeholder="e.g. (309217901)"
                                         value={phoneNumber}
                                     />
                                     <HelperText type="info">
@@ -313,7 +312,7 @@ function useDataLayer({ navigation }: NavigationType) {
     const [uri, setUri] = useState<Blob | null>(null);
     const [fileType, setFileType] = useState(null);
     const [name, setName] = useState('');
-    const { handleDialogMessageChange, message, setDialogMessage } = useShowDialog();
+    const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
 
     async function takePicture() {
         await ImagePicker.requestCameraPermissionsAsync();
@@ -424,13 +423,6 @@ function useDataLayer({ navigation }: NavigationType) {
         fd.append('birthday', String(birthday));
         fd.append('phoneNumber', phoneNumber);
         fd.append('gender', gender);
-        const currentUri = "file://" + uri
-        console.log('The avatar is:', avatar);
-        const obj = {
-            name,
-            uri,
-        };
-        console.log('The obj is:', obj);
         fd.append('avatar', { name, uri, type: "image" });
 
         console.log('The birthday is:', birthday as any);
@@ -543,7 +535,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     submitButtonContainer: {
-        paddingBottom: 20,
+        paddingBottom: 100,
         paddingTop: 20,
     },
 });
