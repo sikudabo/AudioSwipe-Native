@@ -14,7 +14,7 @@ function FormContainer_DisplayLayer({
     const formContainerStyles = StyleSheet.create({
         formContainer: {
             height: '100%',
-            opacity: 0.9,
+            opacity: 0.75,
             paddingBottom: 20,
             paddingLeft: 5,
             paddingRight: 5,

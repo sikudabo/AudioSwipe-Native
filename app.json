@@ -8,6 +8,12 @@
     "userInterfaceStyle": "light",
     "plugins": [
       [
+        "expo-image-picker",
+        {
+          "cameraPermission": "This app would like access to your camera for an avatar photo upload."
+        }
+      ],
+      [
         "expo-av",
         {
           "microphonePermission": "Allow AudioSwipe to access your microphone."

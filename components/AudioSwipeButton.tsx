@@ -3,13 +3,14 @@ import { StyleSheet, TextStyle } from 'react-native';
 import { Button, ButtonProps } from 'react-native-paper';
 import { colors } from './colors';
 
-type AudioSwipeButtonProps = Omit<ButtonProps, 'buttonColor' | 'mode'> & {
+type AudioSwipeButtonProps = Omit<ButtonProps, 'buttonColor' | 'children' | 'mode'> | any & {
     backgroundColor?: string;
     buttonHeight?: number;
     buttonType?: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal';
     buttonWidth?: number;
     color?: string;
     customStyle?: any;
+    fullWidth?: boolean;
     onPress?: any;
     text: string;
     type?: string;
@@ -23,6 +24,7 @@ export default function AudioSwipeButton({
     buttonWidth = 100,
     color = colors.secondary,
     customStyle = {},
+    fullWidth = false,
     onPress = () => {},
     text,
     type = 'button',
@@ -33,9 +35,12 @@ export default function AudioSwipeButton({
         btnStyles: {
             borderRadius: 5,
             fontFamily: 'VarelaRound_400Regular',
+            fontSize: 40,
             fontWeight: weight.toString() as TextStyle["fontWeight"],
             height: buttonHeight,
-            width: buttonWidth,
+            paddingTop: 5,
+            textAlign: 'center',
+            width: fullWidth ? '100%' : buttonWidth,
         },
     });
 

@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.secondary,
         height: '100%',
         opacity: 0.7,
+        paddingTop: 50,
         width: '100%',
     },
 });

@@ -5,7 +5,7 @@ import { colors } from './colors';
 
 type AudioSwipeTextProps = {
     color?: string;
-    customStyle?: StyleProp<TextStyle>;
+    customStyle?: any;
     onPress?: any;
     size?: number;
     text: string;

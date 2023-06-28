@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -32,32 +32,37 @@ export default function App() {
 
 function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
 
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   return (
     <PaperProvider theme={theme}>
         <NavigationContainer>
-          <View style={styles.appContainer}>
-          <Stack.Navigator 
-            initialRouteName="FanLogin"
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen 
-              component={FanSignUpPage}
-              name="FanSignUp"
-              options={{
-                title: "Sign Up"
+          <View onLayout={onLayoutRootView} style={styles.appContainer}>
+            <Stack.Navigator 
+              initialRouteName="FanLogin"
+              screenOptions={{
+                headerShown: false,
               }}
-            />
-            <Stack.Screen 
-              component={FanLoginPage}
-              name="FanLogin"
-              options={{
-                title: "Login",
-              }}
-            />
-          </Stack.Navigator>
+            >
+              <Stack.Screen 
+                component={FanSignUpPage}
+                name="FanSignUp"
+                options={{
+                  title: "Sign Up"
+                }}
+              />
+              <Stack.Screen 
+                component={FanLoginPage}
+                name="FanLogin"
+                options={{
+                  title: "Login",
+                }}
+              />
+            </Stack.Navigator>
           </View>
         </NavigationContainer>
     </PaperProvider>
