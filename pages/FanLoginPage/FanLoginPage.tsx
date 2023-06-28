@@ -4,8 +4,10 @@ import { TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText, colors, FormContainer } from '../../components';
 import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
 import LoginHeader from './components/LoginHeader';
+import SignUpHeader from '../FanSignUpPage/components/SignUpHeader';
 import { useShowDialog } from '../../hooks';
 import { checkValidEmail } from '../../utils/helpers';
+import { postNonBinaryData } from '../../utils/api';
 const ConcertImage = require('../../assets/app-media/music-fun.jpeg');
 
 export default function FanLoginPage({ navigation }: FanLoginProps) {
@@ -44,12 +46,7 @@ function FanLoginPage_DisplayLayer({
                 src={ConcertImage}
             >
                 <View style={styles.headerContainer}>
-                    <AudioSwipeText
-                        onPress={handleNavigate}
-                        size={32}
-                        text="Log In"
-                        weight={900}
-                    />
+                    <SignUpHeader onPress={() => {}} text="Log In" />
                 </View>
                 <SafeAreaView style={styles.formWrapper}>
                     <ScrollView>
@@ -134,7 +131,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
         setPassword(password);
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (!checkValidEmail(email)) {
             setDialogMessage('Please enter a valid email');
             handleDialogMessageChange(true);
@@ -146,6 +143,27 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
             handleDialogMessageChange(true);
             return;
         }
+
+        await postNonBinaryData({
+            data: { email, password },
+            url: 'api/loginFan',
+        }).then(response => {
+            const { message, success } = response;
+
+            if (success === false) {
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                return;
+            }
+
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            return;
+        }).catch(e => {
+            setDialogMessage('There was an error logging you in. Please try again!');
+            handleDialogMessageChange(true);
+            return;
+        });
     }
 
     function handleNavigate() {

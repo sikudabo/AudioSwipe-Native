@@ -96,7 +96,7 @@ function FanSignUpPage_DisplayLayer({
                 src={MusicCelebrationImage}
             >
                <View style={styles.headerContainer}>
-                    <SignUpHeader onPress={handleNavigation} />
+                    <SignUpHeader onPress={handleNavigation} text="Sign Up" />
                </View>
                <SafeAreaView style={styles.formWrapper}>
                     <ScrollView>

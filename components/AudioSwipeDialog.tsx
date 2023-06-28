@@ -38,7 +38,7 @@ function AudioSwipeDialog_DisplayLayer({
                             weight={900}
                         />
                     </Dialog.Title>
-                    <Dialog.Content>
+                    <Dialog.Content style={styles.content}>
                         <AudioSwipeText 
                             color={colors.black}
                             size={20}
@@ -89,5 +89,8 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         width: '75%',
+    },
+    content: {
+        alignSelf: 'center',
     },
 });

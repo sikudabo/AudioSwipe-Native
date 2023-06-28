@@ -3,15 +3,16 @@ import { AudioSwipeText, colors } from '../../../components';
 
 type SignUpHeaderProps = {
     onPress: any;
+    text: string;
 };
 
-export default function SignUpHeader({ onPress = () => {} }: SignUpHeaderProps) {
+export default function SignUpHeader({ onPress = () => {}, text }: SignUpHeaderProps) {
     return (
         <AudioSwipeText 
             color={colors.white}
             onPress={onPress}
             size={32} 
-            text="Sign Up" 
+            text={text}
             weight={900}
         />
     );
