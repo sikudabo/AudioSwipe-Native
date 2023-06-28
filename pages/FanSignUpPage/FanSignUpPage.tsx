@@ -235,6 +235,14 @@ function FanSignUpPage_DisplayLayer({
                                     fullWidth 
                                 />
                             </View>
+                            <View style={styles.submitButtonContainer}>
+                                <AudioSwipeButton 
+                                    color={colors.white}
+                                    onPress={() => console.log('Submitting')}
+                                    text="Submit"
+                                    fullWidth 
+                                />
+                            </View>
                         </FormContainer>
                     </ScrollView>
                </SafeAreaView>
@@ -256,7 +264,8 @@ function useDataLayer({ navigation }: NavigationType) {
     const [birthday, setBirthday] = useState(new Date(2023, 2, 20));
     const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
     const [gender, setGender] = useState('female');
-    const [uri, setUri] = useState('');
+    const [avatar, setAvatar] = useState<any>();
+    const [uri, setUri] = useState<Blob | null>(null);
     const [name, setName] = useState('');
 
     async function takePicture() {
@@ -273,10 +282,9 @@ function useDataLayer({ navigation }: NavigationType) {
         const localUri = result.assets[0].uri;
         const filename = localUri.split('/').pop();
 
-        setUri(localUri);
+        setAvatar(result as any);
+        setUri(localUri as any);
         setName(filename as string);
-
-        console.log('The result is:', result.assets[0]);
     }
 
     function toggleDateTimePicker(isOpen: boolean) {
@@ -308,6 +316,17 @@ function useDataLayer({ navigation }: NavigationType) {
     function handleNavigation() {
         navigation.navigate('FanLogin');
     }
+
+    function handleSubmit() {
+        if (!avatar || !uri || !name) {
+            return;
+        }
+
+        const fd = new FormData();
+        fd.append('avatar', JSON.stringify({ uri, name, type: 'image/jpg' }));
+    }
+
+
     
     return {
         birthday,
@@ -385,5 +404,9 @@ const styles = StyleSheet.create({
     },
     radidoButtonText: {
         marginLeft: 10,
+    },
+    submitButtonContainer: {
+        paddingBottom: 20,
+        paddingTop: 20,
     },
 });
