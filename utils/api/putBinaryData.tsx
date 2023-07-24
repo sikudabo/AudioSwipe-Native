@@ -14,7 +14,7 @@ export const putBinaryData = async ({ data, url }: PostBinaryDataProps) => {
             'Content-Type': 'multipart/form-data',
         },
         method: 'PUT',
-        url: `${baseUrl}${url}`,
+        url: `${process.env.REACT_APP_BASE_URI}${url}`,
     }).then(response => {
         return response.data;
     }).catch(e => {

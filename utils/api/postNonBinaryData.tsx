@@ -13,7 +13,7 @@ export const postNonBinaryData = async ({ data, url }: PostBinaryDataProps) => {
             'Content-Type': 'application/json',
         },
         method: 'POST',
-        url: `${baseUrl}${url}`,
+        url: `${process.env.REACT_APP_BASE_URI}${url}`,
     }).then(response => {
         return response.data;
     }).catch(e => {
