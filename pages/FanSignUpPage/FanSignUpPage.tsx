@@ -429,7 +429,7 @@ function useDataLayer({ navigation }: NavigationType) {
 
         await putBinaryData({
             data: fd,
-            url: 'api/saveFan'
+            url: 'api/save-fan'
         }).then(response => {
             const { message, success } = response;
             if (!success) {

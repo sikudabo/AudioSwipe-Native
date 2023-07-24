@@ -146,7 +146,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
 
         await postNonBinaryData({
             data: { email, password },
-            url: 'api/loginFan',
+            url: 'api/login-fan',
         }).then(response => {
             const { message, success } = response;
 
@@ -160,6 +160,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
             handleDialogMessageChange(true);
             return;
         }).catch(e => {
+            console.log('The error is:', e.message);
             setDialogMessage('There was an error logging you in. Please try again!');
             handleDialogMessageChange(true);
             return;

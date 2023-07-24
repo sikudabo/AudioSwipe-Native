@@ -7,13 +7,14 @@ type PostBinaryDataProps = {
 };
 
 export const postNonBinaryData = async ({ data, url }: PostBinaryDataProps) => {
+    console.log('The base uri is:', baseUrl);
     return await axios({
         data: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
         },
         method: 'POST',
-        url: `${process.env.REACT_APP_BASE_URI}${url}`,
+        url: `${baseUrl}${url}`,
     }).then(response => {
         return response.data;
     }).catch(e => {
