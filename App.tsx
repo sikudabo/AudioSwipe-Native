@@ -4,7 +4,7 @@ import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
-import { AudioSwipeDialog, colors } from './components';
+import { AudioSwipeDialog, AudioSwipeNavigationTabs, colors } from './components';
 import * as SplashScreen from 'expo-splash-screen';
 import { FanLoginPage, FanSignUpPage } from './pages';
 
@@ -56,6 +56,13 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
                 name="FanSignUp"
                 options={{
                   title: "Sign Up"
+                }}
+              />
+              <Stack.Screen 
+                component={AudioSwipeNavigationTabs}
+                name="Dashboard"
+                options={{
+                  headerShown: false,
                 }}
               />
             </Stack.Navigator>

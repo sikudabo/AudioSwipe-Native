@@ -156,13 +156,9 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
                 return;
             }
 
-            setDialogMessage(message);
-            handleDialogMessageChange(true);
-            return;
-        }).catch(e => {
-            console.log('The error is:', e.message);
-            setDialogMessage('There was an error logging you in. Please try again!');
-            handleDialogMessageChange(true);
+            // setDialogMessage(message);
+            // handleDialogMessageChange(true);
+            navigation.navigate('Dashboard');
             return;
         });
     }
