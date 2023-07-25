@@ -516,7 +516,6 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
     },
     phoneInput: {
-        borderColor: colors.secondary,
         marginTop: 20,
         width: '100%',
     },
