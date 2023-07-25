@@ -28,7 +28,14 @@ export default function AudioSwipeNavigationTabs() {
                     }}
                     name="Home" 
                 />
-                <Tab.Screen name="Discover" component={FanDiscoverPageStack} />
+                <Tab.Screen 
+                    component={FanDiscoverPageStack} 
+                    options={{
+                        tabBarLabel: 'Discover',
+                        tabBarIcon: () => <Icon color={colors.white} name="magnify" size={26} />,
+                    }}
+                    name="Discover" 
+                />
             </Tab.Navigator>
         </NavigationContainer>
     );
