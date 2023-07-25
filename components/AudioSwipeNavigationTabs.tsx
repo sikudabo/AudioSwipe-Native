@@ -1,17 +1,34 @@
 import React from 'react';
 import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FanDiscoverPageStack, FanHomePageStack } from '../pages';
+import { colors } from './colors';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function AudioSwipeNavigationTabs() {
     return (
         <NavigationContainer independent>
-            <Tab.Navigator screenOptions={{ headerShown: false }}>
-                <Tab.Screen name="Home" component={FanHomePageStack} />
-                <Tab.Screen name="Settings" component={FanDiscoverPageStack} />
+            <Tab.Navigator
+                activeColor={colors.white}
+                backBehavior='none'
+                barStyle={{
+                    backgroundColor: colors.secondary,
+                }}
+                inactiveColor={colors.white}
+            >
+                <Tab.Screen 
+                    component={FanHomePageStack}
+                    options={{
+                        tabBarLabel: 'Home',
+                        tabBarIcon: () => <Icon color={colors.white} name="home" size={26} />,
+                    }}
+                    name="Home" 
+                />
+                <Tab.Screen name="Discover" component={FanDiscoverPageStack} />
             </Tab.Navigator>
         </NavigationContainer>
     );
