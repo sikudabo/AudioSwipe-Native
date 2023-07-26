@@ -1,0 +1,22 @@
+diff --git a/node_modules/@react-navigation/material-bottom-tabs/lib/module/views/MaterialBottomTabView.js b/node_modules/@react-navigation/material-bottom-tabs/lib/module/views/MaterialBottomTabView.js
+index 3bad0c3..5bb9c1a 100644
+--- a/node_modules/@react-navigation/material-bottom-tabs/lib/module/views/MaterialBottomTabView.js
++++ b/node_modules/@react-navigation/material-bottom-tabs/lib/module/views/MaterialBottomTabView.js
+@@ -3,7 +3,7 @@ import { SafeAreaProviderCompat } from '@react-navigation/elements';
+ import { CommonActions, Link, useLinkBuilder, useTheme } from '@react-navigation/native';
+ import * as React from 'react';
+ import { Platform, StyleSheet, Text } from 'react-native';
+-import { BottomNavigation, DarkTheme, DefaultTheme, useTheme as usePaperTheme } from 'react-native-paper';
++import { BottomNavigation, MD3DarkTheme as DarkTheme, DefaultTheme, useTheme as usePaperTheme } from 'react-native-paper';
+ import { useSafeAreaInsets } from 'react-native-safe-area-context';
+ // Optionally require vector-icons referenced from react-native-paper:
+ // https://github.com/callstack/react-native-paper/blob/4b26429c49053eaa4c3e0fae208639e01093fa87/src/components/MaterialCommunityIcon.tsx#L14
+@@ -57,7 +57,7 @@ function MaterialBottomTabViewInner(_ref2) {
+   const t =
+   // If the theme from React Navigation and Paper match, then user the customized theme
+   // Otherwise fallback to the matching default theme from Paper
+-  dark === paperTheme.dark ? paperTheme : dark ? DarkTheme : DefaultTheme;
++  dark === false;
+   const theme = React.useMemo(() => {
+     return {
+       ...t,

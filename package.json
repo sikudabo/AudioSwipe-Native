@@ -6,7 +6,8 @@
     "start": "expo start --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@expo-google-fonts/varela-round": "^0.2.3",
@@ -32,6 +33,7 @@
     "form-data": "^4.0.0",
     "lodash": "^4.17.21",
     "mime": "^3.0.0",
+    "patch-package": "^7.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
@@ -41,7 +43,7 @@
     "react-native-image-picker": "^5.4.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-masked-text": "^1.13.0",
-    "react-native-paper": "^5.8.0",
+    "react-native-paper": "^5.9.1",
     "react-native-paper-dates": "github:web-ridge/react-native-paper-dates",
     "react-native-phone-input": "^1.3.6",
     "react-native-sound-player": "^0.13.2",

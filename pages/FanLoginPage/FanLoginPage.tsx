@@ -5,7 +5,7 @@ import { AudioSwipeButton, AudioSwipeText, colors, FormContainer } from '../../c
 import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
 import LoginHeader from './components/LoginHeader';
 import SignUpHeader from '../FanSignUpPage/components/SignUpHeader';
-import { useShowDialog } from '../../hooks';
+import { useShowDialog, useStoreUser, useUserData } from '../../hooks';
 import { checkValidEmail } from '../../utils/helpers';
 import { postNonBinaryData } from '../../utils/api';
 const ConcertImage = require('../../assets/app-media/music-fun.jpeg');
@@ -121,6 +121,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
+    const { setFan } = useUserData();
     
 
     function handleEmailChange(email: string) {
@@ -148,7 +149,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
             data: { email, password },
             url: 'api/login-fan',
         }).then(response => {
-            const { message, success } = response;
+            const { message, success, user } = response;
 
             if (success === false) {
                 setDialogMessage(message);
@@ -156,8 +157,12 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
                 return;
             }
 
-            // setDialogMessage(message);
-            // handleDialogMessageChange(true);
+            useStoreUser(user);
+            let fan = user;
+            fan.isLoggedIn = true;
+            setFan(fan);
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
             navigation.navigate('Dashboard');
             return;
         });

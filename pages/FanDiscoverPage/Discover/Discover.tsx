@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { AudioSwipeText, colors } from '../../../components';
+import { colors } from '../../../components/colors';
 
 
 export default function Discover() {
