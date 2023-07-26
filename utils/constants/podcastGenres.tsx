@@ -1,70 +1,87 @@
+const Art = require('../../assets/app-media/art.jpeg');
+const Business = require('../../assets/app-media/business.jpeg');
+const Comedy = require('../../assets/app-media/comedy.jpeg');
+const Education = require('../../assets/app-media/education.jpeg');
+const Entertainment = require('../../assets/app-media/entertainment.jpeg');
+const Giving = require('../../assets/app-media/giving.jpeg');
+const Health = require('../../assets/app-media/health.jpeg');
+const Lifestyle = require('../../assets/app-media/lifestyle.jpeg');
+const Movies = require('../../assets/app-media/movies.jpeg');
+const Music = require('../../assets/app-media/music.jpeg');
+const News = require('../../assets/app-media/news.jpeg');
+const Sermons = require('../../assets/app-media/sermon.jpeg');
+const Politics = require('../../assets/app-media/politics.jpeg');
+const Sports = require('../../assets/app-media/sports.jpeg');
+const Technology = require('../../assets/app-media/technology.jpeg');
+const Television = require('../../assets/app-media/Television.jpeg');
+const Videogames = require('../../assets/app-media/videogames.jpeg');
 export const podcastGenres = [
     {
-        cover: "",
+        cover: Art,
         name: "Art"
     },
     {
-        cover: "",
+        cover: Business,
         name: "Business",
     },
     {
-        cover: "",
+        cover: Comedy,
         name: "Comedy",
     },
     {
-        cover: "",
+        cover: Education,
         name: "Educational",
     },
     {
-        cover: "",
+        cover: Entertainment,
         name: "Entertainment",
     },
     {
-        cover: "",
+        cover: Giving,
         name: "Giving",
     },
     {
-        cover: "",
+        cover: Health,
         name: "Health",
     },
     {
-        cover: "",
+        cover: Lifestyle,
         name: "Lifestyle",
     },
     {
-        cover: "",
+        cover: Movies,
         name: "Movies"
     },
     {
-        cover: "",
+        cover: Music,
         name: "Music",
     },
     {
-        cover: "",
+        cover: News,
         name: "News",
     },
     {
-        cover: "",
+        cover: Sermons,
         name: "Sermons",
     },
     {
-        cover: "",
+        cover: Politics,
         name: "Politics",
     },
     {
-        cover: "",
+        cover: Sports,
         name: "Sports",
     },
     {
-        cover: "",
+        cover: Technology,
         name: "Technology",
     },
     {
-        cover: "",
+        cover: Television,
         name: "TV",
     },
     {
-        cover: "",
+        cover: Videogames,
         name: "Video Games",
     },
 ];
