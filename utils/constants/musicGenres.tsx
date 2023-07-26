@@ -12,6 +12,7 @@ const Country = require('../../assets/app-media/country-music.jpeg');
 const Crunk = require('../../assets/app-media/crunk-music.jpeg');
 const Dance = require('../../assets/app-media/dance-music.jpeg');
 const Dancehall = require('../../assets/app-media/dancehall.jpeg');
+const Easycore = require('../../assets/app-media/easycore.jpeg');
 const EDM = require('../../assets/app-media/edm-music.jpeg');
 const Folk = require('../../assets/app-media/folk-music.jpeg');
 const Footwork = require('../../assets/app-media/footwork.jpeg');
@@ -32,6 +33,13 @@ const Latin = require('../../assets/app-media/latin-music.jpeg');
 const Metal = require('../../assets/app-media/metal.jpeg');
 const Pop = require('../../assets/app-media/pop-music.jpeg');
 const Punk = require('../../assets/app-media/punk-rock.jpeg');
+const RB = require('../../assets/app-media/r&b.jpeg');
+const Rap = require('../../assets/app-media/rap-music.jpeg');
+const Reggae = require('../../assets/app-media/reggae.jpeg');
+const Romantic = require('../../assets/app-media/romantic.jpeg');
+const Salsa = require('../../assets/app-media/salsa.jpeg');
+const Underground = require('../../assets/app-media/underground.jpeg');
+const Zydeco = require('../../assets/app-media/zydeco.jpeg');
 
 export const musicGenres = [
     {
@@ -89,6 +97,10 @@ export const musicGenres = [
     {
         cover: Dancehall,
         name: "Dancehall",
+    },
+    {
+        cover: Easycore,
+        name: "Easycore",
     },
     {
         cover: EDM,
@@ -171,35 +183,35 @@ export const musicGenres = [
         name: "Punk"
     },
     {
-        cover: "",
+        cover: RB,
         name: "R&B",
     },
     {
-        cover: "",
+        cover: Rap,
         name: "Rap",
     },
     {
-        cover: "",
+        cover: Reggae,
         name: "Reggae",
     },
     {
-        cover: "",
+        cover: Hardrock,
         name: "Rock",
     },
     {
-        cover: "",
+        cover: Romantic,
         name: "Romantic",
     },
     {
-        cover: "",
+        cover: Salsa,
         name: "Salsa",
     },
     {
-        cover: "",
+        cover: Underground,
         name: "Underground",   
     },
     {
-        cover: "",
+        cover: Zydeco,
         name: "Zydeco",
     },
 ];
