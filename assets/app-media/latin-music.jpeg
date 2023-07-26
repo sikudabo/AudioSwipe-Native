@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="google" content="notranslate">
+    <!-- Mobile Specific Metas -->
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="apple-itunes-app" content="app-id=1055641127">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="GaNrUFoccUpzvVlvSDrGf7yx9EZGkHkbkIEjVOqX">
+    <link rel="manifest" href="https://www.smallworldfs.com/assets/www/manifest.json">
+
+    <script>
+    var pageVariablesGTM = {"pageId":"blogPost","pageArea":"blog"};
+    var userVariablesGTM = {"userId":null,"clientID":null,"countTransaction":null,"conversionDays":null,"hasBeneficiaries":null};
+    var errorReportGTM = "";
+</script>
+    <script>
+        // global variable
+        window.app = window.app || {};
+
+        const domains = [
+            '.smallworldfs.com',
+        ];
+
+        // TODO: refactor front to use window.app.dictionary instead, and remove "const dictionary"
+        const dictionary = {
+            dec_point  : '.',
+            thousands_sep : ',',
+            contact_select_country : 'Select country'
+        };
+        window.app.dictionary = dictionary;
+
+        const recaptchaSitekey = '6Lc7QtgUAAAAABZmgMWOGxQ7sOyjcHghy0BONd67';
+
+        const urlSecure = 'https://www.smallworldfs.com/api/home/urlSecure';
+
+        var cookies = {"sw_country_origin":{"required":true,"time":7776000,"value":null},"sw_country_destination":{"required":true,"time":7776000,"value":null},"sw_cookie_policy":{"required":true,"time":31536000,"value":null},"sw_cookie_analytical":{"required":true,"time":31536000,"value":null},"sw_cookie_advertisement":{"required":true,"time":31536000,"value":null},"sw_ui_scroll":{"required":true,"time":7776000,"value":null},"sw_ui_banner_promo":{"required":true,"time":7776000,"value":null},"sw_ui_banner_app":{"required":true,"time":7776000,"value":null},"sw_ui_lang":{"required":true,"time":31536000,"value":null},"sw_user_track":{"required":true,"time":31536000,"value":null},"sw_offers_location":{"required":false,"time":31536000,"value":null}};
+
+        window.dataLayer = window.dataLayer || [];
+
+        // IP Address
+        dataLayer.push({
+            'event': 'ipAddress',
+            'ipAddress': '172.70.131.221',
+        });
+
+        dataLayer.push({
+                'cookie_cookiepolicy'  : '',
+                'cookie_analytical'    : '',
+                'cookie_advertisement' : '',
+         });
+
+        dataLayer.push({
+                'c1i0d'             : userVariablesGTM.clientID || '',
+                's1dc'              : userVariablesGTM.clientCountry || '',
+                'countTransaction'  : userVariablesGTM.countTransaction,
+                'conversionDays'    : userVariablesGTM.conversionDays,
+         });
+    </script>
+    
+    <!-- Fav and touch icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/www/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/www/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/www/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/www/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/www/images/favicon/safari-pinned-tab.svg" color="#080877">
+<meta name="msapplication-TileColor" content="#080877">
+<meta name="theme-color" content="#ffffff">
+    <title>Salsa, Merengue, Reggaeton: influences of Latin Music</title>
+
+            <meta name="robots" content="index,follow">
+    
+    <meta name="language" content="en" />
+    <meta name="application-name" content="application-name" />
+    <meta name="author" content="www.smallworldfs.com" />
+    <meta name="owner" content="Smallworld Financial Services" />
+
+    <meta name="keywords" content="">
+    <meta name="description" content="Latin America has sprouted several music styles that are nowadays hitting hard in discos all around the world.">
+
+    
+    <link rel="canonical" href="https://www.smallworldfs.com/en/blog/influences-of-latin-music" />
+
+    <!-- facebook and whatsapp tags-->
+    <meta property="og:title" content="Salsa, Merengue, Reggaeton: influences of Latin Music">
+    <meta property="og:description" content="Latin America has sprouted several music styles that are nowadays hitting hard in discos all around the world.">
+    <meta property="og:site_name" content="Small World Money Transfer">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.smallworldfs.com/en/blog/influences-of-latin-music">
+    <meta property="og:image" content="https://www.smallworldfs.com/filemanager/userfiles/blog/influenciasmusicaLatinoamericana.jpg">
+    <meta property="og:image:alt" content="Musica Latina">
+
+    <!-- twitter tags-->
+    <meta name="twitter:title" content="Salsa, Merengue, Reggaeton: influences of Latin Music">
+    <meta name="twitter:description" content="Latin America has sprouted several music styles that are nowadays hitting hard in discos all around the world.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="@smallworldfs">
+    <meta name="twitter:image" content="https://www.smallworldfs.com/filemanager/userfiles/blog/influenciasmusicaLatinoamericana.jpg">
+    <meta name="twitter:image:alt" content="Musica Latina">
+
+    <!-- extra tags-->
+    <meta property="fb:app_id" content="532374011057459" />
+    <meta name="twitter:site" content="@smallworldfs">
+
+    <!-- Stylesheets Views -->
+            
+        <link href="https://www.smallworldfs.com/assets/www/drs/styles/css/styles.css?v=4fe828e
+" rel="stylesheet" type="text/css" media="all">
+            
+
+    <style>
+        .custom-cta-button {
+            color: #fff !important;
+            background-color: #92d400 !important;
+        }
+
+        .custom-cta-button:hover {
+            color: #fff !important;
+            background-color: #5d8800 !important;
+        }
+    </style>
+
+    <!--  indica a Internet Explorer que muestre el contenido con el modo de documento más alto disponible -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Anti-flicker snippet (recommended)  -->
+    <style>.async-hide { opacity: 0 !important} </style>
+    <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+    {'GTM-TRKFT76':true});</script>
+
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TRKFT76');
+    </script>
+
+    <script src="https://www.smallworldfs.com/assets/www/js/vendors/lazy.min.js?v=4fe828e
+" async></script>
+</head>
+<body id="bodyHtml" class=" hard-loading">
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TRKFT76" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div id="APP" class="view-wrap">
+        <header id="sectionHeader"  class="__op_h1">
+
+                
+    <div class="header-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nav>
+                                                <div class="logo">
+                            <a id="md-logo" class="d-none d-md-inline-block" hreflang="en" href="https://www.smallworldfs.com/en" title="small world money transfer">
+                                <picture>
+                                    <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-blue.webp" type="image/webp">
+                                    <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-blue.png" data-rjs="https://www.smallworldfs.com/assets/www/images/small-world-money-transfer-blue@2x.png" width="220" height="80" alt="small world money transfer">
+                                </picture>
+                            </a>
+                            <a class="d-md-none" hreflang="en" href="https://www.smallworldfs.com/en" title="small world money transfer">
+                                <picture>
+                                    <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-blue.webp" type="image/webp">
+                                    <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-blue.png" data-rjs="https://www.smallworldfs.com/assets/www/images/small-world-money-transfer-blue@2x.png" width="220" height="80" alt="small world money transfer">
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="logo logo-op_h1">
+                            <a class="d-none d-md-inline-block" hreflang="en" href="https://www.smallworldfs.com/en" title="small world money transfer">
+                                <picture>
+                                    <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-white.webp" type="image/webp">
+                                    <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/small-world-money-transfer-white.png"  data-rjs="https://www.smallworldfs.com/assets/www/images/small-world-money-transfer-white@2x.png" width="284" height="182" alt="small world money transfer">
+                                </picture>
+                            </a>
+                            <a class="d-md-none" hreflang="en" href="https://www.smallworldfs.com/en" title="small world money transfer">
+                                <picture>
+                                    <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/small-world-white.webp" type="image/webp">
+                                    <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/small-world-white.png"  data-rjs="https://www.smallworldfs.com/assets/www/images/small-world-white@2x.png" width="200" height="78"  alt="small world money transfer">
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="dropdown send-from dropdown-no-clone">
+                            <button class="origin-toggle dropdown-toggle gtm-header-country-selector" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Send money from:</i>
+                                <i id="flagOrigin" data-selected="USA" class="origin-flag flag USA gtm_country_selected"></i>
+                            </button>
+                            <div class="country_origin_selector dropdown-menu dropdown-menu-right" aria-labelledby="">
+                                                                                                                                                        <a data-flag="AUT" class="origin-country dropdown-item gtm-country-origin" href><i class="flag AUT"></i><i class="label">Austria</i></a>
+                                                                                                                                                                <a data-flag="BEL" class="origin-country dropdown-item gtm-country-origin" href><i class="flag BEL"></i><i class="label">Belgium</i></a>
+                                                                                                                                                                <a data-flag="BRA" class="origin-country dropdown-item gtm-country-origin" href><i class="flag BRA"></i><i class="label">Brazil</i></a>
+                                                                                                                                                                <a data-flag="DNK" class="origin-country dropdown-item gtm-country-origin" href><i class="flag DNK"></i><i class="label">Denmark</i></a>
+                                                                                                                                                                <a data-flag="FIN" class="origin-country dropdown-item gtm-country-origin" href><i class="flag FIN"></i><i class="label">Finland</i></a>
+                                                                                                                                                                <a data-flag="FRA" class="origin-country dropdown-item gtm-country-origin" href><i class="flag FRA"></i><i class="label">France</i></a>
+                                                                                                                                                                <a data-flag="DEU" class="origin-country dropdown-item gtm-country-origin" href><i class="flag DEU"></i><i class="label">Germany</i></a>
+                                                                                                                                                                <a data-flag="GRC" class="origin-country dropdown-item gtm-country-origin" href><i class="flag GRC"></i><i class="label">Greece</i></a>
+                                                                                                                                                                <a data-flag="IRL" class="origin-country dropdown-item gtm-country-origin" href><i class="flag IRL"></i><i class="label">Ireland</i></a>
+                                                                                                                                                                <a data-flag="ITA" class="origin-country dropdown-item gtm-country-origin" href><i class="flag ITA"></i><i class="label">Italy</i></a>
+                                                                                                                                                                <a data-flag="LUX" class="origin-country dropdown-item gtm-country-origin" href><i class="flag LUX"></i><i class="label">Luxembourg</i></a>
+                                                                                                                                                                <a data-flag="NLD" class="origin-country dropdown-item gtm-country-origin" href><i class="flag NLD"></i><i class="label">Netherlands</i></a>
+                                                                                                                                                                <a data-flag="NIR" class="origin-country dropdown-item gtm-country-origin" href><i class="flag NIR"></i><i class="label">Northern Ireland</i></a>
+                                                                                                                                                                <a data-flag="NOR" class="origin-country dropdown-item gtm-country-origin" href><i class="flag NOR"></i><i class="label">Norway</i></a>
+                                                                                                                                                                <a data-flag="PRT" class="origin-country dropdown-item gtm-country-origin" href><i class="flag PRT"></i><i class="label">Portugal</i></a>
+                                                                                                                                                                <a data-flag="ROU" class="origin-country dropdown-item gtm-country-origin" href><i class="flag ROU"></i><i class="label">Romania</i></a>
+                                                                                                                                                                <a data-flag="SVN" class="origin-country dropdown-item gtm-country-origin" href><i class="flag SVN"></i><i class="label">Slovenia</i></a>
+                                                                                                                                                                <a data-flag="ESP" class="origin-country dropdown-item gtm-country-origin" href><i class="flag ESP"></i><i class="label">Spain</i></a>
+                                                                                                                                                                <a data-flag="SWE" class="origin-country dropdown-item gtm-country-origin" href><i class="flag SWE"></i><i class="label">Sweden</i></a>
+                                                                                                                                                                <a data-flag="CHE" class="origin-country dropdown-item gtm-country-origin" href><i class="flag CHE"></i><i class="label">Switzerland</i></a>
+                                                                                                                                                                <a data-flag="GBR" class="origin-country dropdown-item gtm-country-origin" href><i class="flag GBR"></i><i class="label">United Kingdom</i></a>
+                                                                                                                                                                                                                    </div>
+                        </div>
+                        <div class="dropdown language">
+                            <button class="dropdown-toggle gtm_locale_selector" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">English</i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
+                                                                                                                                                        <!-- no tocar la clase menu_de -->
+                                            <a class="origin_locale dropdown-item gtm_locale_de menu_de" data-link="href" data-locale="de" rel="alternate" hreflang="de" href="https://www.smallworldfs.com/de">
+                                                <i class="label">Deutsch</i>
+                                            </a>
+                                                                                                                                                                                                                                            <!-- no tocar la clase menu_es -->
+                                            <a class="origin_locale dropdown-item gtm_locale_es menu_es" data-link="href" data-locale="es" rel="alternate" hreflang="es" href="https://www.smallworldfs.com/es">
+                                                <i class="label">Español</i>
+                                            </a>
+                                                                                                                                                                <!-- no tocar la clase menu_fr -->
+                                            <a class="origin_locale dropdown-item gtm_locale_fr menu_fr" data-link="href" data-locale="fr" rel="alternate" hreflang="fr" href="https://www.smallworldfs.com/fr">
+                                                <i class="label">Français</i>
+                                            </a>
+                                                                                                                                                                <!-- no tocar la clase menu_it -->
+                                            <a class="origin_locale dropdown-item gtm_locale_it menu_it" data-link="href" data-locale="it" rel="alternate" hreflang="it" href="https://www.smallworldfs.com/it">
+                                                <i class="label">Italiano</i>
+                                            </a>
+                                                                                                                                                                <!-- no tocar la clase menu_nl -->
+                                            <a class="origin_locale dropdown-item gtm_locale_nl menu_nl" data-link="href" data-locale="nl" rel="alternate" hreflang="nl" href="https://www.smallworldfs.com/nl">
+                                                <i class="label">Nederlands</i>
+                                            </a>
+                                                                                                                                                                <!-- no tocar la clase menu_pt -->
+                                            <a class="origin_locale dropdown-item gtm_locale_pt menu_pt" data-link="href" data-locale="pt" rel="alternate" hreflang="pt" href="https://www.smallworldfs.com/pt">
+                                                <i class="label">Português</i>
+                                            </a>
+                                                                                                                                        </div>
+                        </div>
+                        <div class="login-register">
+                            <a class="login gtm-header-login " href="https://transactional.smallworldfs.com/en-gb/"><i>Login</i></a>
+                            <a style="padding: 10px; font-size: .8rem" class="register gtm-header-register " href="https://transactional.smallworldfs.com/en-gb/registersw">Register</a>
+                        </div>
+                        <i class="fal fa-bars menu-burger-bottom gtm-header-menu-burger"></i>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                                                        <div class="message message-close register-now" data-cookie="registerNow" style="background-color:#004165; ">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col message-text gtm-banner-message-text">
+                                <div class="fas fa-info-circle message-icon"></div>
+                                <a class="gtm_banner_click" href="https://transactional.smallworldfs.com/en-gb/registersw"><a href="https://transactional.smallworldfs.com/en-gb/registersw">First transaction is FEE FREE. Register now</a>.</a>
+                            </div>
+                            <div class="col-auto col-padding-cancel">
+                                <i class="fal fa-times message-close-button gtm-topbar-banner-close"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </header>
+        <div class="menu-burger">
+    <nav>
+
+        <a class="howtosendmoney" href="https://www.smallworldfs.com/en/money-transfer" target="_self"><i class="label">Money transfer</i></a>
+    
+
+            <a class="track-order" href="https://www.smallworldfs.com/en/track-my-order" target="_self"><i class="label">Track my order</i></a>
+    
+
+            <a class="find-branch" href="https://www.smallworldfs.com/en/find-us" target="_self"><i class="label">Send money from a Branch</i></a>
+    
+
+            <a class="contact-us" href="https://www.smallworldfs.com/en/contact-us" target="_self"><i class="label">Customer Service</i></a>
+    
+
+    
+
+
+        <div class="send-from gtm-header-country-selector-burger">
+            <div data-toggle="collapse" data-target="#collapseSendFrom">
+                <i class="label-title">Send money from:</i><i class="flag USA gtm_country_selected_USA"></i><i class="label">United States</i>
+            </div>
+            <div class="collapse" id="collapseSendFrom">
+                                                                                        <a data-flag="AUT" class="origin-country gtm-country-origin"><i class="flag AUT"></i>Austria</a>
+                                                                                                <a data-flag="BEL" class="origin-country gtm-country-origin"><i class="flag BEL"></i>Belgium</a>
+                                                                                                <a data-flag="BRA" class="origin-country gtm-country-origin"><i class="flag BRA"></i>Brazil</a>
+                                                                                                <a data-flag="DNK" class="origin-country gtm-country-origin"><i class="flag DNK"></i>Denmark</a>
+                                                                                                <a data-flag="FIN" class="origin-country gtm-country-origin"><i class="flag FIN"></i>Finland</a>
+                                                                                                <a data-flag="FRA" class="origin-country gtm-country-origin"><i class="flag FRA"></i>France</a>
+                                                                                                <a data-flag="DEU" class="origin-country gtm-country-origin"><i class="flag DEU"></i>Germany</a>
+                                                                                                <a data-flag="GRC" class="origin-country gtm-country-origin"><i class="flag GRC"></i>Greece</a>
+                                                                                                <a data-flag="IRL" class="origin-country gtm-country-origin"><i class="flag IRL"></i>Ireland</a>
+                                                                                                <a data-flag="ITA" class="origin-country gtm-country-origin"><i class="flag ITA"></i>Italy</a>
+                                                                                                <a data-flag="LUX" class="origin-country gtm-country-origin"><i class="flag LUX"></i>Luxembourg</a>
+                                                                                                <a data-flag="NLD" class="origin-country gtm-country-origin"><i class="flag NLD"></i>Netherlands</a>
+                                                                                                <a data-flag="NIR" class="origin-country gtm-country-origin"><i class="flag NIR"></i>Northern Ireland</a>
+                                                                                                <a data-flag="NOR" class="origin-country gtm-country-origin"><i class="flag NOR"></i>Norway</a>
+                                                                                                <a data-flag="PRT" class="origin-country gtm-country-origin"><i class="flag PRT"></i>Portugal</a>
+                                                                                                <a data-flag="ROU" class="origin-country gtm-country-origin"><i class="flag ROU"></i>Romania</a>
+                                                                                                <a data-flag="SVN" class="origin-country gtm-country-origin"><i class="flag SVN"></i>Slovenia</a>
+                                                                                                <a data-flag="ESP" class="origin-country gtm-country-origin"><i class="flag ESP"></i>Spain</a>
+                                                                                                <a data-flag="SWE" class="origin-country gtm-country-origin"><i class="flag SWE"></i>Sweden</a>
+                                                                                                <a data-flag="CHE" class="origin-country gtm-country-origin"><i class="flag CHE"></i>Switzerland</a>
+                                                                                                <a data-flag="GBR" class="origin-country gtm-country-origin"><i class="flag GBR"></i>United Kingdom</a>
+                                                                                                                    </div>
+        </div>
+        <div class="language gtm-header-language-burger">
+            <div data-toggle="collapse" data-target="#collapseLanguage">
+                <i class="label-title">Languages:</i><i class="label">English</i>
+            </div>
+            <div class="collapse" id="collapseLanguage">
+                                                                                        <a class="origin_locale dropdown-item gtm_locale_de menu_de" data-link="href" data-locale="de" rel="alternate" hreflang="de" href="https://www.smallworldfs.com/de">
+                                <i class="label">Deutsch</i>
+                            </a>
+                                                                                                                                            <a class="origin_locale dropdown-item gtm_locale_es menu_es" data-link="href" data-locale="es" rel="alternate" hreflang="es" href="https://www.smallworldfs.com/es">
+                                <i class="label">Español</i>
+                            </a>
+                                                                                                <a class="origin_locale dropdown-item gtm_locale_fr menu_fr" data-link="href" data-locale="fr" rel="alternate" hreflang="fr" href="https://www.smallworldfs.com/fr">
+                                <i class="label">Français</i>
+                            </a>
+                                                                                                <a class="origin_locale dropdown-item gtm_locale_it menu_it" data-link="href" data-locale="it" rel="alternate" hreflang="it" href="https://www.smallworldfs.com/it">
+                                <i class="label">Italiano</i>
+                            </a>
+                                                                                                <a class="origin_locale dropdown-item gtm_locale_nl menu_nl" data-link="href" data-locale="nl" rel="alternate" hreflang="nl" href="https://www.smallworldfs.com/nl">
+                                <i class="label">Nederlands</i>
+                            </a>
+                                                                                                <a class="origin_locale dropdown-item gtm_locale_pt menu_pt" data-link="href" data-locale="pt" rel="alternate" hreflang="pt" href="https://www.smallworldfs.com/pt">
+                                <i class="label">Português</i>
+                            </a>
+                                                                        </div>
+        </div>
+        <div class="flex-grow-shrink"></div>
+        <a class="login gtm-header-login-burger " href="https://transactional.smallworldfs.com/en-gb/">Login</a>
+        <a class="register gtm-header-register-burger " href="https://transactional.smallworldfs.com/en-gb/registersw">Register</a>
+    </nav>
+</div>
+
+<div class="menu-burger-back menu-burger-bottom"></div>
+
+        <main class="magazine" id="app-vue">
+            
+            <section id="sectionMenuTop" class="menu-top __style-1 __op_m1 __op_mo1  style-2">
+
+        <div class="container new-menu">
+    <div class="row">
+        <nav class="col structure-nav">
+
+            
+                                    <div class="dropdown-wrap money-transfer">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/money-transfer" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Send Money</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                                                                                                                            <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/small-world-app" target="_self">
+                                        Send Money via App
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/find-us" target="_self">
+                                        Send Money In Person
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/call-center" target="_self">
+                                        Send Money by Phone
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/locations" target="_self">
+                                        Payout Locations
+                                    </a>
+                                                                                                                                                                                                                </div>
+                        </div>
+                    </div>
+                
+            
+                                    <div class="dropdown-wrap track-order">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/track-my-order" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Track My Order</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                        </div>
+                        </div>
+                    </div>
+                
+            
+                                    <div class="dropdown-wrap contact-us">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/contact-us" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Contact Us</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                                                                                                                            <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/contact-us" target="_self">
+                                        Customer Service
+                                    </a>
+                                                                                        </div>
+                        </div>
+                    </div>
+                
+            
+                                    <div class="dropdown-wrap about-us">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/about-us" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">About Us</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/careers-with-small-world" target="_self">
+                                        Careers
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/news" target="_self">
+                                        News
+                                    </a>
+                                                                                                                                                                                            <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/impressum" target="_self">
+                                        Impressum
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/about-us" target="_self">
+                                        Be aware of potential fraud
+                                    </a>
+                                                                                                                                                                                                                                                        <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/security-center" target="_self">
+                                        Security Center
+                                    </a>
+                                                                                        </div>
+                        </div>
+                    </div>
+                
+            
+                                    <div class="dropdown-wrap blog">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/blog" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Blog</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/apps-tech" target="_self">
+                                        Apps - Tech
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/culture" target="_self">
+                                        Culture
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/education" target="_self">
+                                        Education
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/events" target="_self">
+                                        Events
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/home" target="_self">
+                                        Home
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/local-regulation" target="_self">
+                                        Local regulation
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/money" target="_self">
+                                        Money
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/fraud" target="_self">
+                                        Fraud
+                                    </a>
+                                                                                                                                <a class="dropdown-item gtm_menu_desktop_show" href="https://www.smallworldfs.com/en/blog/top-tips" target="_self">
+                                        Top Tips
+                                    </a>
+                                                                                        </div>
+                        </div>
+                    </div>
+                
+            
+                                    <div class="dropdown-wrap agents">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="" href="https://www.smallworldfs.com/en/agents" target="_self" aria-haspopup="true" aria-expanded="false">
+                                <i class="label">Agents</i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="">
+                                                        </div>
+                        </div>
+                    </div>
+                
+            
+        </nav>
+    </div>
+</div>
+
+
+    </section>
+            
+    <section class="main-head">
+        <div class="container container-padding">
+            <div class="row">
+                <h2 class="col title">
+                    Blog
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories section-margin">
+    <div class="container container-padding">
+        <div class="row row-margin">
+            <div class="col">
+                <nav>
+                    <div class="fa fa-chevron-circle-left left-icon gtm-blog-menu" data-label="left arrow"></div>
+                    <div class="nav-scroll">
+                        <div class="categories-list">
+                                                                                                <a class=" gtm-blog-category" data-category="technology" href="https://www.smallworldfs.com/en/blog/apps-tech" title="">
+                                        Apps - Tech
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="culture" href="https://www.smallworldfs.com/en/blog/culture" title="">
+                                        Culture
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="education" href="https://www.smallworldfs.com/en/blog/education" title="">
+                                        Education
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="events" href="https://www.smallworldfs.com/en/blog/events" title="">
+                                        Events
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="home" href="https://www.smallworldfs.com/en/blog/home" title="">
+                                        Home
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="burocracy" href="https://www.smallworldfs.com/en/blog/local-regulation" title="">
+                                        Local regulation
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="economy" href="https://www.smallworldfs.com/en/blog/money" title="">
+                                        Money
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="fraud" href="https://www.smallworldfs.com/en/blog/fraud" title="">
+                                        Fraud
+                                    </a>
+                                                                    <a class=" gtm-blog-category" data-category="tips" href="https://www.smallworldfs.com/en/blog/top-tips" title="">
+                                        Top Tips
+                                    </a>
+                                                                                    </div>
+                    </div>
+                    <div class="fa fa-chevron-circle-right right-icon gtm-blog-menu" data-label="right arrow"></div>
+                    <div class="fal fa-search search-icon gtm-blog-menu" data-label="search icon"></div>
+                    <div class="fal fa-times close-icon d-none gtm-blog-menu" data-label="close"></div>
+                </nav>
+                <div class="dropdown select-control search">
+                    <button class="dropdown-toggle" id="" aria-haspopup="true" aria-expanded="false">
+                        <input id="searchbox" type="text" class="form-control gtm_blog_search_input" placeholder="What do you want to learn about today?">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        
+        
+    </div>
+</section>
+
+    <section class="magazine-article">
+        <article class="container container-padding">
+            <div class="row justify-content-center row-margin">
+                <div class="col-auto">
+                    <h1 class="title font-24">Influences of Latin Music</h1>
+                    <div class="head">
+                        <div class="info">
+                            25 Aug 2016 - Category: <a class="link" href="https://www.smallworldfs.com/en/blog"><i class="label">Blog</i></a> / <a class="link gtm-blog-post-category" data-category="culture" href="https://www.smallworldfs.com/en/blog/culture" title="Culture"><i class="label">Culture</i></a>
+                        </div>
+                        <nav class="shared">
+                            <a href="http://www.facebook.com/share.php?u=https://www.smallworldfs.com/en/blog/influences-of-latin-music" class="gtm-blog-share" data-socialmedia="facebook" rel="noopener nofollow">
+                                <img src="https://www.smallworldfs.com/assets/www/images/icons/facebook-share-icon.png" width="25" height="25" alt="facebook">
+                            </a>
+                            <a href="https://twitter.com/share?url=https://www.smallworldfs.com/en/blog/influences-of-latin-music" class="gtm-blog-share" data-socialmedia="twitter" rel="noopener nofollow">
+                                <img src="https://www.smallworldfs.com/assets/www/images/icons/twitter-share-icon.png" width="25" height="25" alt="twitter">
+                            </a>
+                            <a href="https://www.linkedin.com/shareArticle?url=https://www.smallworldfs.com/en/blog/influences-of-latin-music" class="gtm-blog-share" data-socialmedia="linkedin" rel="noopener nofollow">
+                                <img src="https://www.smallworldfs.com/assets/www/images/icons/linkedin-share-icon.png" width="25" height="25" alt="linkedin">
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center row-margin">
+                <div class="col-auto">
+                    <div class="photo-wrap photo-article">
+                        <img src="https://www.smallworldfs.com/filemanager/userfiles/blog/influenciasmusicaLatinoamericana.jpg" alt="Musica Latina" width="620px" height="320px">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Latin America</strong> covers a vast territory that stretches from the northern border of <strong>Mexico</strong> to the southern tip of <strong>South America</strong>, including <strong>the</strong> <strong>Caribbean</strong>. It is an enormous region with a wide diversity of cultures where you would be able to stay<strong> dancing </strong>until the end of the days, as it has sprouted several <strong>music</strong> styles that are nowadays hitting hard in discos all around the world.</p>
+
+<p><strong>Samba</strong> and <strong>Bossa Nova</strong> are the most typical genres of <strong>Brazil</strong>; <strong>Salsa</strong>, <strong>Merengue</strong> and <strong>Reggaeton</strong> were created throughout the Caribbean; <strong>Cumbia</strong> comes from <strong>Colombia</strong>, and <strong>Tango</strong> was born in <strong>Argentina</strong>… Such a rich diversity of genres, but still we can find common roots amongst these styles if we take a view at their history.</p>
+
+<p>First, we have to point out that many of the <strong>Pre-Columbine cultures</strong> (like the <strong>Mayas</strong>) reached a high development of music by producing all kind of wind and <strong>percussion instruments</strong>. And despite the ages passed, its influence can still be noticed in some of the more traditional <strong>Latin music genres</strong> such as the <strong>Andean Music</strong>, commonly known by its flute sounds.</p>
+<p>It was at the end of the 15th century,<strong> when Columbus and the Europeans arrived to Latin America</strong> introducing new instruments like the <strong>“güiro” </strong>(used in the rhythm section of Cumbia and Salsa) and the <strong>“Spanish guitar” </strong>(which is actually Moorish). But perhaps, their most important contribution to <strong>Latin music</strong> may be the <strong>Spanish and Portuguese languages</strong>, which define most of the Latin music today, giving a connection to the mosaic of music styles in the region.</p>
+
+<p>On the other hand, if Europeans provided Latin music with language, the <strong>African</strong> contribution was definitely more important in terms of <strong>rhythms</strong> (actually, it is said that the <strong>African influence</strong> could be the single most important element in<strong> Latin music history</strong>). Despite being a sad and reprehensible practice, slavery trade was a real fact by the time, and around <strong>12 million Africans</strong> were forced to move to <strong>Latin America between 16th and 19th centuries</strong>. Music and <strong>drumming</strong> have always been essential components in <strong>African culture</strong>, both related to religious and social ceremonies, as well as to communicative purposes. One of the few rights given to slaves in America was to <strong>play their drums</strong>, so the <strong>African slaves brought many beats and rhythms </strong>with them that were a major source of inspiration for the music that followed in the Americas (Samba, Salsa, Bachata…). Furthermore, the <strong>African influences also include African-American music during 19th and 20th centuries</strong>. In this sense, everybody recognizes that <strong>Jazz had a tremendous impact in some Latin rhythms such as Mambo, Bossa Nova and Latin Jazz</strong>, as well as some others like <strong>R&B and Hip-Hop</strong> which have more recently defined the development of <strong>Latin genres such as Reggaeton.</strong></p>
+
+<p>So we can conclude that Latin music was born due to the <strong>encounter amongst Pre-Columbine, European and African cultures</strong>, as several influences of those cultures can be detected. It forms a rich panorama that reflects<strong> its social environment energy.</strong></p>
+
+<h6>Photo: Richerdrepp.com</h6>
+                </div>
+            </div>
+
+                            <div class="row justify-content-center">
+                    <div class="col-10 col-md-5">
+                        <i class="label">
+                            <i class="label">
+                                <i class="label">
+                                    <a href="https://transactional.smallworldfs.com/en-gb/registersw" target="_blank" class="btn btn-green btn-lg gtm_jumbotron ">
+                                        Send Money
+                                    </a>
+                                </i>
+                            </i>
+                        </i>
+                    </div>
+                </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <nav class="tags-list">
+                                                                                                </nav>
+                </div>
+            </div>
+        </article>
+    </section>
+        </main>
+
+        <div id="simulate_fc_frame">
+    <div class="simulate_d-hotline simulate_h-btn animated zoomIn faster">
+        <div class="simulate_chat-content">
+            <i class="fas fa-comment-alt-lines __simulate_icon-ic_chat_icon"></i>
+        </div>
+    </div>
+</div>
+
+        <footer>
+    <div class="container d-flex flex-column">
+        <div class="row order-1 order-md-0 justify-content-center follows">
+            <div class="col">
+                <div class="title font-24 text-center">Follow us in</div>
+                <nav>
+                    <a class="icon icon-facebook" id="iconFacebook" href="https://www.facebook.com/smallworldfs" target="_blank" title="FAcebook" rel="noopener nofollow">
+                        <picture>
+                            <source srcset="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.webp" type="image/webp">
+                            <img src="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.png" width="55" height="55" alt="FAcebook">
+                        </picture>
+                    </a>
+                    <a class="icon icon-twitter" id="iconTwitter" href="https://twitter.com/smallworldfs" target="_blank" title="twitter" rel="noopener nofollow">
+                        <picture>
+                            <source srcset="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.webp" type="image/webp">
+                            <img src="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.png" width="55" height="55" alt="twitter">
+                        </picture>
+                    </a>
+                    <a class="icon icon-instagram" id="iconInstagram" href="https://www.instagram.com/smallworldmoneytransfer/" target="_blank" title="Instagram" rel="noopener nofollow">
+                        <picture>
+                            <source srcset="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.webp" type="image/webp">
+                            <img src="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.png" width="55" height="55" alt="Instagram">
+                        </picture>
+                    </a>
+                    <a class="icon icon-linkedin" id="iconLinkedin" href="https://www.linkedin.com/company/785828" target="_blank" title="linkedin" rel="noopener nofollow">
+                        <picture>
+                            <source srcset="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.webp" type="image/webp">
+                            <img src="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.png" width="55" height="55" alt="linkedin">
+                        </picture>
+                    </a>
+                    <a class="icon icon-youtube" id="iconYoutube" href="https://www.youtube.com/channel/UCwADkVAqOSABArtCT0s31Bg?" target="_blank" title="youtube " rel="noopener nofollow">
+                        <picture>
+                            <source srcset="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.webp" type="image/webp">
+                            <img src="https://www.smallworldfs.com/assets/www/pictures/follows-sprite.png" width="55" height="55" alt="youtube ">
+                        </picture>
+                    </a>
+                </nav>
+            </div>
+        </div>
+                    <div id="foorter_corridors" class="mb-4">
+                <div class="col-lg-12">
+                    <div class="row">
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/dominican-republic" >
+                                    Send money to Dominican Republic from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/colombia" >
+                                    Send money to Colombia from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/ghana" >
+                                    Send money to Ghana from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/philippines" >
+                                    Send money to Philippines from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/venezuela" >
+                                    Send money to Venezuela from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/senegal" >
+                                    Send money to Senegal from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/el-salvador" >
+                                    Send money to El Salvador from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/mexico" >
+                                    Send money to Mexico from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/cameroon" >
+                                    Send money to Cameroon from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/bangladesh" >
+                                    Send money to Bangladesh from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/togo" >
+                                    Send money to Togo from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/united-kingdom" >
+                                    Send money to United Kingdom from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/ecuador" >
+                                    Send money to Ecuador from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/spain" >
+                                    Send money to Spain from United States
+                                </a>
+                            </div>
+                                                    <div class="col-lg-4">
+                                <a class="text-decoration-none corridors" href="https://www.smallworldfs.com/en/money-transfer/india" >
+                                    Send money to India from United States
+                                </a>
+                            </div>
+                                            </div>
+                </div>
+            </div>
+        
+        <nav class="row order-0 order-md-1 structure">
+
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 about-us">
+                <a href="https://www.smallworldfs.com/en/about-us" target="_self">
+                    <i class="label">About us</i>
+                    <i class="fal"></i>
+                </a>
+                                                            <a href="https://www.smallworldfs.com/en/careers-with-small-world" class="menu-level-2 " target="_self">
+                            <i class="label">Careers</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/news" class="menu-level-2 " target="_self">
+                            <i class="label">News</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/in-the-news" class="menu-level-2 " target="_self">
+                            <i class="label">Press</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/impressum" class="menu-level-2 " target="_self">
+                            <i class="label">Impressum</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/security-center" class="menu-level-2 " target="_self">
+                            <i class="label">Security Center</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/legal-compliance" class="menu-level-2 " target="_self">
+                            <i class="label">Legal and compliance</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/whistle-blowing" class="menu-level-2 whistleblowing-channel" target="_self">
+                            <i class="label">Whistleblowing Channel</i>
+                        </a>
+                                                </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 contact-us">
+                <a href="https://www.smallworldfs.com/en/contact-us" target="_self">
+                    <i class="label">Contact us</i>
+                    <i class="fal"></i>
+                </a>
+                                                                                                <a href="https://www.smallworldfs.com/en/contact-us" class="menu-level-2 " target="_self">
+                            <i class="label">Customer Service</i>
+                        </a>
+                                                </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 agents">
+                <a href="https://www.smallworldfs.com/en/agents" target="_self">
+                    <i class="label">Agents</i>
+                    <i class="fal"></i>
+                </a>
+                            </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 blog">
+                <a href="https://www.smallworldfs.com/en/blog" target="_self">
+                    <i class="label">Blog</i>
+                    <i class="fal"></i>
+                </a>
+                                                            <a href="https://www.smallworldfs.com/en/blog/apps-tech" class="menu-level-2 " target="_self">
+                            <i class="label">Apps - Tech</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/culture" class="menu-level-2 " target="_self">
+                            <i class="label">Culture</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/education" class="menu-level-2 " target="_self">
+                            <i class="label">Education</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/events" class="menu-level-2 " target="_self">
+                            <i class="label">Events</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/home" class="menu-level-2 " target="_self">
+                            <i class="label">Home</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/local-regulation" class="menu-level-2 " target="_self">
+                            <i class="label">Local regulation</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/money" class="menu-level-2 " target="_self">
+                            <i class="label">Money</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/fraud" class="menu-level-2 " target="_self">
+                            <i class="label">Fraud</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/blog/top-tips" class="menu-level-2 " target="_self">
+                            <i class="label">Top Tips</i>
+                        </a>
+                                                </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 track-order">
+                <a href="https://www.smallworldfs.com/en/track-my-order" target="_self">
+                    <i class="label">Track my order</i>
+                    <i class="fal"></i>
+                </a>
+                            </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 money-transfer">
+                <a href="https://www.smallworldfs.com/en/money-transfer" target="_self">
+                    <i class="label">Money transfer</i>
+                    <i class="fal"></i>
+                </a>
+                                                                                                <a href="https://www.smallworldfs.com/en/small-world-app" class="menu-level-2 " target="_self">
+                            <i class="label">Transfer money via our App</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/find-us" class="menu-level-2 " target="_self">
+                            <i class="label">Send money from a Branch</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/call-center" class="menu-level-2 " target="_self">
+                            <i class="label">International money transfers by phone</i>
+                        </a>
+                                                                                <a href="https://www.smallworldfs.com/en/locations" class="menu-level-2 " target="_self">
+                            <i class="label">Payout locations</i>
+                        </a>
+                                                                                                                        </div>
+        
+    
+                    <div class="__col-auto __col-lg structure-section menu-level-1 help">
+                <a href="https://www.smallworldfs.com/en/faqs" target="_self">
+                    <i class="label">Help</i>
+                    <i class="fal"></i>
+                </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a href="tel: 1-866-210-8002" class="menu-level-2 phone" target="_self">
+                            <i class="label">1-866-210-8002</i>
+                        </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+        
+    
+</nav>
+
+
+        <div class="row order-2 justify-content-center logo d-none d-md-flex">
+            <div class="col-auto">
+                <a href="https://www.smallworldfs.com/en" title="small world money transfer" id="swLogo">
+                    <picture>
+                        <source srcset="https://www.smallworldfs.com/assets/www/pictures/small-world-white.webp" type="image/webp">
+                        <img src="https://www.smallworldfs.com/assets/www/pictures/small-world-white.png" data-rjs="https://www.smallworldfs.com/assets/www/images/small-world-white@2x.png" width="128" height="50" alt="small world">
+                    </picture>
+                </a>
+            </div>
+        </div>
+        <div class="row order-2 justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8">
+
+                <div class="apps-buttons">
+                    <a class="app-button app-store gtm_app_store" href="https://apps.apple.com//app/small-world-money-transfer/id1055641127?mt=8" title="App Store badge" rel="noopener nofollow" target="_blank">
+                        <picture>
+                            <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/appstore-sprite.webp" type="image/webp">
+                            <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/appstore-sprite.png" alt="App Store badge">
+                        </picture>
+                    </a>
+                    <a class="app-button google-play gtm_google_play" href="https://play.google.com/store/apps/details?id=com.smallworldfs.moneytransferapp" title="Google Play badge" rel="noopener nofollow" target="_blank">
+                        <picture>
+                            <source data-srcset="https://www.smallworldfs.com/assets/www/pictures/appstore-sprite.webp" type="image/webp">
+                            <img class="lazyload" data-src="https://www.smallworldfs.com/assets/www/pictures/appstore-sprite.png" alt="Google Play badge">
+                        </picture>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="row order-3 copyright">
+            <div class="col-12 col-md-4">
+                                    <p><p>Copyright &copy; 2023 CHOICE MONEY TRANSFER INC.</p>
+<p>NMLS ID 912793</p>
+<p>Choice Money Transfer, Inc. is licensed as a Money Transmitter by the New York Department of Financial Services.</p></p>
+                            </div>
+            <div class="col-12 col-md-8">
+                <ul>
+    
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/us-privacy-policy">USA Privacy Policy</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/privacy-notice">Privacy Notice</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/usa-customers-agreement">Customer USA Agreement</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_blank" href="https://www.smallworldfs.com/en/privacy-policy-ca">CA Privacy Policy</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/states-license">State Licenses</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/cookies-policy">Cookies Policy</a></li>
+        
+    
+                    <li class="legal-notices sitemap"><a target="_self" href="https://www.smallworldfs.com/en/sitemap-page">Sitemap</a></li>
+        
+    
+                    <li class="legal-notices "><a target="_self" href="https://www.smallworldfs.com/en/legal-compliance">SWFS Website  Terms and Conditions</a></li>
+        
+    
+        
+    
+        
+    
+        
+    </ul>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- recaptcha v3 -->
+<div id="inline-badge"></div>
+
+<div class="goTopPage"><i class="fal fa-chevron-up"></i></div>
+        <div id="barCookies" class="cookies-accept d-none">
+    <p class="title font-24">Cookies Policy</p>
+    At Small World, we use own and third-party cookies to give you the best browsing experience possible, as well as being able to analyse your browsing behaviour. You can accept all cookies by clicking the "ACCEPT ALL COOKIES" button or configure or reject their use by clicking the "COOKIE SETTINGS" button. Click on our
+    <a class="link" href="https://www.smallworldfs.com/en/cookies-policy" title="Cookies Policy, Cookie Policy for more information">Cookie Policy for more information</a>
+    <div class="cookiesButtons">
+        <a class="btn btn-textBlue barCookiesManage gtm_cookies_manage" href="javascript:void(0);" data-toggle="modal" data-target=".cookies-manage" title="manage cookies">
+            <i class="label">Cookies Settings</i>
+        </a>
+        <a id="barCookiesAccept" class="btn btn-green btn-green--textBlue gtm_cookies_accept" href="javascript:void(0);" title="">
+            <i class="label">Accept All Cookies</i>
+        </a>
+    </div>
+</div>
+
+<!-- MODAL : COOKIES-MANAGE -->
+<section id="modalCookies" class="modal fade cookies-manage" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-24">CONFIGURING YOUR CONSENT PREFERENCES</h5>
+            </div>
+            <div class="modal-body font-18">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>When using any website or application, information may be stored or retrieved, mainly in the form of cookies. This information may be about you, your preferences or your device, and is used primarily to make the website or application work as expected. The information does not usually identify you directly, but may provide you with a more personalized experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to learn more and change your default settings. However, please note that blocking some types of cookies may affect both your experience and the services we can offer you. You can read more about this in our <a class="link" href="https://www.smallworldfs.com/en/cookies-policy" title="Cookies Policy"><i class="label">Cookies Policy</i></a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p><b>Manage Consent</b></p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center col-md-margin-bottom">
+                        <div class="col-12 offset-lg-1 col-lg-7 manage-consent _show">
+                            <div class="title"><i class="label">Strictly necessary</i></div>
+                            <p>These cookies are required for the website or application to function and cannot be disabled on our systems. They are usually only set in response to actions you take and are equivalent to a request for services, such as setting your privacy preferences, language, logging in or filling out forms. You can set your browser to block or warn you about these cookies, but some parts of the site will not work. These cookies do not store any personally identifiable information</p>
+                        </div>
+                        <div class="col-12 text-right col-lg-4 text-lg-center">
+                            <p class="required">Required</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center col-md-margin-bottom">
+                        <div class="col-12 offset-lg-1 col-lg-7 manage-consent">
+                            <div class="title"><i class="label">Analytical</i></div>
+                            <p>These cookies will help us offer you a better user experience, allow us to count visits and determine where users are coming from. These cookies help us make the correct choices of how we improve the performance of our website or application when we make changes and updates. They also let us know what pages and screens are most useful for our users</p>
+                        </div>
+                        <div class="col-12 text-right col-lg-4 text-lg-center">
+                            <div id="cookieAnalytical" class="cookie-onOff off">
+                                <img class="img-on" src="https://www.smallworldfs.com/assets/www/images/icons/cookies_switch_on.png" alt="on">
+                                <img class="img-off" src="https://www.smallworldfs.com/assets/www/images/icons/cookies_switch_off.png" alt="off">
+                                <div class="txt">
+                                    <i class="txt-on">On</i>
+                                    <i class="txt-off">Off</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center col-md-margin-bottom">
+                        <div class="col-12 offset-lg-1 col-lg-7 manage-consent">
+                            <div class="title"><i class="label">Advertisement</i></div>
+                            <p>These cookies will use this information with an anonymous hashed id which links the user’s browser to information which contains the behaviour the user has displayed, to build a profile based on the user’s interests to serve more relevant advertising content</p>
+                        </div>
+                        <div class="col-12 text-right col-lg-4 text-lg-center">
+                            <div id="cookieAdvertisement" class="cookie-onOff off">
+                                <img class="img-on" src="https://www.smallworldfs.com/assets/www/images/icons/cookies_switch_on.png" alt="on">
+                                <img class="img-off" src="https://www.smallworldfs.com/assets/www/images/icons/cookies_switch_off.png" alt="off">
+                                <div class="txt">
+                                    <i class="txt-on">On</i>
+                                    <i class="txt-off">Off</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-12 col-lg-auto mt-2">
+                            <a class="btn btn-gray-outline" id="modalCookieButtonConfirm" href="#"><i class="label">CONFIRM MY CHOICES</i></a>
+                        </div>
+                        <div class="col-12 col-lg-auto mt-2">
+                            <a class="btn btn-green" id="modalCookieButtonAcceptAll" href="#"><i class="label">ACCEPT ALL</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <div class="background-layer"></div>
+    <div class="body-loading"></div>
+    <div class="mediaQueries"><div id="XS"></div><div id="SM"></div><div id="MD"></div><div id="LG"></div><div id="XL"></div><div id="touchDevice"></div></div>
+
+    <!-- Scripts -->
+            <script id="script-layout" src="https://www.smallworldfs.com/assets/www/js/layout.js?v=4fe828e
+"></script>
+    
+    <!-- Scripts Views -->
+        <script type='application/ld+json'>
+        {
+            "@context":"http://schema.org",
+            "@type": "BlogPosting",
+            "image": "https://www.smallworldfs.com/filemanager/userfiles/blog/influenciasmusicaLatinoamericana.jpg",
+            "url": "https://www.smallworldfs.com/en/blog/influences-of-latin-music",
+            "headline": "Influences of Latin Music",
+            "dateCreated": "2016-08-25",
+            "datePublished": "2016-08-25",
+            "dateModified": "2016-08-25",
+            "author": {
+                "@type": "Organization",
+                "name": "SmallWorld",
+                "url": "https://smallworldfs.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.smallworldfs.com/assets/www/images/header-icn-smallworld.png",
+                    "width":"140",
+                    "height":"80"
+                }
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SmallWorld",
+                "url": "https://smallworldfs.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.smallworldfs.com/assets/www/images/header-icn-smallworld.png",
+                    "width":"140",
+                    "height":"80"
+                }
+            },
+            "mainEntityOfPage": "True",
+            "genre":["SEO","JSON-LD"],
+            "articleSection": "Culture",
+            "articleBody": "Latin America covers a vast territory that stretches from the northern border of Mexico to the southern tip of South America, including the Caribbean. It is an enormous region with a wide diversity of cultures where you would be able to stay dancing until the end of the days, as it has sprouted several music styles that are nowadays hitting hard in discos all around the world.Samba and Bossa Nova are the most typical genres of Brazil; Salsa, Merengue and Reggaeton were created throughout the Caribbean; Cumbia comes from Colombia, and Tango was born in Argentina Such a rich diversity of genres, but still we can find common roots amongst these styles if we take a view at their history.First, we have to point out that many of the Pre-Columbine cultures (like the Mayas) reached a high development of music by producing all kind of wind and percussion instruments. And despite the ages passed, its influence can still be noticed in some of the more traditional Latin music genres such as the Andean Music, commonly known by its flute sounds.It was at the end of the 15th century, when Columbus and the Europeans arrived to Latin America introducing new instruments like the giro (used in the rhythm section of Cumbia and Salsa) and the Spanish guitar (which is actually Moorish). But perhaps, their most important contribution to Latin music may be the Spanish and Portuguese languages, which define most of the Latin music today, giving a connection to the mosaic of music styles in the region.On the other hand, if Europeans provided Latin music with language, the African contribution was definitely more important in terms of rhythms (actually, it is said that the African influence could be the single most important element in Latin music history). Despite being a sad and reprehensible practice, slavery trade was a real fact by the time, and around 12 million Africans were forced to move to Latin America between 16th and 19th centuries. Music and drumming have always been essential components in African culture, both related to religious and social ceremonies, as well as to communicative purposes. One of the few rights given to slaves in America was to play their drums, so the African slaves brought many beats and rhythms with them that were a major source of inspiration for the music that followed in the Americas (Samba, Salsa, Bachata). Furthermore, the African influences also include African-American music during 19th and 20th centuries. In this sense, everybody recognizes that Jazz had a tremendous impact in some Latin rhythms such as Mambo, Bossa Nova and Latin Jazz, as well as some others like R&B and Hip-Hop which have more recently defined the development of Latin genres such as Reggaeton.So we can conclude that Latin music was born due to the encounter amongst Pre-Columbine, European and African cultures, as several influences of those cultures can be detected. It forms a rich panorama that reflects its social environment energy.Photo: Richerdrepp.com"
+        }
+    </script>
+
+            <script type="module" src="/assets/www/js/blog.js?id=837752620a36d84aceda"></script>
+            <script>
+        window.app.url = "https://www.smallworldfs.com/en/blog/search/#SEARCH#";
+    </script>
+        <script type="text/javascript">
+        const Chat = function () {
+
+            let $fake = $('#simulate_fc_frame');
+
+            let openModal = function() { initFreshChat(true); }
+
+            let initFreshChat = function(opendEnd) {
+
+                let end = function() {
+                    $fake.remove();
+                    openModal = window.fcWidget.open;
+                    if (opendEnd === true) openModal();
+                }
+
+                getScript('https://wchat.eu.freshchat.com/js/widget.js', function() {
+
+                    if (!window.fcWidget.isLoaded()) {
+                        window.fcWidget.init({
+                            token: "4c2f99fe-950d-4c69-83fb-78b09bab7fb3",
+                            host: "https://wchat.eu.freshchat.com",
+                            locale:"en",
+                            country:"USA",
+                            countries:"USA",
+                            tags : ["USA"]
+                        });
+
+                        window.fcWidget.user.setProperties({
+                            countries:"USA"
+                        });
+
+                        window.fcWidget.on('widget:loaded', end);
+                    }
+                    else end();
+                })
+            }
+
+            $('[init-chat=true]').one('mouseover', initFreshChat);
+            $fake.one('mouseover', initFreshChat);
+            $fake.one('click', openModal);
+
+            return {
+                open: function() { openModal(); }
+            }
+        }();
+    </script>
+    
+
+
+
+            <!-- Scripts Component -->
+            </body>
+</html>

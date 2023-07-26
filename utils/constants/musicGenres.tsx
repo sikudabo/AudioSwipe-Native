@@ -1,150 +1,173 @@
+const Acapella = require('../../assets/app-media/acappella.jpeg');
+const Acoustic = require('../../assets/app-media/acoustic.jpeg');
+const African = require('../../assets/app-media/african.jpeg');
+const Arab = require('../../assets/app-media/arab.jpeg');
+const Alternative = require('../../assets/app-media/alternative-rock.jpeg');
+const Bass = require('../../assets/app-media/bass-music.jpeg');
+const Beats = require('../../assets/app-media/beats.jpeg');
+const Bluegrass = require('../../assets/app-media/bluegrass.jpeg');
+const Blues = require('../../assets/app-media/blues.jpeg');
+const Childrens = require('../../assets/app-media/childrens-music.jpeg');
+const Country = require('../../assets/app-media/country-music.jpeg');
+const Crunk = require('../../assets/app-media/crunk-music.jpeg');
+const Dance = require('../../assets/app-media/dance-music.jpeg');
+const Dancehall = require('../../assets/app-media/dancehall.jpeg');
+const EDM = require('../../assets/app-media/edm-music.jpeg');
+const Folk = require('../../assets/app-media/folk-music.jpeg');
+const Footwork = require('../../assets/app-media/footwork.jpeg');
+const Freestyle = require('../../assets/app-media/freestyle.jpeg');
+const Funk = require('../../assets/app-media/funk.jpeg');
+const Gospel = require('../../assets/app-media/gospel.jpeg');
+const Grunge = require('../../assets/app-media/grunge.jpeg');
+const Hardrock = require('../../assets/app-media/hardrock.jpeg');
+const Harp = require('../../assets/app-media/harp.jpeg');
+const Hawaian = require('../../assets/app-media/hawaian.jpeg');
+const Hiphop = require('../../assets/app-media/hiphop.jpeg');
+const Indie = require('../../assets/app-media/indie.jpeg');
+const Israeli = require('../../assets/app-media/Israeli.jpege');
+const Irish = require('../../assets/app-media/irish-music.jpeg');
+const Jazz = require('../../assets/app-media/jazz.jpeg');
+const Jerkin = require('../../assets/app-media/jerkin.jpeg');
+const Latin = require('../../assets/app-media/latin-music.jpeg');
+const Metal = require('../../assets/app-media/metal.jpeg');
+const Pop = require('../../assets/app-media/pop-music.jpeg');
+const Punk = require('../../assets/app-media/punk-rock.jpeg');
+
 export const musicGenres = [
     {
-        cover: "",
+        cover: Acapella,
         name: "A Capella",
     },
     {
-        cover: "",
+        cover: Acoustic,
         name: "Acoustic",
     },
     {
-        cover: "",
+        cover: African,
         name: "African",
     },
     {
-        cover: "",
+        cover: Arab,
         name: "Arab",
     }, 
     {
-        cover: "",
+        cover: Alternative,
         name: "Alternative Rock",
     },
     {
-        cover: "",
+        cover: Bass,
         name: "Bass Music",
     },
     {
-        cover: "",
+        cover: Beats,
         name: "Beats",
     },
     {
-        cover: "",
+        cover: Bluegrass,
         name: "Bluegrass",
     },
     {
-        cover: "",
+        cover: Blues,
         name: "Blues",
     },
     {
-        cover: "",
+        cover: Childrens,
         name: "Childrens",
     },
     {
-        cover: "",
+        cover: Country,
         name: "Country",
     },
     {
-        cover: "",
+        cover: Crunk,
         name: "Crunk",
     },
     {
-        cover: "",
+        cover: Dance,
         name: "Dance",
     },
     {
-        cover: "",
+        cover: Dancehall,
         name: "Dancehall",
     },
     {
-        cover: "",
+        cover: EDM,
         name: "EDM",
     },
     {
-        cover: "",
-        name: "Electronic",
-    },
-    {
-        cover: "",
+        cover: Folk,
         name: "Folk",
     },
     {
-        cover: "",
+        cover: Footwork,
         name: "Footwork",
     },
     {
-        cover: "",
+        cover: Freestyle,
         name: "Freestyle",
     },
     {
-        cover: "",
+        cover: Funk,
         name: "Funk",
     },
     {
-        cover: "",
+        cover: Gospel,
         name: "Gospel",
     },
     {
-        cover: "",
-        name: "Gospel Reggae",
-    },
-    {
-        cover: "",
+        cover: Grunge,
         name: "Grunge",
     },
     {
-        cover: "",
+        cover: Hardrock,
         name: "Hard Rock",
     },
     {
-        cover: "",
-        name: "Hardcore",
-    },
-    {
-        cover: "",
+        cover: Harp,
         name: "Harp",
     },
     {
-        cover: "",
+        cover: Hawaian,
         name: "Hawaiian",
     },
     {
-        cover: "",
+        cover: Hiphop,
         name: "Hip Hop",
     },
     {
-        cover: "",
+        cover: Indie,
         name: "Indie",
     },
     {
-        cover: "",
+        cover: Israeli,
         name: "Israeli",
     },
     {
-        cover: "",
+        cover: Irish,
         name: "Irish",
     },
     {
-        cover: "",
+        cover: Jazz,
         name: "Jazz",
     },
     {
-        cover: "",
+        cover: Jerkin,
         name: "Jerk",
     },
     {
-        cover: "",
+        cover: Latin,
         name: "Latin",
     },
     {
-        cover: "",
+        cover: Metal,
         name: "Metal",
     },
     {
-        cover: "",
+        cover: Pop,
         name: "Pop",
     },
     {
-        cover: "",
+        cover: Punk,
         name: "Punk"
     },
     {
