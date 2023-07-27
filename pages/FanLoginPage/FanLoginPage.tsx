@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText, colors, FormContainer } from '../../components';
@@ -121,7 +121,13 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
-    const { setFan } = useUserData();
+    const { fan, setFan } = useUserData();
+
+    useEffect(() => {
+        if (fan) {
+            navigation.navigate('Dashboard');
+        }
+    }, [fan]);
     
 
     function handleEmailChange(email: string) {

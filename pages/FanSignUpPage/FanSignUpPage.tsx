@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
     KeyboardAvoidingView,
     View, 
@@ -14,7 +14,7 @@ import { HelperText, RadioButton, TextInput } from 'react-native-paper';
 const MusicCelebrationImage = require('../../assets/app-media/music-fun.jpeg');
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
-import { useShowDialog } from '../../hooks';
+import { useShowDialog, useUserData } from '../../hooks';
 import { checkValidAge, checkValidEmail, formatUserBirthday } from '../../utils/helpers';
 import { putBinaryData } from '../../utils/api';
 import FormData from 'form-data';
@@ -313,6 +313,13 @@ function useDataLayer({ navigation }: NavigationType) {
     const [fileType, setFileType] = useState(null);
     const [name, setName] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
+    const { fan } = useUserData();
+
+    useEffect(() => {
+        if (fan) {
+            navigation.navigate('Dashboard');
+        }
+    }, [fan]);
 
     async function takePicture() {
         await ImagePicker.requestCameraPermissionsAsync();
