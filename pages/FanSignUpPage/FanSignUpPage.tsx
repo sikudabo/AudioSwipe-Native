@@ -432,8 +432,6 @@ function useDataLayer({ navigation }: NavigationType) {
         fd.append('gender', gender);
         fd.append('avatar', { name, uri, type: "image" });
 
-        console.log('The birthday is:', birthday as any);
-
         await putBinaryData({
             data: fd,
             url: 'api/save-fan'

@@ -177,7 +177,6 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     if (songListRef.current.length === 0) {
       setShouldDisplay(false);
     }
-    console.log('Should display is:', shouldDisplay);
   }, [songListRef.current.length]);
 
   useEffect(() => {
@@ -187,7 +186,6 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   }, [audioRef.current]);
 
   function onSwipe(direction: any) {
-    console.log('The swipe direction was:', direction);
   }
 
   async function handleAudioTimeUpdate(status: any) {
@@ -287,7 +285,6 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
   }  
 
   async function playSound() {
-    console.log("Play sound hit");
     if (songListRef.current.length <= 0) {
       return;
     }

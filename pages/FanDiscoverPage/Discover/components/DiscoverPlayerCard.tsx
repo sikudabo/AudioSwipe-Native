@@ -102,7 +102,6 @@ export default function DiscoverPlayerCard({
     }
 
     async function handlePause() {
-        console.log('The swiped player is:', swipeAudioPlayerRef.current);
         await audioRef.current.pauseAsync();
         setIsPlaying(false);
     }

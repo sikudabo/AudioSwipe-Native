@@ -22,11 +22,10 @@ export default function AudioSwipeNavigationTabs() {
             >
                 <Tab.Screen 
                     component={FanHomePageStack}
-                    listeners={({ navigation, route }) => ({
+                   listeners={({ navigation, route }) => ({
                         tabPress: (e) => {
-                            console.log('E is:', e);
                         }
-                    })}
+                    })} 
                     options={{
                         tabBarLabel: 'Home',
                         tabBarIcon: () => <Icon color={colors.white} name="home" size={26} />,

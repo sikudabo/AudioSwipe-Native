@@ -56,7 +56,6 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
         );
 
         (swipeAudioPlayerRef as any).current = sound;
-        console.log('New Audio', swipeAudioPlayerRef.current);
         (swipeAudioPlayerRef as any).current.playAsync();
     }
 
