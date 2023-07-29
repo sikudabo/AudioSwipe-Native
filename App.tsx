@@ -11,6 +11,7 @@ import { colors } from './components/colors';
 import * as SplashScreen from 'expo-splash-screen';
 import { FanLoginPage, FanSignUpPage } from './pages';
 import GlobalContextProciders from './GlobalContextProviders';
+import DiscoverMusicPlayer from './pages/FanDiscoverPage/Discover/DiscoverMusicPlayer';
 
 
 

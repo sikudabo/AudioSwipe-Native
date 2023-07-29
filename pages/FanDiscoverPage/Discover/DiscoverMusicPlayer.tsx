@@ -8,6 +8,7 @@ import { colors } from '../../../components/colors';
 import { useShowLoader } from '../../../hooks';
 import { SongDataType } from '../../../typings';
 import useFetchGenre from './hooks/useFetchGenre';
+import { useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
 
 type DiscoverMusicPlayerProps = {
     route: any,
@@ -59,6 +60,10 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
 
 function useDataLayer({ genre }: DataLayerProps) {
     const { data = [], isLoading } = useFetchGenre({ genre });
+    const { destroySound } = useUpdateAudioPlayer();
+    useMemo(() => {
+        destroySound();
+    }, [genre]);
     return {
         data,
         hasData: data.length > 0,

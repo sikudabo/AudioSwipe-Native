@@ -12,10 +12,11 @@ const AudioPlayerStateContext = createContext<any>({});
 const AudioPlayerUpdateContext = createContext<any>({});
 
 function AudioPlayerContextProvider({ children }: { children: React.ReactNode }) {
-    const swipeAudioPlayerRef = useRef();
+    let swipeAudioPlayerRef = useRef();
     const [currentPlayingSongId, setCurrentPlayingSongId] = useState('');
     const [audioSource, setAudioSource] = useState('');
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+    const [currentSound, setCurrentSound] = useState<any>(null);
 
     function changeAudioSource(source: string) {
         (swipeAudioPlayerRef.current as any).src = source;
@@ -35,6 +36,8 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
 
     async function destroySound() {
         await (swipeAudioPlayerRef as any).current.unloadAsync();
+        await currentSound.unloadAsync();
+        setCurrentSound(null);
         swipeAudioPlayerRef.current = undefined;
     }
 
@@ -56,6 +59,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
         );
 
         (swipeAudioPlayerRef as any).current = sound;
+        setCurrentSound(sound);
         (swipeAudioPlayerRef as any).current.playAsync();
     }
 
@@ -73,6 +77,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
                 swipeAudioPlayerRef,
                 audioSource,
                 currentPlayingSongId,
+                currentSound,
             }}
         >
             <AudioPlayerUpdateContext.Provider 
@@ -83,6 +88,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
                     playAudio,
                     setAudioSource,
                     setCurrentPlayingSongId,
+                    setCurrentSound,
                     stopAudio,
                 }}
             >

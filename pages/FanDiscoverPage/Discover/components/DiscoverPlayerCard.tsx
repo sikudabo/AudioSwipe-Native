@@ -33,8 +33,8 @@ export default function DiscoverPlayerCard({
     songMediaId,
     songName,
 }: DiscoverPlayerCardProps) {
-    const { createNewAudioSource } = useUpdateAudioPlayer();
-    const { swipeAudioPlayerRef } = useAudioPlayerRef();
+    const { createNewAudioSource, setCurrentSound } = useUpdateAudioPlayer();
+    const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const [isPlaying, setIsPlaying] = useState(false);
     const route = useRoute();
     let audioRef: any = useRef();
@@ -53,10 +53,6 @@ export default function DiscoverPlayerCard({
         audioRef.current = undefined;
     }
 
-    /* function handlePlay() {
-        (swipeAudioPlayerRef as any).playAsync();
-    } */
-
     async function handleCreate() {
         await createNewAudioSource(songMediaId);
     }
@@ -74,19 +70,6 @@ export default function DiscoverPlayerCard({
             shouldDuckAndroid: false,
         });
 
-        await createNewAudioSource(songMediaId);
-        await swipeAudioPlayerRef.current.playAsync();
-
-        /* if (audioRef.current) {
-            await destroyPlayer();
-        }
-        await Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            playsInSilentModeIOS: true,
-            staysActiveInBackground: false,
-            shouldDuckAndroid: false,
-        });
-
         const { sound } = await Audio.Sound.createAsync({
                 uri: `${baseUrl}api/get-audio/${songMediaId}`,
             }, 
@@ -96,18 +79,18 @@ export default function DiscoverPlayerCard({
             },
             (status: any) => handleStatusUpdate(status),
           );
-        
-        audioRef.current = sound;
-        audioRef.current.playAsync(); */
+
+       setCurrentSound(sound);
+       currentSound.playAsync();
     }
 
     async function handlePause() {
-        await audioRef.current.pauseAsync();
+        await currentSound.pauseAsync();
         setIsPlaying(false);
     }
 
     async function handlePlay() {
-        await audioRef.current.playAsync();
+        await currentSound.playAsync();
         setIsPlaying(true);
     }
 
