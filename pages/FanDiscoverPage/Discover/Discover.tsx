@@ -1,14 +1,51 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import DiscoverAudioCard from './components/DiscoverAudioCard';
+import DiscoverSection from './Layout/DiscoverSection';
 import { colors } from '../../../components/colors';
+import { audiobookGenres, musicGenres, podcastGenres } from '../../../utils/constants';
+
+type DiscoverProps = {
+    navigation: any;
+}
 
 
-export default function Discover() {
+export default function Discover({ navigation }: DiscoverProps) {
+    const handlePress = (genre: string) => {
+        navigation.navigate('DiscoverPlayer', { genre });
+    }
     return (
-        <View style={styles.container}>
-            <Text>Discover</Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <DiscoverSection 
+                headerText="Discover Audio"
+            >
+                {musicGenres.map((genre, index) => (
+                    <DiscoverAudioCard
+                        genre={genre.name}
+                        handlePress={() => handlePress(genre.name)}
+                        img={genre.cover}
+                        key={index}
+                    />
+                ))}
+                {podcastGenres.map((genre, index) => (
+                    <DiscoverAudioCard 
+                        genre={genre.name}
+                        handlePress={() => handlePress(genre.name)}
+                        img={genre.cover}
+                        key={index}
+                    />
+                ))}
+                {audiobookGenres.map((genre, index) => (
+                    <DiscoverAudioCard 
+                        genre={genre.name}
+                        handlePress={() => handlePress(genre.name)}
+                        img={genre.cover}
+                        key={index}
+                    />
+                ))}
+            </DiscoverSection>
+        </SafeAreaView>
     );
 }
 
@@ -17,8 +54,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colors.hotPink,
         height: '100%',
+        overflow: 'scroll',
         paddingTop: 100,
         textAlign: 'center',
         width: '100%',
+    },
+    divider: {
+        paddingTop: 20,
     },
 });

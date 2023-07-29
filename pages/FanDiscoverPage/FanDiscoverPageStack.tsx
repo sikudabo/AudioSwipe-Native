@@ -8,8 +8,8 @@ const DiscoverStack = createNativeStackNavigator();
 export default function FanDiscoverPageStack() {
     return (
         <DiscoverStack.Navigator>
-            <DiscoverStack.Screen name="Songs" component={Discover} options={{ headerShown: false }} />
-            <DiscoverStack.Screen name="Subscriptions" component={DiscoverMusicPlayer} />
+            <DiscoverStack.Screen name="DiscoverSongs" component={Discover} options={{ headerShown: false }} />
+            <DiscoverStack.Screen name="DiscoverPlayer" component={DiscoverMusicPlayer} options={{ headerShown: false }} />
         </DiscoverStack.Navigator>
     );
 }
