@@ -5,6 +5,7 @@ import React, {
     useState,
 } from 'react';
 import { Audio } from 'expo-av';
+import { baseUrl } from '../utils/constants';
 
 
 const AudioPlayerStateContext = createContext<any>({});
@@ -46,7 +47,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
         });
 
         const { sound } = await Audio.Sound.createAsync({
-                uri,
+                uri: `${baseUrl}get-audio/${uri}`,
             }, 
             {
                 isLooping: true,
@@ -55,6 +56,8 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
         );
 
         (swipeAudioPlayerRef as any).current = sound;
+        console.log('New Audio', swipeAudioPlayerRef.current);
+        (swipeAudioPlayerRef as any).current.playAsync();
     }
 
     function playAudio() {

@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { Text } from 'react-native-paper';
+import DiscoverPlayerCard from './components/DiscoverPlayerCard';
 import { AudioSwipeText } from '../../../components';
 import { colors } from '../../../components/colors';
 import { useShowLoader } from '../../../hooks';
@@ -18,6 +19,7 @@ type DataLayerProps = {
 
 type DiscoverMusicPlayerDisplayLayerProps = Pick<DataLayerProps, 'genre'> & {
     data: SongDataType[];
+    hasData: boolean;
     isLoading: boolean;
 }
 
@@ -26,7 +28,7 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
     return <DiscoverMusicPlayer_DisplayLayer genre={genre} {...useDataLayer({ genre })} />
 }
 
-function DiscoverMusicPlayer_DisplayLayer({ data, genre, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
+function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
     if (isLoading) {
         return (
             <View style={styles.container}>
@@ -34,17 +36,32 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, isLoading }: DiscoverMu
             </View>
         );
     }
-    return (
-        <View style={styles.container}>
-            <Text>{genre}</Text>
-        </View>
-    );
+    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.text}>
+                    No Audio Available
+                </Text>
+            </View>
+        )
+    } else {
+        return (
+            <DiscoverPlayerCard
+                albumName={data[0].name}
+                artistName={data[0].artistName}
+                coverSource={data[0].albumCover}
+                songMediaId={data[0].songMediaId}
+                songName={data[0].name}
+            />
+        );
+    }
 }
 
 function useDataLayer({ genre }: DataLayerProps) {
-    const { data, isLoading } = useFetchGenre({ genre });
+    const { data = [], isLoading } = useFetchGenre({ genre });
     return {
         data,
+        hasData: data.length > 0,
         isLoading,
     }
 }
@@ -58,4 +75,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
     },
+    text: {
+        color: colors.white,
+        fontFamily: 'VarelaRound_400Regular',
+        fontSize: 42,
+        fontWeight: '900',
+    }
 });
