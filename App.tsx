@@ -10,6 +10,7 @@ import { AudioSwipeDialog, AudioSwipeNavigationTabs } from './components';
 import { colors } from './components/colors';
 import * as SplashScreen from 'expo-splash-screen';
 import { FanLoginPage, FanSignUpPage } from './pages';
+import GlobalContextProciders from './GlobalContextProviders';
 
 
 
@@ -46,33 +47,35 @@ function App_DisplayLayer({ fontsLoaded, isLoading }: AppDisplayLayerProps) {
     <PaperProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <View onLayout={onLayoutRootView} style={styles.appContainer}>
-            <AudioSwipeDialog />
-            <Stack.Navigator>
-              <Stack.Screen 
-                component={FanLoginPage}
-                name="FanLogin"
-                options={{
-                  headerShown: false,
-                  title: "Login",
-                }}
-              />
-              <Stack.Screen 
-                component={FanSignUpPage}
-                name="FanSignUp"
-                options={{
-                  title: "Sign Up"
-                }}
-              />
-              <Stack.Screen 
-                component={AudioSwipeNavigationTabs}
-                name="Dashboard"
-                options={{
-                  headerShown: false,
-                }}
-              />
-            </Stack.Navigator>
-          </View>
+          <GlobalContextProciders>
+            <View onLayout={onLayoutRootView} style={styles.appContainer}>
+              <AudioSwipeDialog />
+              <Stack.Navigator>
+                <Stack.Screen 
+                  component={FanLoginPage}
+                  name="FanLogin"
+                  options={{
+                    headerShown: false,
+                    title: "Login",
+                  }}
+                />
+                <Stack.Screen 
+                  component={FanSignUpPage}
+                  name="FanSignUp"
+                  options={{
+                    title: "Sign Up"
+                  }}
+                />
+                <Stack.Screen 
+                  component={AudioSwipeNavigationTabs}
+                  name="Dashboard"
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </Stack.Navigator>
+            </View>
+          </GlobalContextProciders>
         </NavigationContainer>
       </QueryClientProvider>
     </PaperProvider>
