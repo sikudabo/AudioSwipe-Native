@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { Text } from 'react-native-paper';
@@ -8,7 +8,9 @@ import { colors } from '../../../components/colors';
 import { useShowLoader } from '../../../hooks';
 import { SongDataType } from '../../../typings';
 import useFetchGenre from './hooks/useFetchGenre';
-import { useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
+import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
+import { Audio } from 'expo-av';
+import { baseUrl } from '../../../utils/constants';
 
 type DiscoverMusicPlayerProps = {
     route: any,
@@ -30,6 +32,41 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
 }
 
 function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
+    const { createNewAudioSource, setCurrentSound } = useUpdateAudioPlayer();
+    const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    useEffect(() => {
+        playSound();
+        setIsPlaying(true);
+    }, []);
+
+    function handleStatusUpdate(status: any) {
+        
+    }
+
+    async function playSound() {
+
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            playsInSilentModeIOS: true,
+            staysActiveInBackground: false,
+            shouldDuckAndroid: false,
+        });
+
+        const { sound } = await Audio.Sound.createAsync({
+                uri: `${baseUrl}api/get-audio/${data[0].songMediaId}`,
+            }, 
+            {
+                isLooping: true,
+                shouldPlay: true,
+            },
+            (status: any) => handleStatusUpdate(status),
+          );
+
+       setCurrentSound(sound);
+       currentSound.playAsync();
+    }
     if (isLoading) {
         return (
             <View style={styles.container}>
@@ -37,7 +74,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             </View>
         );
     }
-    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData) {
+    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData || typeof data === 'undefined' || data.length === 0) {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>
@@ -45,7 +82,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                 </Text>
             </View>
         )
-    } else {
+    } else if (hasData) {
         return (
             <DiscoverPlayerCard
                 albumName={data[0].name}
@@ -55,15 +92,33 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                 songName={data[0].name}
             />
         );
+    } else {
+        return (
+            <View>
+                <Text>
+                    No Audio
+                </Text>
+            </View>
+        )
     }
+}
+
+async function destroyPlayer(sound: any) {
+    sound.unloadAsync();
 }
 
 function useDataLayer({ genre }: DataLayerProps) {
     const { data = [], isLoading } = useFetchGenre({ genre });
-    const { destroySound } = useUpdateAudioPlayer();
-    useMemo(() => {
-        destroySound();
-    }, [genre]);
+    const { currentSound } = useAudioPlayerRef();
+    const { destroySound, setCurrentSound } = useUpdateAudioPlayer();
+    
+    if (data.length <= 0) {
+        if (currentSound) {
+            currentSound.unloadAsync();
+            console.log('The current sound is:', currentSound);
+        }
+        setCurrentSound(null);
+    }
     return {
         data,
         hasData: data.length > 0,

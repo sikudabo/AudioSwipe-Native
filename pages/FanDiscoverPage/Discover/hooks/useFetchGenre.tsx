@@ -40,6 +40,7 @@ export default function useFetchGenre({ genre }: QueryProps) {
         setIsLoading(false);
         return songs;
     }, {
-        refetchInterval: 3600000,
+        refetchInterval: 1000,
+        staleTime: 1,
     });
 }

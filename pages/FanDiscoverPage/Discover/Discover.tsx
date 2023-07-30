@@ -5,6 +5,7 @@ import DiscoverAudioCard from './components/DiscoverAudioCard';
 import DiscoverSection from './Layout/DiscoverSection';
 import { colors } from '../../../components/colors';
 import { audiobookGenres, musicGenres, podcastGenres } from '../../../utils/constants';
+import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
 
 type DiscoverProps = {
     navigation: any;
@@ -12,7 +13,11 @@ type DiscoverProps = {
 
 
 export default function Discover({ navigation }: DiscoverProps) {
+    const { setCurrentSound } = useUpdateAudioPlayer();
+    const { currentSound } = useAudioPlayerRef();
     const handlePress = (genre: string) => {
+        setCurrentSound(null);
+        // console.log('The current sound is:', currentSound);
         navigation.navigate('DiscoverPlayer', { genre });
     }
     return (

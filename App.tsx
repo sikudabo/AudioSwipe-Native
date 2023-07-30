@@ -71,6 +71,7 @@ function App_DisplayLayer({ fontsLoaded, isLoading }: AppDisplayLayerProps) {
                   component={AudioSwipeNavigationTabs}
                   name="Dashboard"
                   options={{
+                    gestureEnabled: false,
                     headerShown: false,
                   }}
                 />

@@ -44,8 +44,8 @@ export default function DiscoverPlayerCard({
     }, [route.params]);
 
     useEffect(() => {
-        playSound();
-        setIsPlaying(true);
+        // playSound();
+        // setIsPlaying(true);
     }, []);
 
     async function destroyPlayer() {

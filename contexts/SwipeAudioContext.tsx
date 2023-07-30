@@ -36,7 +36,9 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
 
     async function destroySound() {
         await (swipeAudioPlayerRef as any).current.unloadAsync();
-        await currentSound.unloadAsync();
+        if (currentSound) {
+            await currentSound.unloadAsync();
+        }
         setCurrentSound(null);
         swipeAudioPlayerRef.current = undefined;
     }

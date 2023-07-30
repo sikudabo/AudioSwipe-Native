@@ -40,9 +40,11 @@ export default function AudioSwipeNavigationTabs() {
                     }}
                     listeners={({ navigation, route }) => ({
                         tabPress: async (e) => {
+                            if (currentSound) {
+                                await currentSound.unloadAsync();
+                            }
                             setCurrentSound(null);
-                            await currentSound.unloadAsync();
-                        }
+                        },
                     })}
                     name="Discover" 
                 />
