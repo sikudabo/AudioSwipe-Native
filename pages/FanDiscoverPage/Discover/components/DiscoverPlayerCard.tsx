@@ -151,12 +151,12 @@ const styles = StyleSheet.create({
         width: 350,
     },
     container: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.hotPink,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         height: 900,
-        opacity: 0.7,
+        opacity: 0.9,
         paddingBottom: 20,
         paddingLeft: 10,
         paddingRight: 10,
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     },
     playBtn: {
         alignSelf: 'center',
-        backgroundColor: colors.primary,
+        backgroundColor: colors.hotPink,
         borderRadius: 50,
         color: colors.white,
         marginBottom: 10,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     text: {
-        color: colors.primary,
+        color: colors.hotPink,
         fontFamily: 'VarelaRound_400Regular',
         fontWeight: '900',
     },
