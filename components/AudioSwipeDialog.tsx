@@ -17,7 +17,13 @@ type AudioSwipeDialogDisplayLayerProps = {
 export default function AudioSwipeDialog() {
     return <AudioSwipeDialog_DisplayLayer {...useDataLayer()} />;
 }
-
+/**
+ * 
+ * @param handleClose A function that will close the dialog.
+ * @param isOpen A boolean value that determines if the dialog should be open or not.
+ * @param message The message to be displayed in the dialog. 
+ * @returns 
+ */
 function AudioSwipeDialog_DisplayLayer({
     handleClose,
     isOpen,

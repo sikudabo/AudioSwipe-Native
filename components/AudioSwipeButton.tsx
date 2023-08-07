@@ -17,6 +17,22 @@ type AudioSwipeButtonProps = Omit<ButtonProps, 'buttonColor' | 'children'> | any
     weight?: string | number;
 };
 
+/**
+ * 
+ * @param backgroundColor The background color of the button.
+ * @param buttonHeight Height of the button. Default is 50 pixels. 
+ * @param buttonType The button variant we want to use. The default value is contained.
+ * @param buttonWidth The width of the button. The default is 100 pixels.
+ * @param color The color of the button. 
+ * @param customStyle A custom style object that can be added to customize the button. 
+ * @param fullWidth A boolean determining if the button is fullWidth or not. 
+ * @param onPress Function that handles press events. 
+ * @param text The text that should be rendered within the button. 
+ * @param type The type of button we are working with (for form submissions).
+ * @param weight The font weight of the button. 
+ * @param props react-native-paper Button properties. 
+ * @returns A reactive native paper button with custom props. 
+ */
 export default function AudioSwipeButton({
     backgroundColor = colors.secondary,
     buttonHeight = 50,

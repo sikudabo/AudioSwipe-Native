@@ -86,7 +86,7 @@ function FanLoginPage_DisplayLayer({
                                 />
                             </View>
                             <View style={styles.buttonsContainer}>
-                            <AudioSwipeButton
+                                <AudioSwipeButton
                                     backgroundColor={colors.hotPink}
                                     color={colors.white}
                                     customStyle={{
@@ -98,7 +98,7 @@ function FanLoginPage_DisplayLayer({
                                 />
                             </View>
                             <View style={styles.buttonsContainer}>
-                            <AudioSwipeButton 
+                                <AudioSwipeButton 
                                     backgroundColor={colors.primary}
                                     color={colors.white}
                                     customStyle={{
