@@ -1,4 +1,5 @@
 export type SongDataType = {
+    album: string;
     albumCover: string;
     artistName: string;
     disLikes: string[] | undefined;

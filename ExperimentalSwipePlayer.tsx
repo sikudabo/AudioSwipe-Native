@@ -151,7 +151,7 @@ function App_DisplayLayer({ fontsLoaded }: AppDisplayLayerProps) {
     PanResponder.create({
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
     })
-  )
+  );
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {

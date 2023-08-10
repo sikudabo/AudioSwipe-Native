@@ -35,33 +35,33 @@ export default function DiscoverPlayerCard({
 }: DiscoverPlayerCardProps) {
     const { createNewAudioSource, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
     const route = useRoute();
     let audioRef: any = useRef();
 
-    useEffect(() => {
+    /* useEffect(() => {
         destroyPlayer();
-    }, [route.params]);
+    }, [route.params]); */
 
-    useEffect(() => {
+    /* useEffect(() => {
         playSound();
         setIsPlaying(true);
-    }, []);
+    }, []); */
 
-    async function destroyPlayer() {
+    /* async function destroyPlayer() {
         await audioRef.current.unloadAsync();
         audioRef.current = undefined;
-    }
+    } */
 
-    async function handleCreate() {
+    /* async function handleCreate() {
         await createNewAudioSource(songMediaId);
-    }
+    } */
 
     function handleStatusUpdate(status: any) {
         
     }
 
-    async function playSound() {
+    /* async function playSound() {
 
         await Audio.setAudioModeAsync({
             allowsRecordingIOS: false,
@@ -82,14 +82,16 @@ export default function DiscoverPlayerCard({
 
        setCurrentSound(sound);
        currentSound.playAsync();
-    }
+    } */
 
     async function handlePause() {
+        console.log('Pause is being hit');
         await currentSound.pauseAsync();
         setIsPlaying(false);
     }
 
     async function handlePlay() {
+        console.log('Play is being hit');
         await currentSound.playAsync();
         setIsPlaying(true);
     }
@@ -97,7 +99,7 @@ export default function DiscoverPlayerCard({
 
     return (
         <View style={styles.container}>
-            <View style={styles.swipe}>
+            <View>
                 <Card 
                     elevation={5}
                     style={styles.card}
@@ -151,6 +153,19 @@ const styles = StyleSheet.create({
         width: 350,
     },
     container: {
+        backgroundColor: colors.hotPink,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 900,
+        opacity: 0.9,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 50,
+        width: '100%',
+    },
+    altContainer: {
         backgroundColor: colors.hotPink,
         display: 'flex',
         flexDirection: 'row',

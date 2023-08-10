@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { PanResponder, PanResponderInstance, StyleSheet, View } from 'react-native';
+import ReactTinderCard from 'react-tinder-card';
 import { ActivityIndicator } from 'react-native-paper';
 import { Text } from 'react-native-paper';
 import DiscoverPlayerCard from './components/DiscoverPlayerCard';
@@ -24,6 +25,7 @@ type DiscoverMusicPlayerDisplayLayerProps = Pick<DataLayerProps, 'genre'> & {
     data: SongDataType[];
     hasData: boolean;
     isLoading: boolean;
+    panResponder: PanResponderInstance;
 }
 
 export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps) {
@@ -31,21 +33,50 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
     return <DiscoverMusicPlayer_DisplayLayer genre={genre} {...useDataLayer({ genre })} />
 }
 
-function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
-    const { createNewAudioSource, setCurrentSound } = useUpdateAudioPlayer();
+function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, panResponder }: DiscoverMusicPlayerDisplayLayerProps) {
+    const { createNewAudioSource, destroySound, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
+    const songListRef = useRef(data);
+    const [currentSongIndex, setCurrentSongIndex] = useState(data.length > 0 ? data.length - 1 : 0);
+    const currentSongIndexRef = useRef(currentSongIndex);
     const [isPlaying, setIsPlaying] = useState(false);
+    const childRefs: any = useMemo(
+        () =>
+          Array(songListRef.current.length)
+            .fill(0)
+            .map((i) => React.createRef()),
+        []
+    );
 
     useEffect(() => {
-        playSound();
-        setIsPlaying(true);
-    }, []);
+        if (data.length > 0) {
+            playSound();
+        }
+    }, [hasData]);
 
     function handleStatusUpdate(status: any) {
-        
+        return;
+    }
+
+    function updateCurrentIndex(val: number) {
+        setCurrentSongIndex(val);
+        currentSongIndexRef.current = val;
+      }
+
+    async function cardLeftScreen(direction: string, id: string, index: number) {
+        console.log('The sound is:', currentSound);
+        await destroySound();
+        setCurrentSound(null);
+        updateCurrentIndex(index);
+        songListRef.current = songListRef.current.filter((song) => song?._id !== id);
+        playSound();
     }
 
     async function playSound() {
+
+        if (!hasData || currentSongIndexRef.current >= data.length) {
+            return;
+        }
 
         await Audio.setAudioModeAsync({
             allowsRecordingIOS: false,
@@ -55,7 +86,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         });
 
         const { sound } = await Audio.Sound.createAsync({
-                uri: `${baseUrl}api/get-audio/${data[0].songMediaId}`,
+                uri: `${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`,
             }, 
             {
                 isLooping: true,
@@ -84,13 +115,29 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         )
     } else if (hasData) {
         return (
-            <DiscoverPlayerCard
-                albumName={data[0].name}
-                artistName={data[0].artistName}
-                coverSource={data[0].albumCover}
-                songMediaId={data[0].songMediaId}
-                songName={data[0].name}
-            />
+           <View style={styles.altContainer}>
+                {data.map((song, index) => (
+                    <View style={styles.swipe}>
+                        <ReactTinderCard 
+                            key={index}
+                            onCardLeftScreen={(direction) => cardLeftScreen(direction, song?._id, index)}
+                            preventSwipe={['down', 'up']}
+                            ref={childRefs[index]}
+                            swipeRequirementType="position"
+                        >
+                            <View {...panResponder.panHandlers}>
+                                <DiscoverPlayerCard
+                                    albumName={song.album}
+                                    artistName={song.artistName}
+                                    coverSource={song.albumCover}
+                                    songMediaId={song.songMediaId}
+                                    songName={song.name}
+                                />
+                            </View>
+                        </ReactTinderCard>
+                    </View>
+                ))}
+           </View>
         );
     } else {
         return (
@@ -111,6 +158,21 @@ function useDataLayer({ genre }: DataLayerProps) {
     const { data = [], isLoading } = useFetchGenre({ genre });
     const { currentSound } = useAudioPlayerRef();
     const { destroySound, setCurrentSound } = useUpdateAudioPlayer();
+
+    const panResponder = useMemo(() => 
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+    })
+  , []);
     
     if (data.length <= 0) {
         if (currentSound) {
@@ -123,6 +185,7 @@ function useDataLayer({ genre }: DataLayerProps) {
         data,
         hasData: data.length > 0,
         isLoading,
+        panResponder,
     }
 }
 
@@ -135,6 +198,19 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
     },
+    altContainer: {
+        alignItems: 'center',
+        backgroundColor: colors.hotPink,
+        height: '100%',
+        paddingTop: 100,
+        textAlign: 'center',
+        width: '100%',
+    },
+    swipe: {
+        paddingBottom: 20,
+        paddingTop: 75,
+        position: 'absolute',
+      },
     text: {
         color: colors.white,
         fontFamily: 'VarelaRound_400Regular',
