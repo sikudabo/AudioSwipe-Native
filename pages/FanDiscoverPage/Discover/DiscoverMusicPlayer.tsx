@@ -6,12 +6,57 @@ import { Text } from 'react-native-paper';
 import DiscoverPlayerCard from './components/DiscoverPlayerCard';
 import { AudioSwipeText } from '../../../components';
 import { colors } from '../../../components/colors';
-import { useShowLoader } from '../../../hooks';
+import { useShowLoader, useUserData } from '../../../hooks';
 import { SongDataType } from '../../../typings';
 import useFetchGenre from './hooks/useFetchGenre';
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
 import { Audio } from 'expo-av';
 import { baseUrl } from '../../../utils/constants';
+import ExperimentalDiscoverPlayerCard from './components/ExperimentalDiscoverPlayerCard';
+import axios from 'axios';
+const CeCeCover = require('../../../assets/app-media/cece.jpeg');
+const CeCeMp3 = require('../../../assets/app-media/cece.mp3');
+const JoshuaRogersMp3 = require('../../../assets/app-media/joshuarogers.mp3');
+const JoshuaRogersCover = require('../../../assets/app-media/joshuarogers.jpeg');
+const JMossCover = require('../../../assets/app-media/jmoss.jpeg');
+const JMossMp3 = require('../../../assets/app-media/jmoss.mp3');
+const KirkCover = require('../../../assets/app-media/kirkfranklin.jpeg')
+const KirkMp3 = require('../../../assets/app-media/kirkfranklin.mp3');
+
+const db = [
+  {
+    albumName: 'Unconditional',
+    artistName: 'Joshua Rogers',
+    _id: 4,
+    coverSource: JoshuaRogersCover,
+    songMediaId: JoshuaRogersMp3,
+    songName: 'So Good!',
+  },
+  {
+    albumName: 'Praise Him',
+    artistName: 'J Moss',
+    coverSource: JMossCover,
+    _id: 3,
+    songMediaId: JMossMp3,
+    songName: 'Praise in the Sanctuary',
+  },
+  {
+    albumName: 'God is Good',
+    artistName: 'Kirk Franklin',
+    coverSource: KirkCover,
+    _id: 2,
+    songMediaId: KirkMp3,
+    songName: 'God lifts us up!'
+  },
+  {
+    albumName: 'God is so Good',
+    artistName: 'CeCe Winans',
+    coverSource: CeCeCover,
+    _id: 1,
+    songMediaId: CeCeMp3,
+    songName: 'Praise God',
+  },
+];
 
 type DiscoverMusicPlayerProps = {
     route: any,
@@ -23,23 +68,30 @@ type DataLayerProps = {
 
 type DiscoverMusicPlayerDisplayLayerProps = Pick<DataLayerProps, 'genre'> & {
     data: SongDataType[];
+    genre: string;
     hasData: boolean;
     isLoading: boolean;
 }
 
 export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps) {
     const { genre } = route.params;
-    return <DiscoverMusicPlayer_DisplayLayer genre={genre} {...useDataLayer({ genre })} />
+    return <DiscoverMusicPlayer_DisplayLayer {...useDataLayer({ genre })} />
 }
 
 function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
+    const { fan } = useUserData();
+    const { _id } = fan;
     const { createNewAudioSource, destroySound, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const songListRef: SongDataType[] | any  = useRef()
     songListRef.current = data as SongDataType[];
-    const [currentSongIndex, setCurrentSongIndex] = useState(data.length > 0 ? data.length - 1 : 0);
+    const [currentSongIndex, setCurrentSongIndex] = useState(hasData ? data.length - 1 : 0);
+    const [exampleSongIndex, setExampleSongIndex] = useState(db.length - 1);
+    const testSongIndexRef = useRef(exampleSongIndex);
+    const testSongListRef = useRef(db);
     const currentSongIndexRef = useRef(currentSongIndex);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [audioClips, setAudioClips] = useState<SongDataType[]>([]);
     const audioRef: any = useRef(undefined);
     const childRefs: any = useMemo(
         () =>
@@ -70,6 +122,21 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         }
     }, [hasData]);
 
+    useEffect(() => {
+        async function fetchData() {
+            return await axios({
+                method: 'GET',
+                url: `${baseUrl}api/fetch-genre/${genre}/${_id}`,
+            }).then(response => {
+                const { audioClips } = response.data;
+                console.log(audioClips);
+                setAudioClips(audioClips);
+            });
+        }
+
+        fetchData();
+    }, []);
+
     function handleStatusUpdate(status: any) {
         return;
     }
@@ -77,15 +144,17 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     function updateCurrentIndex(val: number) {
         setCurrentSongIndex(val);
         currentSongIndexRef.current = val;
-      }
+    }
 
     async function cardLeftScreen(direction: string, id: string, index: number) {
         await currentSound.unloadAsync();
         updateCurrentIndex(index);
-        songListRef.current = songListRef.current.filter((song: SongDataType) => song?._id !== id);
+        console.log('The index is:', currentSongIndexRef.current);
+        // testSongListRef.current = testSongListRef.current.filter((song: any) => song?._id !== id);
+        setAudioClips(audioClips.filter((song: SongDataType) => song._id !== id));
 
-        if (songListRef.current.length > 0) {
-            createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
+        if (audioClips.length > 0) {
+            createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
         }
     }
 
@@ -95,13 +164,11 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             return;
         }
 
-        if (songListRef.current.length <= 0) {
+        if (audioClips.length <= 0) {
             return;
         }
 
-        console.log('The current index is:', currentSongIndexRef.current);
-
-        await createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
+        await createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
        
     }
     
@@ -123,7 +190,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     } else if (hasData) {
         return (
            <View style={styles.altContainer}>
-                {songListRef.current.reverse().map((song: SongDataType, index: number) => (
+                {audioClips.map((song: SongDataType, index: number) => (
                     <View key={song._id} style={styles.swipe}>
                         <ReactTinderCard 
                             key={index}
@@ -137,6 +204,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                                     albumName={song.album}
                                     artistName={song.artistName}
                                     coverSource={song.albumCover}
+                                    key={index}
                                     songMediaId={song.songMediaId}
                                     songName={song.name}
                                 />
@@ -157,15 +225,13 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     }
 }
 
-async function destroyPlayer(sound: any) {
-    sound.unloadAsync();
-}
 
 function useDataLayer({ genre }: DataLayerProps) {
     const { data = [], isLoading } = useFetchGenre({ genre });
 
     return {
         data,
+        genre,
         hasData: data.length > 0,
         isLoading,
     }

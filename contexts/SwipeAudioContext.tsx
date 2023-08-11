@@ -44,6 +44,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
     }
 
     async function createNewAudioSource(uri: string) {
+        console.log('The uri is:', uri);
         await Audio.setAudioModeAsync({
             allowsRecordingIOS: false,
             playsInSilentModeIOS: true,
