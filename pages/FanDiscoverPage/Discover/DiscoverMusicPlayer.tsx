@@ -117,7 +117,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
   , []);
 
     useEffect(() => {
-        if (data.length > 0) {
+        if (audioClips.length > 0) {
             playSound();
         }
     }, [hasData]);
@@ -129,7 +129,6 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                 url: `${baseUrl}api/fetch-genre/${genre}/${_id}`,
             }).then(response => {
                 const { audioClips } = response.data;
-                console.log(audioClips);
                 setAudioClips(audioClips);
             });
         }
@@ -149,8 +148,6 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     async function cardLeftScreen(direction: string, id: string, index: number) {
         await currentSound.unloadAsync();
         updateCurrentIndex(index);
-        console.log('The index is:', currentSongIndexRef.current);
-        // testSongListRef.current = testSongListRef.current.filter((song: any) => song?._id !== id);
         setAudioClips(audioClips.filter((song: SongDataType) => song._id !== id));
 
         if (audioClips.length > 0) {
@@ -179,7 +176,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             </View>
         );
     }
-    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData || typeof data === 'undefined' || data.length === 0) {
+    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData || typeof data === 'undefined' || data.length === 0 || audioClips.length === 0) {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>
@@ -190,7 +187,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     } else if (hasData) {
         return (
            <View style={styles.altContainer}>
-                {audioClips.map((song: SongDataType, index: number) => (
+                {audioClips.reverse().map((song: SongDataType, index: number) => (
                     <View key={song._id} style={styles.swipe}>
                         <ReactTinderCard 
                             key={index}
