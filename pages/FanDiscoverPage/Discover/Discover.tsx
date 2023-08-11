@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
 import DiscoverAudioCard from './components/DiscoverAudioCard';
 import DiscoverSection from './Layout/DiscoverSection';
 import { colors } from '../../../components/colors';
@@ -18,7 +17,6 @@ export default function Discover({ navigation }: DiscoverProps) {
     const { currentSound } = useAudioPlayerRef();
     const handlePress = (genre: string) => {
         setCurrentSound(null);
-        // console.log('The current sound is:', currentSound);
         navigation.navigate('DiscoverPlayer', { genre });
     }
     return (

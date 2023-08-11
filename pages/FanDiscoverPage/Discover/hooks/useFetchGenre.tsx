@@ -42,6 +42,6 @@ export default function useFetchGenre({ genre }: QueryProps) {
     }, {
         cacheTime: 0,
         refetchInterval: 0,
-        staleTime: 1,
+        staleTime: 3600000,
     });
 }

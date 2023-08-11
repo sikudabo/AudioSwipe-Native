@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
     ImageBackground,
     PanResponder,
@@ -84,6 +84,21 @@ export default function DiscoverPlayerCard({
        currentSound.playAsync();
     } */
 
+    const panResponder = useMemo(() => 
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+    })
+  , []);
+
     async function handlePause() {
         console.log('Pause is being hit');
         await currentSound.pauseAsync();
@@ -99,7 +114,7 @@ export default function DiscoverPlayerCard({
 
     return (
         <View style={styles.container}>
-            <View>
+            <View {...panResponder.panHandlers}>
                 <Card 
                     elevation={5}
                     style={styles.card}
@@ -127,7 +142,7 @@ export default function DiscoverPlayerCard({
                     </Card.Content>
                     <Card.Actions>
                         <View style={styles.actionsContainer}>
-                            <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onPress={isPlaying ? handlePause : handlePlay} size="large" style={styles.playBtn} />
+                            <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={isPlaying ? handlePause : handlePlay} size="large" style={styles.playBtn} />
                         </View>
                     </Card.Actions>
                 </Card>

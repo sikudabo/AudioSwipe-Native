@@ -26,6 +26,14 @@ export default function AudioSwipeNavigationTabs() {
             >
                 <Tab.Screen 
                     component={FanHomePageStack}
+                    listeners={({ navigation, route }) => ({
+                        tabPress: async (e) => {
+                            if (currentSound) {
+                                await currentSound.unloadAsync();
+                            }
+                            setCurrentSound(null);
+                        },
+                    })}
                     options={{
                         tabBarLabel: 'Home',
                         tabBarIcon: () => <Icon color={colors.white} name="home" size={26} />,
