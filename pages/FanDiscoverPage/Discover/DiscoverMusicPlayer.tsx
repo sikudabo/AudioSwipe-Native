@@ -25,7 +25,6 @@ type DiscoverMusicPlayerDisplayLayerProps = Pick<DataLayerProps, 'genre'> & {
     data: SongDataType[];
     hasData: boolean;
     isLoading: boolean;
-    panResponder: PanResponderInstance;
 }
 
 export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps) {
@@ -33,13 +32,15 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
     return <DiscoverMusicPlayer_DisplayLayer genre={genre} {...useDataLayer({ genre })} />
 }
 
-function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, panResponder }: DiscoverMusicPlayerDisplayLayerProps) {
+function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
     const { createNewAudioSource, destroySound, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
-    const songListRef = useRef(data);
+    const songListRef: SongDataType[] | any  = useRef()
+    songListRef.current = data as SongDataType[];
     const [currentSongIndex, setCurrentSongIndex] = useState(data.length > 0 ? data.length - 1 : 0);
     const currentSongIndexRef = useRef(currentSongIndex);
     const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef: any = useRef(undefined);
     const childRefs: any = useMemo(
         () =>
           Array(songListRef.current.length)
@@ -47,6 +48,21 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, pan
             .map((i) => React.createRef()),
         []
     );
+
+    const panResponder = useMemo(() => 
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
+      },
+    })
+  , []);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -64,12 +80,15 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, pan
       }
 
     async function cardLeftScreen(direction: string, id: string, index: number) {
-        console.log('The sound is:', currentSound);
-        await destroySound();
-        setCurrentSound(null);
+        await currentSound.unloadAsync();
+        console.log('The id is:', id);
         updateCurrentIndex(index);
-        songListRef.current = songListRef.current.filter((song) => song?._id !== id);
-        playSound();
+        songListRef.current = songListRef.current.filter((song: SongDataType) => song?._id !== id);
+        console.log('The songListRef is:', songListRef.current.length);
+
+        if (songListRef.current.length > 0) {
+            createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
+        }
     }
 
     async function playSound() {
@@ -78,26 +97,14 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, pan
             return;
         }
 
-        await Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            playsInSilentModeIOS: true,
-            staysActiveInBackground: false,
-            shouldDuckAndroid: false,
-        });
+        if (songListRef.current.length <= 0) {
+            return;
+        }
 
-        const { sound } = await Audio.Sound.createAsync({
-                uri: `${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`,
-            }, 
-            {
-                isLooping: true,
-                shouldPlay: true,
-            },
-            (status: any) => handleStatusUpdate(status),
-          );
-
-       setCurrentSound(sound);
-       currentSound.playAsync();
+        await createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
+       
     }
+    
     if (isLoading) {
         return (
             <View style={styles.container}>
@@ -116,8 +123,8 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading, pan
     } else if (hasData) {
         return (
            <View style={styles.altContainer}>
-                {data.map((song, index) => (
-                    <View style={styles.swipe}>
+                {songListRef.current.reverse().map((song: SongDataType, index: number) => (
+                    <View key={song._id} style={styles.swipe}>
                         <ReactTinderCard 
                             key={index}
                             onCardLeftScreen={(direction) => cardLeftScreen(direction, song?._id, index)}
@@ -156,36 +163,11 @@ async function destroyPlayer(sound: any) {
 
 function useDataLayer({ genre }: DataLayerProps) {
     const { data = [], isLoading } = useFetchGenre({ genre });
-    const { currentSound } = useAudioPlayerRef();
-    const { destroySound, setCurrentSound } = useUpdateAudioPlayer();
 
-    const panResponder = useMemo(() => 
-    PanResponder.create({
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-      onStartShouldSetPanResponder: (evt, gestureState) => false,
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        const { dx, dy } = gestureState
-        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
-      },
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-        const { dx, dy } = gestureState
-        return (dx > 2 || dx < -2 || dy > 2 || dy < -2)
-      },
-    })
-  , []);
-    
-    if (data.length <= 0) {
-        if (currentSound) {
-            currentSound.unloadAsync();
-            console.log('The current sound is:', currentSound);
-        }
-        setCurrentSound(null);
-    }
     return {
         data,
         hasData: data.length > 0,
         isLoading,
-        panResponder,
     }
 }
 

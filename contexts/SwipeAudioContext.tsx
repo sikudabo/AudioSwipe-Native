@@ -52,7 +52,7 @@ function AudioPlayerContextProvider({ children }: { children: React.ReactNode })
         });
 
         const { sound } = await Audio.Sound.createAsync({
-                uri: `${baseUrl}get-audio/${uri}`,
+                uri,
             }, 
             {
                 isLooping: true,

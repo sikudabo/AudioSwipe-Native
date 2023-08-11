@@ -7,7 +7,7 @@ import { Avatar, Button, Card, Checkbox, configureFonts, FAB, IconButton, MD3Col
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, ImageBackground, PanResponder, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
-import { colors } from './components';
+import { colors } from './components/colors';
 import { ArtistPage, HomePage } from './pages';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import * as SplashScreen from 'expo-splash-screen';
@@ -72,7 +72,7 @@ const theme = {
   rippleEffectEnabled: false,
 };
 
-export default function App() {
+export default function ExperimentalSwipePlayer() {
   return <App_DisplayLayer {...useDataLayer()} />
 }
 
@@ -422,6 +422,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     height: 900,
+    paddingBttom: 20,
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 75,

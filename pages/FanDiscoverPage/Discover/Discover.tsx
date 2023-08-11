@@ -6,6 +6,7 @@ import DiscoverSection from './Layout/DiscoverSection';
 import { colors } from '../../../components/colors';
 import { audiobookGenres, musicGenres, podcastGenres } from '../../../utils/constants';
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
+import ExperimentalSwipePlayer from '../../../ExperimentalSwipePlayer';
 
 type DiscoverProps = {
     navigation: any;
