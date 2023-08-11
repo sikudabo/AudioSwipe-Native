@@ -100,13 +100,11 @@ export default function DiscoverPlayerCard({
   , []);
 
     async function handlePause() {
-        console.log('Pause is being hit');
         await currentSound.pauseAsync();
         setIsPlaying(false);
     }
 
     async function handlePlay() {
-        console.log('Play is being hit');
         await currentSound.playAsync();
         setIsPlaying(true);
     }

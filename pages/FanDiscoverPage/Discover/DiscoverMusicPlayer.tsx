@@ -33,13 +33,21 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
 }
 
 function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
-    const { createNewAudioSource } = useUpdateAudioPlayer();
-    const { currentSound } = useAudioPlayerRef();
+    const { createNewAudioSource, destroySound, setCurrentSound } = useUpdateAudioPlayer();
+    const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const songListRef: SongDataType[] | any  = useRef()
     songListRef.current = data as SongDataType[];
-    const [currentSongIndex, setCurrentSongIndex] = useState(songListRef.current.length > 0 ? songListRef.current.length - 1 : 0);
+    const [currentSongIndex, setCurrentSongIndex] = useState(data.length > 0 ? data.length - 1 : 0);
     const currentSongIndexRef = useRef(currentSongIndex);
     const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef: any = useRef(undefined);
+    const childRefs: any = useMemo(
+        () =>
+          Array(songListRef.current.length)
+            .fill(0)
+            .map((i) => React.createRef()),
+        []
+    );
 
     const panResponder = useMemo(() => 
     PanResponder.create({
@@ -57,10 +65,14 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
   , []);
 
     useEffect(() => {
-        if (songListRef.current.length > 0) {
+        if (data.length > 0) {
             playSound();
         }
     }, [hasData]);
+
+    function handleStatusUpdate(status: any) {
+        return;
+    }
 
     function updateCurrentIndex(val: number) {
         setCurrentSongIndex(val);
@@ -70,19 +82,16 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     async function cardLeftScreen(direction: string, id: string, index: number) {
         await currentSound.unloadAsync();
         updateCurrentIndex(index);
-        console.log('The current index is:', currentSongIndex);
+        songListRef.current = songListRef.current.filter((song: SongDataType) => song?._id !== id);
 
-        if (songListRef.current.length > 1) {
-            songListRef.current = songListRef.current.filter((song: SongDataType) => song._id !== id);
-            await createNewAudioSource(`${baseUrl}api/get-audio/${songListRef[currentSongIndexRef.current]?.songMediaId}`);
-        } else if (songListRef.current.length === 0) {
-            await currentSound.unloadAsync();
+        if (songListRef.current.length > 0) {
+            createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
         }
     }
 
     async function playSound() {
 
-        if (!hasData || songListRef.current.length === 0) {
+        if (!hasData || currentSongIndexRef.current >= data.length) {
             return;
         }
 
@@ -90,7 +99,9 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             return;
         }
 
-        await createNewAudioSource(`${baseUrl}api/get-audio/${songListRef.current[currentSongIndexRef.current]?.songMediaId}`);
+        console.log('The current index is:', currentSongIndexRef.current);
+
+        await createNewAudioSource(`${baseUrl}api/get-audio/${data[currentSongIndexRef.current]?.songMediaId}`);
        
     }
     
@@ -101,7 +112,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             </View>
         );
     }
-    else if ((typeof songListRef.current !== 'undefined' && songListRef.current.length.length === 0) || !hasData || typeof songListRef.current === 'undefined' || songListRef.current.length === 0) {
+    else if ((typeof data !== 'undefined' && data.length === 0) || !hasData || typeof data === 'undefined' || data.length === 0) {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>
@@ -115,10 +126,13 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                 {songListRef.current.reverse().map((song: SongDataType, index: number) => (
                     <View key={song._id} style={styles.swipe}>
                         <ReactTinderCard 
-                            onCardLeftScreen={(direction) => cardLeftScreen(direction, song._id, index)}
+                            key={index}
+                            onCardLeftScreen={(direction) => cardLeftScreen(direction, song?._id, index)}
                             preventSwipe={['down', 'up']}
+                            ref={childRefs[index]}
                             swipeRequirementType="position"
                         >
+                            <View {...panResponder.panHandlers}>
                                 <DiscoverPlayerCard
                                     albumName={song.album}
                                     artistName={song.artistName}
@@ -126,6 +140,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                                     songMediaId={song.songMediaId}
                                     songName={song.name}
                                 />
+                            </View>
                         </ReactTinderCard>
                     </View>
                 ))}
@@ -140,6 +155,10 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             </View>
         )
     }
+}
+
+async function destroyPlayer(sound: any) {
+    sound.unloadAsync();
 }
 
 function useDataLayer({ genre }: DataLayerProps) {
