@@ -86,11 +86,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     const songListRef: SongDataType[] | any  = useRef()
     songListRef.current = data as SongDataType[];
     const [currentSongIndex, setCurrentSongIndex] = useState(hasData ? data.length - 1 : 0);
-    const [exampleSongIndex, setExampleSongIndex] = useState(db.length - 1);
-    const testSongIndexRef = useRef(exampleSongIndex);
-    const testSongListRef = useRef(db);
     const currentSongIndexRef = useRef(currentSongIndex);
-    const [isPlaying, setIsPlaying] = useState(false);
     const [audioClips, setAudioClips] = useState<SongDataType[]>([]);
     const audioRef: any = useRef(undefined);
     const childRefs: any = useMemo(
@@ -116,8 +112,8 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     })
   , []);
 
-    useEffect(() => {
-        if (audioClips.length > 0) {
+   useEffect(() => {
+        if (audioClips.length >= 1) {
             playSound();
         }
     }, [hasData]);
@@ -136,23 +132,22 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         fetchData();
     }, []);
 
-    function handleStatusUpdate(status: any) {
-        return;
-    }
-
     function updateCurrentIndex(val: number) {
         setCurrentSongIndex(val);
         currentSongIndexRef.current = val;
     }
 
     async function cardLeftScreen(direction: string, id: string, index: number) {
-        await currentSound.unloadAsync();
+        if (currentSound) {
+            await currentSound.unloadAsync();
+        }
         updateCurrentIndex(index);
         setAudioClips(audioClips.filter((song: SongDataType) => song._id !== id));
-        console.log('The updated audio clips are:', audioClips);
 
-        if (audioClips.length > 0) {
+        if (audioClips.length > 1) {
+            console.log('There is more than one sound');
             createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
+            return;
         }
     }
 
