@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     sectionWrapper: {
         alignItems: 'center',
         display: 'flex',
-        height: 400,
+        height: '95%',
         paddingBottom: 20,
         paddingTop: 200,
     },

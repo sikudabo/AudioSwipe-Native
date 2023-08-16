@@ -149,6 +149,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         await currentSound.unloadAsync();
         updateCurrentIndex(index);
         setAudioClips(audioClips.filter((song: SongDataType) => song._id !== id));
+        console.log('The updated audio clips are:', audioClips);
 
         if (audioClips.length > 0) {
             createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
