@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     ImageBackground,
     PanResponder,
@@ -6,22 +6,18 @@ import {
     View
 } from 'react-native';
 import {
-    Avatar,
     Card,
     FAB,
     Text
 } from 'react-native-paper';
-import { Audio } from 'expo-av';
 import { colors } from '../../../../components/colors';
 import { baseUrl } from '../../../../utils/constants';
-import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../../contexts/SwipeAudioContext';
-import { useRoute } from '@react-navigation/native';
+import { useAudioPlayerRef } from '../../../../contexts/SwipeAudioContext';
 
 type DiscoverPlayerCardProps = {
     albumName: string;
     artistName: string;
     coverSource: string;
-    songMediaId: string;
     songName: string;
 };
 
@@ -30,59 +26,10 @@ export default function DiscoverPlayerCard({
     albumName,
     artistName,
     coverSource,
-    songMediaId,
     songName,
 }: DiscoverPlayerCardProps) {
-    const { createNewAudioSource, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const [isPlaying, setIsPlaying] = useState(true);
-    const route = useRoute();
-    let audioRef: any = useRef();
-
-    /* useEffect(() => {
-        destroyPlayer();
-    }, [route.params]); */
-
-    /* useEffect(() => {
-        playSound();
-        setIsPlaying(true);
-    }, []); */
-
-    /* async function destroyPlayer() {
-        await audioRef.current.unloadAsync();
-        audioRef.current = undefined;
-    } */
-
-    /* async function handleCreate() {
-        await createNewAudioSource(songMediaId);
-    } */
-
-    function handleStatusUpdate(status: any) {
-        
-    }
-
-    /* async function playSound() {
-
-        await Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            playsInSilentModeIOS: true,
-            staysActiveInBackground: false,
-            shouldDuckAndroid: false,
-        });
-
-        const { sound } = await Audio.Sound.createAsync({
-                uri: `${baseUrl}api/get-audio/${songMediaId}`,
-            }, 
-            {
-                isLooping: true,
-                shouldPlay: true,
-            },
-            (status: any) => handleStatusUpdate(status),
-          );
-
-       setCurrentSound(sound);
-       currentSound.playAsync();
-    } */
 
     const panResponder = useMemo(() => 
     PanResponder.create({

@@ -30,7 +30,6 @@ function useDataLayer({ navigation }: FanLoginProps) {
     const { fan } = useUserData();
 
     useEffect(() => {
-        console.log('The fan is:', fan);
         if (!fan) {
             navigation.navigate('FanLogin');
         }

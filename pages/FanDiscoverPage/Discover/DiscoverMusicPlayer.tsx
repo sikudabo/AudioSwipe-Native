@@ -137,15 +137,29 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         currentSongIndexRef.current = val;
     }
 
-    async function cardLeftScreen(direction: string, id: string, index: number) {
+    async function cardLeftScreen(direction: string, id: string, index: number, songId: string) {
+        console.log('The direction is:', id);
         if (currentSound) {
             await currentSound.unloadAsync();
         }
         updateCurrentIndex(index);
         setAudioClips(audioClips.filter((song: SongDataType) => song._id !== id));
 
+        await axios({
+            data: {
+                direction,
+                songId: id,
+                fanId: _id,
+            },
+            method: 'POST',
+            url: `${baseUrl}api/swipe`,
+        }).then(response => {
+            console.log('The response was:', response.data);
+        }).catch(e => {
+            console.log('Error', e);
+        });
+
         if (audioClips.length > 1) {
-            console.log('There is more than one sound');
             createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
             return;
         }
@@ -187,7 +201,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                     <View key={song._id} style={styles.swipe}>
                         <ReactTinderCard 
                             key={index}
-                            onCardLeftScreen={(direction) => cardLeftScreen(direction, song?._id, index)}
+                            onCardLeftScreen={(direction) => cardLeftScreen(direction, song?._id, index, _id)}
                             preventSwipe={['down', 'up']}
                             ref={childRefs[index]}
                             swipeRequirementType="position"
@@ -198,7 +212,6 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
                                     artistName={song.artistName}
                                     coverSource={song.albumCover}
                                     key={index}
-                                    songMediaId={song.songMediaId}
                                     songName={song.name}
                                 />
                             </View>
