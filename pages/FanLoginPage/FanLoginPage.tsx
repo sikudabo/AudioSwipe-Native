@@ -14,7 +14,7 @@ export default function FanLoginPage({ navigation }: FanLoginProps) {
     return <FanLoginPage_DisplayLayer navigation={navigation} {...useDataLayer({ navigation })} />;
 }
 
-type FanLoginProps = {
+export type FanLoginProps = {
     navigation: any
 }
 
@@ -122,9 +122,10 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
     const [password, setPassword] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
     const { fan, setFan } = useUserData();
+    const { firstName } = fan;
 
     useEffect(() => {
-        if (fan) {
+        if (typeof firstName !== 'undefined') {
             navigation.navigate('Dashboard');
         }
     }, [fan]);

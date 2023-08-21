@@ -314,9 +314,10 @@ function useDataLayer({ navigation }: NavigationType) {
     const [name, setName] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
     const { fan } = useUserData();
+    const { firstName: fanFirstName } = fan;
 
     useEffect(() => {
-        if (fan) {
+        if (firstName) {
             navigation.navigate('Dashboard');
         }
     }, [fan]);

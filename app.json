@@ -29,7 +29,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"

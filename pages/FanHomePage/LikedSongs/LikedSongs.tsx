@@ -1,16 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MD3DarkTheme, Text } from 'react-native-paper';
 import { AudioSwipeText, colors } from '../../../components';
 import { useGetUser, useUserData } from '../../../hooks';
 import { FanType } from '../../../typings';
+import { FanLoginProps } from '../../FanLoginPage/FanLoginPage';
 
 type LikedSongsDisplayLayerProps = {
     fan: FanType;
 };
 
-export default function LikedSongs() {
-    return <LikedSongs_DisplayLayer {...useDataLayer()} />;
+export default function LikedSongs({ navigation }: FanLoginProps) {
+    return <LikedSongs_DisplayLayer {...useDataLayer({ navigation })} />;
 }
 
 
@@ -25,8 +26,15 @@ function LikedSongs_DisplayLayer({ fan }: LikedSongsDisplayLayerProps) {
     );
 }
 
-function useDataLayer() {
+function useDataLayer({ navigation }: FanLoginProps) {
     const { fan } = useUserData();
+
+    useEffect(() => {
+        console.log('The fan is:', fan);
+        if (!fan) {
+            navigation.navigate('FanLogin');
+        }
+    }, [fan]);
 
     return {
         fan,
