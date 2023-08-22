@@ -80,7 +80,7 @@ export default function DiscoverMusicPlayer({ route }: DiscoverMusicPlayerProps)
 
 function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: DiscoverMusicPlayerDisplayLayerProps) {
     const { fan } = useUserData();
-    const { _id } = fan;
+    const { gender, _id } = fan;
     const { createNewAudioSource, destroySound, setCurrentSound } = useUpdateAudioPlayer();
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const songListRef: SongDataType[] | any  = useRef()
@@ -148,6 +148,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         await axios({
             data: {
                 direction,
+                gender,
                 songId: id,
                 fanId: _id,
             },
