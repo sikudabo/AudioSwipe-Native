@@ -13,19 +13,20 @@ import { SongDataType } from '../../../typings';
 type LikedSongsDisplayLayerProps = {
     fan: FanType;
     fanLikedSongs: SongDataType[];
+    navigation: any;
 };
 
 export default function LikedSongs({ navigation }: FanLoginProps) {
-    return <LikedSongs_DisplayLayer {...useDataLayer({ navigation })} />;
+    return <LikedSongs_DisplayLayer navigation={navigation} {...useDataLayer({ navigation })} />;
 }
 
 
-function LikedSongs_DisplayLayer({ fan, fanLikedSongs }: LikedSongsDisplayLayerProps) {
+function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsDisplayLayerProps) {
 
     const { firstName } = fan;
 
-    function handlePress() {
-        console.log('Song card has been pressed');
+    function handlePress({ album, albumCover, artistName, name, songMediaId }: any) {
+        navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, coverSource: albumCover, songName: name });
     }
 
     return (
@@ -50,7 +51,7 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs }: LikedSongsDisplayLayerP
                                         album={song.album}
                                         albumCover={song.albumCover}
                                         artistName={song.artistName}
-                                        handlePress={handlePress}
+                                        handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistName: song.artistName, songMediaId: song.songMediaId  })}
                                         key={index}
                                         name={song.name}
                                         songId={song._id}

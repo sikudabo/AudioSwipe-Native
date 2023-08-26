@@ -14,7 +14,7 @@ import { colors } from '../../../../components/colors';
 import { baseUrl } from '../../../../utils/constants';
 import { useAudioPlayerRef } from '../../../../contexts/SwipeAudioContext';
 
-type DiscoverPlayerCardProps = {
+export type DiscoverPlayerCardProps = {
     albumName: string;
     artistName: string;
     coverSource: string;
