@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { useQueryClient } from '@tanstack/react-query';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,6 +14,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function AudioSwipeNavigationTabs() {
     const { currentSound } = useAudioPlayerRef();
     const { setCurrentSound } = useUpdateAudioPlayer();
+    const client = useQueryClient();
     
     return (
         <NavigationContainer independent>
@@ -31,6 +33,7 @@ export default function AudioSwipeNavigationTabs() {
                             if (currentSound) {
                                 await currentSound.unloadAsync();
                             }
+                            client.invalidateQueries(['fetchFanLikedSongs']);
                             setCurrentSound(null);
                             navigation.navigate('Songs');
                         },

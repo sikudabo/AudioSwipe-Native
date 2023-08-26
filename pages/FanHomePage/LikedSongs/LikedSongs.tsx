@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { MD3DarkTheme, Text } from 'react-native-paper';
 import { AudioSwipeText } from '../../../components';
@@ -41,7 +42,7 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
                         weight={900}
                     />
                 </View>
-                {fanLikedSongs.length === 6 ? (
+                {fanLikedSongs.length ? (
                     <SafeAreaView style={styles.audioSectionContainer}>
                         <ScrollView>
                             {fanLikedSongs.map((song, index) => (
