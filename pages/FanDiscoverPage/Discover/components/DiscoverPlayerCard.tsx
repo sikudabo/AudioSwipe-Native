@@ -18,6 +18,7 @@ export type DiscoverPlayerCardProps = {
     albumName: string;
     artistName: string;
     coverSource: string;
+    isLikedSong?: boolean;
     songName: string;
 };
 
@@ -26,8 +27,91 @@ export default function DiscoverPlayerCard({
     albumName,
     artistName,
     coverSource,
+    isLikedSong = false,
     songName,
 }: DiscoverPlayerCardProps) {
+    const styles = StyleSheet.create({
+        actionsContainer: {
+            alignContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            width: '100%',
+        },
+        card: {
+            backgroundColor: colors.white,
+            height: 550,
+            paddingBottom: 100,
+            paddingLeft: 0,
+            paddingRight: 0,
+            width: 350,
+        },
+        container: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            height: 900,
+            opacity: 1,
+            paddingBottom: 20,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 50,
+            width: '100%',
+        },
+        altContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            height: 900,
+            opacity: 1,
+            paddingBottom: 20,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 50,
+            width: '100%',
+        },
+        contentSection: {
+            alignSelf: 'center',
+            paddingBottom: 20,
+            paddingTop: 20,
+        },
+        img: {
+            borderRadius: 5,
+            height: '100%',
+            opacity: 1,
+            width: '100%',
+        },
+        imgContainer: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 300,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 20,
+            width: '100%',
+        },
+        playBtn: {
+            alignSelf: 'center',
+            backgroundColor: isLikedSong ? colors.primary : colors.hotPink,
+            borderRadius: 50,
+            color: colors.white,
+            marginBottom: 10,
+        },
+        swipe: {
+            paddingTop: 75,
+            position: 'absolute',
+        },
+        text: {
+            color: isLikedSong ? colors.primary : colors.hotPink,
+            fontFamily: 'VarelaRound_400Regular',
+            fontWeight: '900',
+        },
+        textEmpty: {
+            color: colors.white,
+            fontFamily: 'VarelaRound_400Regular',
+            fontWeight: '900',
+        },
+    });
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const [isPlaying, setIsPlaying] = useState(true);
 
@@ -95,86 +179,3 @@ export default function DiscoverPlayerCard({
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    actionsContainer: {
-        alignContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        width: '100%',
-    },
-    card: {
-        backgroundColor: colors.white,
-        height: 550,
-        paddingBottom: 100,
-        paddingLeft: 0,
-        paddingRight: 0,
-        width: 350,
-    },
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        height: 900,
-        opacity: 1,
-        paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 50,
-        width: '100%',
-    },
-    altContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        height: 900,
-        opacity: 1,
-        paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 50,
-        width: '100%',
-    },
-    contentSection: {
-        alignSelf: 'center',
-        paddingBottom: 20,
-        paddingTop: 20,
-    },
-    img: {
-        borderRadius: 5,
-        height: '100%',
-        opacity: 1,
-        width: '100%',
-    },
-    imgContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 300,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 20,
-        width: '100%',
-    },
-    playBtn: {
-        alignSelf: 'center',
-        backgroundColor: colors.hotPink,
-        borderRadius: 50,
-        color: colors.white,
-        marginBottom: 10,
-    },
-    swipe: {
-        paddingTop: 75,
-        position: 'absolute',
-    },
-    text: {
-        color: colors.hotPink,
-        fontFamily: 'VarelaRound_400Regular',
-        fontWeight: '900',
-    },
-    textEmpty: {
-        color: colors.white,
-        fontFamily: 'VarelaRound_400Regular',
-        fontWeight: '900',
-    },
-});
