@@ -37,12 +37,14 @@ export default function LikedSongCard({
                <View style={styles.textRowContainer}>
                 <AudioSwipeText 
                         customStyle={styles.textStyle}
+                        onPress={handlePress}
                         text={artistName}
                         size={20}
                         weight={500}
                     />
                     <AudioSwipeText
                         customStyle={styles.textStyleAlbum}
+                        onPress={handlePress}
                         text={name}
                         size={15}
                         weight={200}
