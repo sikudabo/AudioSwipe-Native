@@ -30,30 +30,35 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs }: LikedSongsDisplayLayerP
 
     return (
         <View style={styles.container}>
-            <AudioSwipeText 
-                size={20}
-                text={`Audio ${firstName} likes`}
-                weight={700}
-            />
-            <View>
-                {fanLikedSongs.length ? (
-                    <View style={styles.audioSectionContainer}>
-                        {fanLikedSongs.map((song, index) => (
-                            <View 
-                                style={styles.likedSongCardContainer}
-                            >
-                                <LikedSongCard 
-                                    album={song.album}
-                                    albumCover={song.albumCover}
-                                    artistName={song.artistName}
-                                    handlePress={handlePress}
-                                    key={index}
-                                    name={song.name}
-                                    songId={song._id}
-                                />
-                            </View>
-                        ))}
-                    </View>
+            <View style={styles.bottomPadding}>
+                <View style={styles.topTextContainer}>
+                    <AudioSwipeText 
+                        customStyle={styles.topText}
+                        size={25}
+                        text='Audio You Like'
+                        weight={900}
+                    />
+                </View>
+                {fanLikedSongs.length === 6 ? (
+                    <SafeAreaView style={styles.audioSectionContainer}>
+                        <ScrollView>
+                            {fanLikedSongs.map((song, index) => (
+                                <View 
+                                    style={styles.likedSongCardContainer}
+                                >
+                                    <LikedSongCard 
+                                        album={song.album}
+                                        albumCover={song.albumCover}
+                                        artistName={song.artistName}
+                                        handlePress={handlePress}
+                                        key={index}
+                                        name={song.name}
+                                        songId={song._id}
+                                    />
+                                </View>
+                            ))}
+                        </ScrollView>
+                    </SafeAreaView>
                 ): (
                     <View>
                         <AudioSwipeText 
@@ -89,8 +94,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         display: 'flex',
         height: '95%',
-        paddingBottom: 20,
-        paddingTop: 100,
+        paddingBottom: 100,
+        paddingTop: 200,
+        overflow: 'scroll',
+    },
+    bottomPadding: {
+        paddingBottom: 30,
     },
     container: {
         alignItems: 'center',
@@ -103,7 +112,10 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     topText: {
-        color: colors.white,
-        fontWeight: '900',
+        fontFamily: 'VarelaRound_400Regular',
+        paddingBottom: 20,
+    },
+    topTextContainer: {
+        alignItems: 'center',
     },
 });

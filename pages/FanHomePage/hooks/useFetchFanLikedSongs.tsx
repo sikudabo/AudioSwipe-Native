@@ -26,6 +26,7 @@ export default function useFetchFanLikedSongs() {
             }
 
             setIsLoading(false);
+            console.log('The fan liked songs are:', fanLikedSongs.length);
             return fanLikedSongs;
         }).catch(e => {
             const { message } = e.data.message;
@@ -38,7 +39,8 @@ export default function useFetchFanLikedSongs() {
         setIsLoading(false);
         return likedSongs;
     }, {
-        staleTime: 3000,
+        staleTime: 0,
+        refetchInterval: 0,
     },
   );
 }
