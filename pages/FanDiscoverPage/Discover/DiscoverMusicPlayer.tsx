@@ -138,7 +138,6 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
     }
 
     async function cardLeftScreen(direction: string, id: string, index: number, songId: string) {
-        console.log('The direction is:', id);
         if (currentSound) {
             await currentSound.unloadAsync();
         }
@@ -155,7 +154,7 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
             method: 'POST',
             url: `${baseUrl}api/swipe`,
         }).then(response => {
-            console.log('The response was:', response.data);
+            
         }).catch(e => {
             console.log('Error', e);
         });
