@@ -32,6 +32,7 @@ export default function AudioSwipeNavigationTabs() {
                                 await currentSound.unloadAsync();
                             }
                             setCurrentSound(null);
+                            navigation.navigate('Songs');
                         },
                     })}
                     options={{
