@@ -140,6 +140,8 @@ export default function DiscoverPlayerCard({
         setIsPlaying(true);
     }
 
+    console.log('The song name is:', songName);
+
 
     return (
         <View style={styles.container}>
