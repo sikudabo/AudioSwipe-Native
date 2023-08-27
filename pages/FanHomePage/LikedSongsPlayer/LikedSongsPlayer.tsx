@@ -40,6 +40,7 @@ export default function LikedSongsPlayer({ navigation, route }: LikedSongsPlayer
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.primary,
+        height: '100%',
         paddingTop: 30,
     },
 });

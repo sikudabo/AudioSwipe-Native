@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { FanDiscoverPageStack, FanHomePageStack } from '../pages';
+import { FanDiscoverPageStack, FanHomePageStack, FanSettingsPage } from '../pages';
 import { colors } from './colors';
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../contexts/SwipeAudioContext';
 
@@ -60,6 +60,14 @@ export default function AudioSwipeNavigationTabs() {
                         },
                     })}
                     name="Discover" 
+                />
+                <Tab.Screen 
+                    component={FanSettingsPage}
+                    name="SettingsPage"
+                    options={{
+                        tabBarLabel: 'Settings',
+                        tabBarIcon: () => <Icon color={colors.white} name="cog" size={26} />,
+                    }}
                 />
             </Tab.Navigator>
         </NavigationContainer>
