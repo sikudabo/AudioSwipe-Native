@@ -27,7 +27,6 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
     const { firstName } = fan;
 
     function handlePress({ album, albumCover, artistName, name, songMediaId }: any) {
-        console.log('Handle press media id is:', songMediaId);
         navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, coverSource: albumCover, songMediaId, songName: name });
     }
 

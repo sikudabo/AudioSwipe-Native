@@ -1,16 +1,29 @@
 import React from 'react';
 import { View, StyleSheet} from 'react-native';
 import { Text } from 'react-native-paper';
-import { AudioSwipeText } from '../../components';
+import { AudioSwipeButton, AudioSwipeText } from '../../components';
 import { colors } from '../../components/colors';
+import { useUserData } from '../../hooks';
 
-export default function FanSettingsPage() {
-   return <FanSettingsPage_DisplayLayer {...useDataLayer} />;
+type FanSettingsPageProps = {
+    navigation: any;
+};
+
+type FanSettingsPageDisplayLayerProps = {
+    handleLogout: () => void;
+}
+
+type DataLayerProps = FanSettingsPageProps;
+
+export default function FanSettingsPage({ navigation }: FanSettingsPageProps) {
+   return <FanSettingsPage_DisplayLayer {...useDataLayer({ navigation })} />;
 }
 
 
 
-function FanSettingsPage_DisplayLayer() {
+function FanSettingsPage_DisplayLayer({
+    handleLogout,
+}: FanSettingsPageDisplayLayerProps) {
     return (
         <View style={styles.container}>
             <View style={styles.settingsHeaderContainer}>
@@ -21,18 +34,43 @@ function FanSettingsPage_DisplayLayer() {
                     weight={900}
                 />
             </View>
+            <View 
+                style={styles.buttonsContainer}
+            >
+                <AudioSwipeButton 
+                    backgroundColor={colors.primary}
+                    color={colors.white}
+                    onPress={handleLogout}
+                    text="Logout"
+                    fullWidth
+                />
+            </View>
         </View>
     );
 }
 
 
-function useDataLayer() {
-    return {
+function useDataLayer({ navigation }: DataLayerProps) {
 
+    const { clearFan, fan, setFan } = useUserData();
+
+    async function handleLogout() {
+        setFan({} as any);
+        console.log('The fan is:', fan);
+        const newNavigation = navigation.getState();
+        console.log('The new navigation is:', newNavigation);
+    }
+    return {
+        handleLogout,
     };
 }
 
 const styles = StyleSheet.create({
+    buttonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        paddingTop: 20,
+    },
     container: {
         backgroundColor: colors.white,
         height: 1000,
