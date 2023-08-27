@@ -3,6 +3,7 @@ export type FanType = {
     email: string;
     firstName: string;
     gender: string;
+    _id: string;
     lastName: string;
     likedSongs?: Array<{
         songId: string;

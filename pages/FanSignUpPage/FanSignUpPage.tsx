@@ -317,7 +317,7 @@ function useDataLayer({ navigation }: NavigationType) {
     const { firstName: fanFirstName } = fan;
 
     useEffect(() => {
-        if (firstName) {
+        if (fanFirstName) {
             navigation.navigate('Dashboard');
         }
     }, [fan]);

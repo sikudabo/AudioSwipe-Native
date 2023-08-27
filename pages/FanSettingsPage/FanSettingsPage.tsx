@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationAction  } from '@react-navigation/native';
 import { View, StyleSheet} from 'react-native';
 import { Text } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText } from '../../components';
@@ -56,9 +57,9 @@ function useDataLayer({ navigation }: DataLayerProps) {
 
     async function handleLogout() {
         setFan({} as any);
-        console.log('The fan is:', fan);
-        const newNavigation = navigation.getState();
-        console.log('The new navigation is:', newNavigation);
+        const currentState = navigation.getState();
+        console.log('The navigation state is:', currentState);
+        navigation.navigate('Home');
     }
     return {
         handleLogout,

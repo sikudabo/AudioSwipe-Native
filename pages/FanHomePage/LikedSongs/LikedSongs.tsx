@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { MD3DarkTheme, Text } from 'react-native-paper';
@@ -10,6 +11,7 @@ import { FanLoginProps } from '../../FanLoginPage/FanLoginPage';
 import useFetchFanLikedSongs from '../hooks/useFetchFanLikedSongs';
 import LikedSongCard from './components/LikedSongCard';
 import { SongDataType } from '../../../typings';
+import { baseUrl } from '../../../utils/constants';
 
 type LikedSongsDisplayLayerProps = {
     fan: FanType;
@@ -25,10 +27,27 @@ export default function LikedSongs({ navigation }: FanLoginProps) {
 function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsDisplayLayerProps) {
 
     const { firstName } = fan;
+    const [likedSongs, setLikedSongs] = useState<SongDataType[]>([]);
+    const { _id: fanId } = fan;
 
     function handlePress({ album, albumCover, artistName, name, songMediaId }: any) {
         navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, coverSource: albumCover, songMediaId, songName: name });
     }
+
+    useEffect(() => {
+        async function fetchFanLikedSongs() {
+            return await axios({
+                method: 'GET',
+                url: `${baseUrl}api/get-fan-liked-songs/${fanId}`,
+            }).then(res => {
+                const { fanLikedSongs } = res.data;
+                setLikedSongs(fanLikedSongs);
+                return fanLikedSongs;
+            });
+        }
+
+        fetchFanLikedSongs();
+    }, [fanLikedSongs]);
 
     return (
         <View style={styles.container}>
@@ -41,10 +60,10 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
                         weight={900}
                     />
                 </View>
-                {fanLikedSongs.length ? (
+                {likedSongs.length ? (
                     <SafeAreaView style={styles.audioSectionContainer}>
                         <ScrollView>
-                            {fanLikedSongs.map((song, index) => (
+                            {likedSongs.map((song, index) => (
                                 <View 
                                     style={styles.likedSongCardContainer}
                                 >
@@ -88,6 +107,7 @@ function useDataLayer({ navigation }: FanLoginProps) {
     return {
         fan,
         fanLikedSongs,
+        isLoading,
     };
 }
 
