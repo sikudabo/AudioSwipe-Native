@@ -11,7 +11,7 @@ type LikedSongsPlayerProps = {
 };
 
 export default function LikedSongsPlayer({ navigation, route }: LikedSongsPlayerProps) {
-    const { album, albumName, artistName, coverSource, songName, songMediaId } = route.params;
+    const { album, albumName, artistName, artistId, coverSource, songName, songMediaId } = route.params;
     const { createNewAudioSource } = useUpdateAudioPlayer();
     const { currentSound } = useAudioPlayerRef();
 
@@ -26,9 +26,11 @@ export default function LikedSongsPlayer({ navigation, route }: LikedSongsPlayer
     return (
         <View style={styles.container}>
             <LikedSongsPlayerCard 
+                artistId={artistId}
                 albumName={albumName}
                 artistName={artistName}
                 coverSource={coverSource}
+                navigation={navigation}
                 songName={songName}
             />
         </View>

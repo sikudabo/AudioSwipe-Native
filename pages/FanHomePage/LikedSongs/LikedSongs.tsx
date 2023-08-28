@@ -29,8 +29,8 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
     const [likedSongs, setLikedSongs] = useState<SongDataType[]>([]);
     const { _id: fanId } = fan;
 
-    function handlePress({ album, albumCover, artistName, name, songMediaId }: any) {
-        navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, coverSource: albumCover, songMediaId, songName: name });
+    function handlePress({ album, albumCover, artistId, artistName, name, songMediaId }: any) {
+        navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, artistId, coverSource: albumCover, songMediaId, songName: name });
     }
 
     useEffect(() => {
@@ -70,7 +70,7 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
                                         album={song.album}
                                         albumCover={song.albumCover}
                                         artistName={song.artistName}
-                                        handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistName: song.artistName, songMediaId: song.songMediaId, name: song.name })}
+                                        handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistId: song.artistId, artistName: song.artistName, songMediaId: song.songMediaId, name: song.name  })}
                                         key={index}
                                         name={song.name}
                                         songId={song._id}

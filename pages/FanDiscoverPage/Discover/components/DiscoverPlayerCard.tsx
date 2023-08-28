@@ -13,12 +13,17 @@ import {
 import { colors } from '../../../../components/colors';
 import { baseUrl } from '../../../../utils/constants';
 import { useAudioPlayerRef } from '../../../../contexts/SwipeAudioContext';
+import { AudioSwipeText } from '../../../../components';
 
 export type DiscoverPlayerCardProps = {
     albumName: string;
     artistName: string;
+    artistId?: string;
     coverSource: string;
+    handlePress?: () => void;
+    hasViewProfile?: boolean;
     isLikedSong?: boolean;
+    navigation?: any;
     songName: string;
 };
 
@@ -27,6 +32,8 @@ export default function DiscoverPlayerCard({
     albumName,
     artistName,
     coverSource,
+    handlePress = () => {},
+    hasViewProfile = false,
     isLikedSong = false,
     songName
 }: DiscoverPlayerCardProps) {
@@ -111,6 +118,10 @@ export default function DiscoverPlayerCard({
             fontFamily: 'VarelaRound_400Regular',
             fontWeight: '900',
         },
+        viewProfileBtnContainer: {
+            alignItems: 'center',
+            display: 'flex',
+        },
     });
     const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
     const [isPlaying, setIsPlaying] = useState(true);
@@ -168,6 +179,17 @@ export default function DiscoverPlayerCard({
                         {songName}
                       </Text>
                     </Card.Content>
+                    {hasViewProfile && (
+                        <View style={styles.viewProfileBtnContainer}>
+                            <AudioSwipeText 
+                                color={colors.primary}
+                                onPress={handlePress}
+                                size={20}
+                                text="View profile"
+                                weight={900}
+                            />
+                        </View>
+                    )}
                     <Card.Actions>
                         <View style={styles.actionsContainer}>
                             <FAB icon={isPlaying ? "pause-circle" : "play-circle"} color={colors.white} onTouchStart={isPlaying ? handlePause : handlePlay} size="large" style={styles.playBtn} />
