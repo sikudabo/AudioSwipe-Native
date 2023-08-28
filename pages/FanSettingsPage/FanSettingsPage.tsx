@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationAction  } from '@react-navigation/native';
 import { View, StyleSheet} from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText } from '../../components';
 import { colors } from '../../components/colors';
 import { useUserData } from '../../hooks';
@@ -54,6 +54,12 @@ function FanSettingsPage_DisplayLayer({
 function useDataLayer({ navigation }: DataLayerProps) {
 
     const { clearFan, fan, setFan } = useUserData();
+    const { email, firstName, lastName, password, phoneNumber } = fan;
+    const [newEmail, setNewEmail] = useState(email);
+    const [newFirstName, setNewFirstName] = useState(firstName);
+    const [newLastName, setNewLastName] = useState(lastName);
+    const [newPassword, setNewPassword] = useState(password);
+    const [newPhoneoNumber, setNewPhoneNumber] = useState(phoneNumber);
 
     async function handleLogout() {
         setFan({} as any);
@@ -70,6 +76,8 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         display: 'flex',
         flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 10,
         paddingTop: 20,
     },
     container: {

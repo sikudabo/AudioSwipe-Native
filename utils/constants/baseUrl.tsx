@@ -1,1 +1,1 @@
-export const baseUrl = 'https://www.audioswipe.io/';
+export const baseUrl = 'http://10.162.30.46:2000/';
