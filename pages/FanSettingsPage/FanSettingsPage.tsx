@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationAction  } from '@react-navigation/native';
 import { View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import { Avatar, Surface, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Avatar, Surface, Text, TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText, FormContainer } from '../../components';
 import { colors } from '../../components/colors';
 import { useShowDialog, useShowLoader, useUserData } from '../../hooks';
-import { postBinaryData } from '../../utils/api';
+import { deleteNonBinaryData, postBinaryData, postNonBinaryData } from '../../utils/api';
 import { baseUrl } from '../../utils/constants';
+import { checkValidEmail } from '../../utils/helpers';
 
 type FanSettingsPageProps = {
     navigation: any;
@@ -15,11 +16,14 @@ type FanSettingsPageProps = {
 
 type FanSettingsPageDisplayLayerProps = {
     avatar: string;
+    handleDeleteProfile: () => void;
     handleEmailChange: (val: string) => void;
     handleFirstNameChange: (val: string) => void;
     handleLastNameChange: (val: string) => void;
     handlePasswordChange: (val: string) => void;
     handleLogout: () => void;
+    handleSubmit: () => void;
+    isLoading: boolean;
     newEmail: string;
     newFirstName: string;
     newLastName: string;
@@ -37,17 +41,28 @@ export default function FanSettingsPage({ navigation }: FanSettingsPageProps) {
 
 function FanSettingsPage_DisplayLayer({
     avatar,
+    handleDeleteProfile,
     handleEmailChange,
     handleFirstNameChange,
     handleLastNameChange,
     handlePasswordChange,
     handleLogout,
+    handleSubmit,
+    isLoading,
     newEmail,
     newFirstName,
     newLastName,
     newPassword,
     takePicture
 }: FanSettingsPageDisplayLayerProps) {
+
+    if (isLoading) {
+        return (
+            <View style={styles.loaderContainer}>
+                <ActivityIndicator animating={isLoading} color={colors.hotPink} />
+            </View>
+        );
+    }
     return (
         <View style={styles.container}>
             <View style={styles.settingsHeaderContainer}>
@@ -109,17 +124,6 @@ function FanSettingsPage_DisplayLayer({
                         placeholder="Password"
                         secureTextEntry 
                     />
-                    <View 
-                        style={styles.buttonsContainer}
-                    >
-                        <AudioSwipeButton 
-                            backgroundColor={colors.primary}
-                            color={colors.white}
-                            onPress={handleLogout}
-                            text="Logout"
-                            fullWidth
-                        />
-                    </View>
                     <View style={styles.buttonsContainer}>
                         <AudioSwipeButton 
                             backgroundColor={colors.primary}
@@ -134,12 +138,24 @@ function FanSettingsPage_DisplayLayer({
                         style={styles.buttonsContainer}
                     >
                         <AudioSwipeButton 
-                            backgroundColor={colors.error}
+                            backgroundColor={colors.primary}
                             color={colors.white}
-                            text="Delete"
+                            onPress={handleSubmit}
+                            text="Update"
                             fullWidth
                         />
-                    </View> 
+                    </View>
+                    <View 
+                        style={styles.buttonsContainer}
+                    >
+                        <AudioSwipeButton 
+                            backgroundColor={colors.primary}
+                            color={colors.white}
+                            onPress={handleLogout}
+                            text="Logout"
+                            fullWidth
+                        />
+                    </View>
                     <View 
                         style={styles.buttonsContainer}
                     >
@@ -147,6 +163,17 @@ function FanSettingsPage_DisplayLayer({
                             backgroundColor={colors.hotPink}
                             color={colors.white}
                             text="Contact"
+                            fullWidth
+                        />
+                    </View> 
+                    <View 
+                        style={styles.buttonsContainer}
+                    >
+                        <AudioSwipeButton 
+                            backgroundColor={colors.error}
+                            color={colors.white}
+                            onPress={handleDeleteProfile}
+                            text="Delete Account"
                             fullWidth
                         />
                     </View> 
@@ -169,10 +196,43 @@ function useDataLayer({ navigation }: DataLayerProps) {
     const [newPhoneoNumber, setNewPhoneNumber] = useState(phoneNumber);
     const [name, setName] = useState('');
     const [uri, setUri] = useState<Blob | null>(null);
-    const { setIsLoading } = useShowLoader();
+    const { isLoading, setIsLoading } = useShowLoader();
+
+    async function handleDeleteProfile() {
+        setIsLoading(true);
+
+        await deleteNonBinaryData({
+            data: {
+                _id,
+                avatarId: avatar,
+            },
+            url: 'api/delete-fan',
+        }).then(response => {
+            const { isSuccess, message } = response;
+
+            if (isSuccess) {
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                setFan({} as any);
+                setIsLoading(false);
+                return;
+            }
+
+            setIsLoading(false);
+            setDialogMessage('There was an error deleting your account. Please try again!');
+            handleDialogMessageChange(true);
+            return;
+        }).catch(e => {
+            setIsLoading(false);
+            console.log('There was an error:', e.message);
+            setDialogMessage('There was an error deleting your account. Please try again!');
+            handleDialogMessageChange(true);
+            return;
+        });
+    }
 
     function handleEmailChange(val: string) {
-        setNewEmail(val);
+        setNewEmail(val.trim());
     }
 
     function handleFirstNameChange(val: string) {
@@ -180,11 +240,66 @@ function useDataLayer({ navigation }: DataLayerProps) {
     }
 
     function handleLastNameChange(val: string) {
-        setNewLastName(val);
+        setNewLastName(val.trim());
     }
 
     function handlePasswordChange(val: string) {
-        setNewPassword(newPassword);
+        setNewPassword(val);
+    }
+
+    async function handleSubmit() {
+        setIsLoading(true);
+        if (!newFirstName.trim()) {
+            setDialogMessage('You must enter a first name!');
+            handleDialogMessageChange(true);
+            setIsLoading(false);
+            return;
+        } else if (!newLastName.trim()) {
+            setDialogMessage('You must enter a last name!');
+            handleDialogMessageChange(true);
+            setIsLoading(false);
+            return;
+        } else if (!checkValidEmail(newEmail.trim())) {
+            setDialogMessage('You must enter a valid email!');
+            handleDialogMessageChange(true);
+            setIsLoading(false);
+            return;
+        } else if (newPassword.length < 6) {
+            setDialogMessage('Password must be at least 6 characters long!');
+            handleDialogMessageChange(true);
+            setIsLoading(false);
+            return;
+        }
+
+        await postNonBinaryData({
+            data: {
+                firstName: newFirstName,
+                lastName: newLastName,
+                email: newEmail,
+                _id,
+                password: newPassword,
+            },
+            url: `api/update-fan`
+        }).then(response => {
+            const { isSuccess, message, updatedFan } = response;
+
+            if (!isSuccess) {
+                setDialogMessage('There was an error updating your settings. Please try again!');
+                handleDialogMessageChange(true);
+                setIsLoading(false);
+                return;
+            }
+
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            setFan(updatedFan);
+            setIsLoading(false);
+        }).catch(e => {
+            console.log('Error updating fan:', e.message);
+            setDialogMessage('There was an error updating your settings. Please try again!');
+            handleDialogMessageChange(true);
+            setIsLoading(false);
+        });
     }
 
     async function takePicture() {
@@ -232,11 +347,14 @@ function useDataLayer({ navigation }: DataLayerProps) {
     }
     return {
         avatar,
+        handleDeleteProfile,
         handleEmailChange,
         handleFirstNameChange,
         handleLastNameChange,
         handlePasswordChange,
         handleLogout,
+        handleSubmit,
+        isLoading,
         newEmail,
         newFirstName,
         newLastName,
@@ -274,6 +392,12 @@ const styles = StyleSheet.create({
         height: '95%',
         paddingBottom: 20,
         overflow: 'scroll',
+    },
+    loaderContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: 200,
     },
     settingsHeaderContainer: {
         alignItems: 'center',

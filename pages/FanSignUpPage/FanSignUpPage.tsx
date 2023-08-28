@@ -313,7 +313,7 @@ function useDataLayer({ navigation }: NavigationType) {
     const [fileType, setFileType] = useState(null);
     const [name, setName] = useState('');
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
-    const { fan } = useUserData();
+    const { fan, setFan } = useUserData();
     const { firstName: fanFirstName } = fan;
 
     useEffect(() => {
@@ -437,12 +437,13 @@ function useDataLayer({ navigation }: NavigationType) {
             data: fd,
             url: 'api/save-fan'
         }).then(response => {
-            const { message, success } = response;
+            const { message, success, user } = response;
             if (!success) {
                 setDialogMessage(message);
                 handleDialogMessageChange(true);
                 return;
             }
+            setFan(user);
             setDialogMessage("Welcome to AudioSwipe!");
             handleDialogMessageChange(true);
             return;
