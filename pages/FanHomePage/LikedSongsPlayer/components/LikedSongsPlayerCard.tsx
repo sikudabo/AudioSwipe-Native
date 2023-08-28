@@ -3,8 +3,7 @@ import DiscoverPlayerCard, { DiscoverPlayerCardProps } from '../../../FanDiscove
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../../contexts/SwipeAudioContext';
 
 export default function LikedSongsPlayerCard({ albumName, artistName, artistId, coverSource, navigation, songName }: DiscoverPlayerCardProps) {
-    const { setCurrentSound } = useUpdateAudioPlayer();
-    const { currentSound, swipeAudioPlayerRef } = useAudioPlayerRef();
+    const { currentSound } = useAudioPlayerRef();
     async function handlePress() {
         await currentSound.unloadAsync();
         navigation.navigate('ArtistProfilePage', { artistId });

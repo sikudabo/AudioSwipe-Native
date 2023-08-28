@@ -4,6 +4,7 @@ import { Surface } from 'react-native-paper';
 import { AudioSwipeText } from '../../../../components';
 import { colors } from '../../../../components/colors';
 import { baseUrl } from '../../../../utils/constants';
+import truncate from 'lodash/truncate';
 
 type LikedSongCardProps = {
     album: string;
@@ -38,14 +39,14 @@ export default function LikedSongCard({
                 <AudioSwipeText 
                         customStyle={styles.textStyle}
                         onPress={handlePress}
-                        text={artistName}
+                        text={truncate(artistName, { length: 22})}
                         size={20}
                         weight={500}
                     />
                     <AudioSwipeText
                         customStyle={styles.textStyleAlbum}
                         onPress={handlePress}
-                        text={name}
+                        text={truncate(name, { length: 22 })}
                         size={15}
                         weight={200}
                     />
@@ -76,8 +77,10 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: colors.primary,
+        maxWidth: '100%',
     },
     textStyleAlbum: {
         color: colors.primary,
+        maxWidth: '100%',
     },
 });

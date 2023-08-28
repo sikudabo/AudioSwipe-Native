@@ -8,12 +8,14 @@ import { useShowLoader, useUserData } from '../../../hooks';
 import { AudioSwipeButton, AudioSwipeText  } from '../../../components/';
 import { colors } from '../../../components/colors';
 import { SongDataType } from '../../../typings';
+import LikedSongCard from '../LikedSongs/components/LikedSongCard';
 
 type ArtistProfilePageProps = {
+    navigation: any;
     route: any;
 }
 
-export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
+export default function ArtistProfilePage({ navigation, route }: ArtistProfilePageProps) {
     const { artistId } = route.params;
     const [currentArtist, setCurrentArtist] = useState<any>({});
     const [currentArtistSongs, setCurrentArtistSongs] = useState<SongDataType[]>([]);
@@ -23,6 +25,10 @@ export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
     const { subscribedArtists } = fan;
     const hasSubscription = subscribedArtists.map((artist: any) => artist.artistId === artistId);
     const isSubscribed = hasSubscription.length > 0;
+
+    function handlePress({ album, albumCover, artistId, artistName, name, songMediaId, song }: any) {
+        navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, artistId, coverSource: albumCover, songMediaId, songName: name });
+    }
     
     useEffect(() => {
         async function fetchArtist() {
@@ -33,7 +39,7 @@ export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
             }).then(response => {
                 setIsLoading(false);
                 const { artist, artistSongs, isSuccess } = response.data;
-                console.log('The artist songs are:', artistSongs);
+                setCurrentArtistSongs(artistSongs);
 
                 if (isSuccess) {
                     setCurrentArtist(artist);
@@ -140,6 +146,21 @@ export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
                         />
                     </View>
                 }
+                <View style={styles.artistSongsSection}>
+                    {currentArtistSongs.map((song, index) => (
+                        <View style={styles.cardContainer}>
+                            <LikedSongCard 
+                                album={song.album}
+                                albumCover={song.albumCover}
+                                artistName={song.album}
+                                handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistId: song.artistId, artistName: song.artistName, name: song.name, songMediaId: song.songMediaId, song })}
+                                key={index}
+                                name={song.name}
+                                songId={song._id}
+                            />
+                        </View>
+                    ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -157,10 +178,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         display: 'flex',
     },
+    artistSongsSection: {
+        alignItems: 'center',
+        width: '100%',
+        paddingRight: 10,
+        paddingTop: 20,
+    },
     bioSection: {
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 20,
+    },
+    cardContainer: {
+        paddingBottom: 20,
     },
     container: {
         backgroundColor: colors.white,
