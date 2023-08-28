@@ -13,14 +13,13 @@ type LikedSongsPlayerProps = {
 export default function LikedSongsPlayer({ navigation, route }: LikedSongsPlayerProps) {
     const { album, albumName, artistName, artistId, coverSource, songName, songMediaId } = route.params;
     const { createNewAudioSource } = useUpdateAudioPlayer();
-    const { currentSound } = useAudioPlayerRef();
 
     useEffect(() => {
         async function playSound() {
             await createNewAudioSource(`${baseUrl}api/get-audio/${songMediaId}`);
         }
         playSound();
-    }, []);
+    }, [route]);
 
 
     return (
