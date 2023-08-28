@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,13 +8,26 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { FanDiscoverPageStack, FanHomePageStack, FanSettingsPage } from '../pages';
 import { colors } from './colors';
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../contexts/SwipeAudioContext';
+import { useUserData } from '../hooks';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function AudioSwipeNavigationTabs() {
+type AudioSwipeNavigationTabsProps = {
+    navigation: any;
+};
+
+export default function AudioSwipeNavigationTabs({ navigation }: AudioSwipeNavigationTabsProps) {
     const { currentSound } = useAudioPlayerRef();
     const { setCurrentSound } = useUpdateAudioPlayer();
+    const { fan } = useUserData();
+    const { firstName = 'kdngakngdka' } = fan;
     const client = useQueryClient();
+
+    useEffect(() => {
+        if (firstName === 'kdngakngdka') {
+            navigation.navigate('FanLogin');
+        }
+    }, [fan]);
     
     return (
         <NavigationContainer independent>
