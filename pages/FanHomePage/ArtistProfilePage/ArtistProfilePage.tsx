@@ -7,6 +7,7 @@ import { baseUrl } from '../../../utils/constants';
 import { useShowLoader, useUserData } from '../../../hooks';
 import { AudioSwipeButton, AudioSwipeText  } from '../../../components/';
 import { colors } from '../../../components/colors';
+import { SongDataType } from '../../../typings';
 
 type ArtistProfilePageProps = {
     route: any;
@@ -15,6 +16,7 @@ type ArtistProfilePageProps = {
 export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
     const { artistId } = route.params;
     const [currentArtist, setCurrentArtist] = useState<any>({});
+    const [currentArtistSongs, setCurrentArtistSongs] = useState<SongDataType[]>([]);
     const [fetchError, setFetchError] = useState(false);
     const { isLoading, setIsLoading } = useShowLoader();
     const { fan } = useUserData();
@@ -30,7 +32,8 @@ export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
                 url: `${baseUrl}api/fetch-artist/${artistId}`,
             }).then(response => {
                 setIsLoading(false);
-                const { isSuccess, artist } = response.data;
+                const { artist, artistSongs, isSuccess } = response.data;
+                console.log('The artist songs are:', artistSongs);
 
                 if (isSuccess) {
                     setCurrentArtist(artist);
