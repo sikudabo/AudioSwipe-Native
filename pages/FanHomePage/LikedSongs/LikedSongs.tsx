@@ -25,7 +25,6 @@ export default function LikedSongs({ navigation }: FanLoginProps) {
 
 
 function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsDisplayLayerProps) {
-
     const { firstName } = fan;
     const [likedSongs, setLikedSongs] = useState<SongDataType[]>([]);
     const { _id: fanId } = fan;
@@ -71,7 +70,7 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
                                         album={song.album}
                                         albumCover={song.albumCover}
                                         artistName={song.artistName}
-                                        handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistName: song.artistName, songMediaId: song.songMediaId  })}
+                                        handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistName: song.artistName, songMediaId: song.songMediaId, name: song.name })}
                                         key={index}
                                         name={song.name}
                                         songId={song._id}

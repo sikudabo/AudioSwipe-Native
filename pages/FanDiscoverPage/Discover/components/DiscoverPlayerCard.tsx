@@ -28,7 +28,7 @@ export default function DiscoverPlayerCard({
     artistName,
     coverSource,
     isLikedSong = false,
-    songName,
+    songName
 }: DiscoverPlayerCardProps) {
     const styles = StyleSheet.create({
         actionsContainer: {
