@@ -303,6 +303,7 @@ function useDataLayer({ navigation }: DataLayerProps) {
     }
 
     async function takePicture() {
+        setIsLoading(true);
         await ImagePicker.requestCameraPermissionsAsync();
         const result = await ImagePicker.launchCameraAsync({
             allowsEditing: false,
@@ -327,6 +328,7 @@ function useDataLayer({ navigation }: DataLayerProps) {
                 data: fd,
                 url: `api/update-fan-avatar/${_id}/${avatar}`,
             }).then(response => {
+                setIsLoading(false);
                 const { isSuccess, message, updatedFan } = response;
 
                 if (isSuccess) {
