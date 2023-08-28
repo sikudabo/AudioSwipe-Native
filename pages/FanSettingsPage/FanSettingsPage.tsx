@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationAction  } from '@react-navigation/native';
-import { View, StyleSheet} from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
-import { AudioSwipeButton, AudioSwipeText } from '../../components';
+import { View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import { Avatar, Surface, Text, TextInput } from 'react-native-paper';
+import { AudioSwipeButton, AudioSwipeText, FormContainer } from '../../components';
 import { colors } from '../../components/colors';
-import { useShowLoader, useUserData } from '../../hooks';
+import { useShowDialog, useShowLoader, useUserData } from '../../hooks';
+import { postBinaryData } from '../../utils/api';
+import { baseUrl } from '../../utils/constants';
 
 type FanSettingsPageProps = {
     navigation: any;
 };
 
 type FanSettingsPageDisplayLayerProps = {
+    avatar: string;
     handleEmailChange: (val: string) => void;
     handleFirstNameChange: (val: string) => void;
     handleLastNameChange: (val: string) => void;
@@ -33,6 +36,7 @@ export default function FanSettingsPage({ navigation }: FanSettingsPageProps) {
 
 
 function FanSettingsPage_DisplayLayer({
+    avatar,
     handleEmailChange,
     handleFirstNameChange,
     handleLastNameChange,
@@ -54,80 +58,110 @@ function FanSettingsPage_DisplayLayer({
                     weight={900}
                 />
             </View>
-            <View style={styles.formContainer}>
-                <TextInput 
-                    activeOutlineColor={colors.primary}
-                    label="First Name"
-                    left={<TextInput.Icon icon="account" />}
-                    mode="outlined"
-                    onChangeText={handleFirstNameChange}
-                    placeholder="First Name"
-                    value={newFirstName}
-                />
-                <TextInput 
-                    activeOutlineColor={colors.primary}
-                    label="Last Name"
-                    left={<TextInput.Icon icon="account" />}
-                    mode="outlined"
-                    onChangeText={handleLastNameChange}
-                    placeholder="Last Name"
-                    style={styles.textField}
-                    value={newLastName}
-                />
-                <TextInput 
-                    activeOutlineColor={colors.primary}
-                    label="Email"
-                    left={<TextInput.Icon icon="email" />}
-                    style={styles.textField}
-                    value={newEmail}
-                    onChangeText={handleEmailChange}
-                    mode="outlined"
-                    outlineColor={colors.primary}
-                    placeholder="Email"
-                />
-                <TextInput 
-                    activeOutlineColor={colors.primary}
-                    label="Password"
-                    left={<TextInput.Icon icon="lock" />}
-                    style={styles.textField}
-                    onChangeText={handlePasswordChange}
-                    value={newPassword}
-                    mode="outlined"
-                    outlineColor={colors.primary}
-                    placeholder="Password"
-                    secureTextEntry 
+            <View style={styles.avatarContainer}>
+                <Avatar.Image 
+                    size={150}
+                    source={{ uri: `${baseUrl}api/get-photo/${avatar}` }}
                 />
             </View>
-            <View style={styles.buttonsContainer}>
-                <AudioSwipeButton 
-                    backgroundColor={colors.primary}
-                    color={colors.white}
-                    icon="camera"
-                    onPress={takePicture}
-                    text="Avatar"
-                    fullWidth 
-                />
-            </View>
-            <View 
-                style={styles.buttonsContainer}
-            >
-                <AudioSwipeButton 
-                    backgroundColor={colors.primary}
-                    color={colors.white}
-                    onPress={handleLogout}
-                    text="Logout"
-                    fullWidth
-                />
-            </View>
+            <SafeAreaView style={styles.formSectionContainer}>
+                <ScrollView>
+                <Surface style={styles.formContainer} elevation={3}>
+                    <TextInput 
+                        activeOutlineColor={colors.primary}
+                        label="First Name"
+                        left={<TextInput.Icon icon="account" />}
+                        mode="outlined"
+                        onChangeText={handleFirstNameChange}
+                        placeholder="First Name"
+                        value={newFirstName}
+                    />
+                    <TextInput 
+                        activeOutlineColor={colors.primary}
+                        label="Last Name"
+                        left={<TextInput.Icon icon="account" />}
+                        mode="outlined"
+                        onChangeText={handleLastNameChange}
+                        placeholder="Last Name"
+                        style={styles.textField}
+                        value={newLastName}
+                    />
+                    <TextInput 
+                        activeOutlineColor={colors.primary}
+                        label="Email"
+                        left={<TextInput.Icon icon="email" />}
+                        style={styles.textField}
+                        value={newEmail}
+                        onChangeText={handleEmailChange}
+                        mode="outlined"
+                        outlineColor={colors.primary}
+                        placeholder="Email"
+                    />
+                    <TextInput 
+                        activeOutlineColor={colors.primary}
+                        label="Password"
+                        left={<TextInput.Icon icon="lock" />}
+                        style={styles.textField}
+                        onChangeText={handlePasswordChange}
+                        value={newPassword}
+                        mode="outlined"
+                        outlineColor={colors.primary}
+                        placeholder="Password"
+                        secureTextEntry 
+                    />
+                    <View 
+                        style={styles.buttonsContainer}
+                    >
+                        <AudioSwipeButton 
+                            backgroundColor={colors.primary}
+                            color={colors.white}
+                            onPress={handleLogout}
+                            text="Logout"
+                            fullWidth
+                        />
+                    </View>
+                    <View style={styles.buttonsContainer}>
+                        <AudioSwipeButton 
+                            backgroundColor={colors.primary}
+                            color={colors.white}
+                            icon="camera"
+                            onPress={takePicture}
+                            text="Avatar"
+                            fullWidth 
+                        />
+                    </View>
+                    <View 
+                        style={styles.buttonsContainer}
+                    >
+                        <AudioSwipeButton 
+                            backgroundColor={colors.error}
+                            color={colors.white}
+                            text="Delete"
+                            fullWidth
+                        />
+                    </View> 
+                    <View 
+                        style={styles.buttonsContainer}
+                    >
+                        <AudioSwipeButton 
+                            backgroundColor={colors.hotPink}
+                            color={colors.white}
+                            text="Contact"
+                            fullWidth
+                        />
+                    </View> 
+                </Surface>
+                </ScrollView>
+            </SafeAreaView>
         </View>
     );
 }
 
 
 function useDataLayer({ navigation }: DataLayerProps) {
-
+    const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
     const { clearFan, fan, setFan } = useUserData();
-    const { email, firstName, lastName, password, phoneNumber } = fan;
+    const { avatar, email, firstName, _id, lastName, password, phoneNumber } = fan;
     const [newEmail, setNewEmail] = useState(email);
     const [newFirstName, setNewFirstName] = useState(firstName);
     const [newLastName, setNewLastName] = useState(lastName);
@@ -154,7 +188,6 @@ function useDataLayer({ navigation }: DataLayerProps) {
     }
 
     async function takePicture() {
-        setIsLoading(true);
         await ImagePicker.requestCameraPermissionsAsync();
         const result = await ImagePicker.launchCameraAsync({
             allowsEditing: false,
@@ -175,15 +208,30 @@ function useDataLayer({ navigation }: DataLayerProps) {
         setName(filename as string);
 
         fd.append('avatar', { name, uri, type: 'image' } as any);
+        await postBinaryData({
+                data: fd,
+                url: `api/update-fan-avatar/${_id}/${avatar}`,
+            }).then(response => {
+                const { isSuccess, message, updatedFan } = response;
+
+                if (isSuccess) {
+                    setFan(updatedFan);
+                } 
+
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+            }).catch(e => {
+                console.log('Error updating fan avatar:', e.message);
+                setDialogMessage('There was an error updating your Avatar!');
+                handleDialogMessageChange(true);
+            });
     }
 
     async function handleLogout() {
         setFan({} as any);
-        const currentState = navigation.getState();
-        console.log('The navigation state is:', currentState);
-        navigation.navigate('Home');
     }
     return {
+        avatar,
         handleEmailChange,
         handleFirstNameChange,
         handleLastNameChange,
@@ -198,26 +246,40 @@ function useDataLayer({ navigation }: DataLayerProps) {
 }
 
 const styles = StyleSheet.create({
+    avatarContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        paddingBottom: 20,
+        paddingTop: 20,
+    },
     buttonsContainer: {
         display: 'flex',
         flexDirection: 'row',
-        paddingLeft: 10,
-        paddingRight: 10,
         paddingTop: 20,
     },
     container: {
-        backgroundColor: colors.white,
-        height: 1000,
+        height: '100%',
+        paddingTop: 50,
+        width: '100%',
     },
     formContainer: {
+        paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
+        paddingTop: 10,
+        opacity: 0.8,
+    },
+    formSectionContainer: {
+        flex: 1,
+        height: '95%',
+        paddingBottom: 20,
+        overflow: 'scroll',
     },
     settingsHeaderContainer: {
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
-        paddingTop: 100,
+        paddingBottom: 10,
     },
     textField: {
         marginTop: 20,
