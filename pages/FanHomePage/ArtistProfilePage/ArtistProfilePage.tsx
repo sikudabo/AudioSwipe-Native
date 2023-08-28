@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import axios from 'axios';
+import * as Linking from 'expo-linking';
 import { ActivityIndicator, Avatar, Text, Surface } from 'react-native-paper';
 import { baseUrl } from '../../../utils/constants';
 import { useShowLoader, useUserData } from '../../../hooks';
@@ -100,33 +101,42 @@ export default function ArtistProfilePage({ route }: ArtistProfilePageProps) {
                         fullWidth
                     />
                 </View>
-                <View style={styles.subscribeSection}>
-                    <AudioSwipeButton
-                        backgroundColor={colors.success}
-                        color={colors.white}
-                        icon="spotify"
-                        text="Spotify"
-                        fullWidth
-                    />
-                </View>
-                <View style={styles.subscribeSection}>
-                    <AudioSwipeButton
-                        backgroundColor={colors.error}
-                        color={colors.white}
-                        icon="youtube"
-                        text="YouTube"
-                        fullWidth
-                    />
-                </View>
-                <View style={styles.subscribeSection}>
-                    <AudioSwipeButton
-                        backgroundColor={colors.warning}
-                        color={colors.white}
-                        icon="soundcloud"
-                        text="Soundcloud"
-                        fullWidth
-                    />
-                </View>
+                {currentArtist.spotifyLink &&
+                    <View style={styles.subscribeSection}>
+                        <AudioSwipeButton
+                            backgroundColor={colors.success}
+                            color={colors.white}
+                            icon="spotify"
+                            onPress={() => Linking.openURL(currentArtist.spotifyLink)}
+                            text="Spotify"
+                            fullWidth
+                        />
+                    </View>
+                }
+               {currentArtist.youtubeLink &&
+                     <View style={styles.subscribeSection}>
+                        <AudioSwipeButton
+                            backgroundColor={colors.error}
+                            color={colors.white}
+                            icon="youtube"
+                            onPress={() => Linking.openURL(currentArtist.youtubeLink)}
+                            text="YouTube"
+                            fullWidth
+                        />
+                    </View>
+               }
+                {currentArtist.soundcloudLink &&
+                    <View style={styles.subscribeSection}>
+                        <AudioSwipeButton
+                            backgroundColor={colors.warning}
+                            color={colors.white}
+                            icon="soundcloud"
+                            onPress={() => Linking.openURL(currentArtist.soundcloudLink)}
+                            text="Soundcloud"
+                            fullWidth
+                        />
+                    </View>
+                }
             </ScrollView>
         </SafeAreaView>
     );
