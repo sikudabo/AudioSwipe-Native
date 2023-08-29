@@ -10,6 +10,7 @@ import { useShowDialog, useShowLoader, useUserData } from '../../hooks';
 import { deleteNonBinaryData, postBinaryData, postNonBinaryData } from '../../utils/api';
 import { baseUrl } from '../../utils/constants';
 import { checkValidEmail } from '../../utils/helpers';
+import * as FileSystem from 'expo-file-system';
 
 type FanSettingsPageProps = {
     navigation: any;
@@ -317,38 +318,32 @@ function useDataLayer({ navigation }: DataLayerProps) {
             return;
         }
 
-        const fd = new FormData();
-
         const localUri = result.assets[0].uri;
         
         const filename = localUri.split('/').pop();
 
         setUri(localUri as any);
         setName(filename as string);
+        const fd = new FormData();
+        await FileSystem.uploadAsync(`${baseUrl}api/update-fan-avatar/${_id}/${avatar}`, localUri, {
+            fieldName: 'avatar',
+            httpMethod: 'POST',
+            uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+        }).then((response: any) => {
+            const { isSuccess, message, updatedFan } = JSON.parse(response.body);
+            if (isSuccess) {
+                setFan(updatedFan);
+            } 
 
-        fd.append('avatar', { name, uri, type: 'image' } as any);
-        await axios({
-                data: fd,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                method: 'POST',
-                url: `${baseUrl}api/update-fan-avatar/${_id}/${avatar}`,
-            }).then(response => {
-                console.log('The request is sending');
-                const { isSuccess, message, updatedFan } = response.data;
-    
-                if (isSuccess) {
-                    setFan(updatedFan);
-                } 
-                setIsLoading(false);
-                setDialogMessage(message);
-                handleDialogMessageChange(true);
-            }).catch(e => {
-                console.log('Error updating fan avatar:', e.message);
-                setDialogMessage('There was an error updating your Avatar!');
-                handleDialogMessageChange(true);
-            });
+            setIsLoading(false);
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+        }).catch(e => {
+            setIsLoading(false);
+            console.log('Upload error:', e.message);
+            setDialogMessage('There was an error updating your Avatar!');
+            handleDialogMessageChange(true);
+        });   
     }
 
     async function handleLogout() {
