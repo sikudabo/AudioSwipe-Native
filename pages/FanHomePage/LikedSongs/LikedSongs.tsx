@@ -64,6 +64,7 @@ function LikedSongs_DisplayLayer({ fan, fanLikedSongs, navigation }: LikedSongsD
                         <ScrollView>
                             {likedSongs.map((song, index) => (
                                 <View 
+                                    key={song._id}
                                     style={styles.likedSongCardContainer}
                                 >
                                     <LikedSongCard 

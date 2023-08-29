@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationAction  } from '@react-navigation/native';
 import { View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
@@ -194,8 +195,8 @@ function useDataLayer({ navigation }: DataLayerProps) {
     const [newLastName, setNewLastName] = useState(lastName);
     const [newPassword, setNewPassword] = useState(password);
     const [newPhoneoNumber, setNewPhoneNumber] = useState(phoneNumber);
-    const [name, setName] = useState('');
-    const [uri, setUri] = useState<Blob | null>(null);
+    const [name, setName] = useState<string>('');
+    const [uri, setUri] = useState<Blob | any>(null);
     const { isLoading, setIsLoading } = useShowLoader();
 
     async function handleDeleteProfile() {
@@ -307,10 +308,12 @@ function useDataLayer({ navigation }: DataLayerProps) {
         await ImagePicker.requestCameraPermissionsAsync();
         const result = await ImagePicker.launchCameraAsync({
             allowsEditing: false,
-            aspect: [16, 9],
+            aspect: [4, 3],
+            quality: 1,
         });
 
         if (result.canceled) {
+            setIsLoading(false);
             return;
         }
 
@@ -324,24 +327,32 @@ function useDataLayer({ navigation }: DataLayerProps) {
         setName(filename as string);
 
         fd.append('avatar', { name, uri, type: 'image' } as any);
-        await postBinaryData({
+
+        setTimeout(async () => {
+            axios({
                 data: fd,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                method: 'POST',
                 url: `api/update-fan-avatar/${_id}/${avatar}`,
             }).then(response => {
+                console.log('The request is sending');
                 setIsLoading(false);
-                const { isSuccess, message, updatedFan } = response;
-
+                const { isSuccess, message, updatedFan } = response.data;
+    
                 if (isSuccess) {
                     setFan(updatedFan);
                 } 
-
-                setDialogMessage(message);
-                handleDialogMessageChange(true);
+    
+                // setDialogMessage(message);
+                // handleDialogMessageChange(true);
             }).catch(e => {
                 console.log('Error updating fan avatar:', e.message);
                 setDialogMessage('There was an error updating your Avatar!');
                 handleDialogMessageChange(true);
             });
+        }, 2000);
     }
 
     async function handleLogout() {
