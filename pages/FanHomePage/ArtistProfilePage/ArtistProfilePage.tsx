@@ -4,11 +4,12 @@ import axios from 'axios';
 import * as Linking from 'expo-linking';
 import { ActivityIndicator, Avatar, Text, Surface } from 'react-native-paper';
 import { baseUrl } from '../../../utils/constants';
-import { useShowLoader, useUserData } from '../../../hooks';
+import { useShowDialog, useShowLoader, useUserData } from '../../../hooks';
 import { AudioSwipeButton, AudioSwipeText  } from '../../../components/';
 import { colors } from '../../../components/colors';
 import { SongDataType } from '../../../typings';
 import LikedSongCard from '../LikedSongs/components/LikedSongCard';
+import { postNonBinaryData } from '../../../utils/api';
 
 type ArtistProfilePageProps = {
     navigation: any;
@@ -21,13 +22,42 @@ export default function ArtistProfilePage({ navigation, route }: ArtistProfilePa
     const [currentArtistSongs, setCurrentArtistSongs] = useState<SongDataType[]>([]);
     const [fetchError, setFetchError] = useState(false);
     const { isLoading, setIsLoading } = useShowLoader();
-    const { fan } = useUserData();
-    const { subscribedArtists } = fan;
-    const hasSubscription = subscribedArtists.map((artist: any) => artist.artistId === artistId);
+    const { fan, setFan} = useUserData();
+    const { _id, subscribedArtists } = fan;
+    const hasSubscription = subscribedArtists.filter((artist: any) => artist.artistId === artistId);
     const isSubscribed = hasSubscription.length > 0;
+    const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
 
     function handlePress({ album, albumCover, artistId, artistName, name, songMediaId, song }: any) {
         navigation.navigate('LikedSongsPlayer', { albumName: album, artistName, artistId, coverSource: albumCover, songMediaId, songName: name });
+    }
+
+    async function subscribeToArtist() {
+        setIsLoading(true);
+        await postNonBinaryData({
+            data: {
+                artistId,
+                fanId: _id,
+            },
+            url: `api/add-subscriber`,
+        }).then(response => {
+            setIsLoading(false);
+            const { isSuccess, updatedFan } = response;
+
+            if (isSuccess) {
+                setFan(updatedFan);
+            }
+
+            return
+        }).catch(e => {
+            setIsLoading(false);
+            setDialogMessage('There was an error subscribing to this artist. Please try again!');
+            handleDialogMessageChange(true);
+        });
+    }
+
+    async function unSubscribeFromArtist() {
+        console.log('You are no longer subscribed');
     }
     
     useEffect(() => {
@@ -55,7 +85,7 @@ export default function ArtistProfilePage({ navigation, route }: ArtistProfilePa
         }
 
         fetchArtist();
-    }, []);
+    }, [route.params]);
 
     if (isLoading) {
         return (
@@ -106,6 +136,7 @@ export default function ArtistProfilePage({ navigation, route }: ArtistProfilePa
                     <AudioSwipeButton
                         backgroundColor={colors.primary}
                         color={colors.white}
+                        onPress={isSubscribed ? unSubscribeFromArtist : subscribeToArtist}
                         text={isSubscribed ? 'Unsubscribe' : 'Subscribe'}
                         fullWidth
                     />
@@ -146,21 +177,23 @@ export default function ArtistProfilePage({ navigation, route }: ArtistProfilePa
                         />
                     </View>
                 }
-                <View style={styles.artistSongsSection}>
-                    {currentArtistSongs.map((song, index) => (
-                        <View style={styles.cardContainer}>
-                            <LikedSongCard 
-                                album={song.album}
-                                albumCover={song.albumCover}
-                                artistName={song.album}
-                                handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistId: song.artistId, artistName: song.artistName, name: song.name, songMediaId: song.songMediaId, song })}
-                                key={index}
-                                name={song.name}
-                                songId={song._id}
-                            />
-                        </View>
-                    ))}
-                </View>
+                {isSubscribed &&
+                    <View style={styles.artistSongsSection}>
+                        {currentArtistSongs.map((song, index) => (
+                            <View style={styles.cardContainer}>
+                                <LikedSongCard 
+                                    album={song.album}
+                                    albumCover={song.albumCover}
+                                    artistName={song.album}
+                                    handlePress={() => handlePress({ album: song.album, albumCover: song.albumCover, artistId: song.artistId, artistName: song.artistName, name: song.name, songMediaId: song.songMediaId, song })}
+                                    key={index}
+                                    name={song.name}
+                                    songId={song._id}
+                                />
+                            </View>
+                        ))}
+                    </View>
+                }
             </ScrollView>
         </SafeAreaView>
     );
