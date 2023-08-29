@@ -1,4 +1,4 @@
-import React, { useCallback} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ActivityIndicator, MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
@@ -43,6 +43,10 @@ function App_DisplayLayer({ fontsLoaded, isLoading }: AppDisplayLayerProps) {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <PaperProvider theme={theme}>

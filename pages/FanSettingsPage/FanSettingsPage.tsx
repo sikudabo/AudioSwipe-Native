@@ -327,32 +327,28 @@ function useDataLayer({ navigation }: DataLayerProps) {
         setName(filename as string);
 
         fd.append('avatar', { name, uri, type: 'image' } as any);
-
-        setTimeout(async () => {
-            axios({
+        await axios({
                 data: fd,
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
                 method: 'POST',
-                url: `api/update-fan-avatar/${_id}/${avatar}`,
+                url: `${baseUrl}api/update-fan-avatar/${_id}/${avatar}`,
             }).then(response => {
                 console.log('The request is sending');
-                setIsLoading(false);
                 const { isSuccess, message, updatedFan } = response.data;
     
                 if (isSuccess) {
                     setFan(updatedFan);
                 } 
-    
-                // setDialogMessage(message);
-                // handleDialogMessageChange(true);
+                setIsLoading(false);
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
             }).catch(e => {
                 console.log('Error updating fan avatar:', e.message);
                 setDialogMessage('There was an error updating your Avatar!');
                 handleDialogMessageChange(true);
             });
-        }, 2000);
     }
 
     async function handleLogout() {
