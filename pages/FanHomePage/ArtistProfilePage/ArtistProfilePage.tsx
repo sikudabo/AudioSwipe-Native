@@ -57,7 +57,27 @@ export default function ArtistProfilePage({ navigation, route }: ArtistProfilePa
     }
 
     async function unSubscribeFromArtist() {
-        console.log('You are no longer subscribed');
+        setIsLoading(true);
+        await postNonBinaryData({
+            data: {
+                artistId,
+                fanId: _id,
+            },
+            url: `api/remove-subscriber`,
+        }).then(response => {
+            setIsLoading(false);
+            const { isSuccess, updatedFan } = response;
+
+            if (isSuccess) {
+                setFan(updatedFan);
+            }
+
+            return
+        }).catch(e => {
+            setIsLoading(false);
+            setDialogMessage('There was an error unsubscribing from this artist. Please try again!');
+            handleDialogMessageChange(true);
+        });
     }
     
     useEffect(() => {
