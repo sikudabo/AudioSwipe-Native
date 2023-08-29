@@ -15,6 +15,7 @@ const Sports = require('../../assets/app-media/sports.jpeg');
 const Technology = require('../../assets/app-media/technology.jpeg');
 const Television = require('../../assets/app-media/Television.jpeg');
 const Videogames = require('../../assets/app-media/videogames.jpeg');
+
 export const podcastGenres = [
     {
         cover: Art,

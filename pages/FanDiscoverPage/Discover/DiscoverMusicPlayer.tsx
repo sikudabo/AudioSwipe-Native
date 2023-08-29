@@ -162,6 +162,10 @@ function DiscoverMusicPlayer_DisplayLayer({ data, genre, hasData, isLoading }: D
         if (audioClips.length > 1) {
             createNewAudioSource(`${baseUrl}api/get-audio/${audioClips[currentSongIndexRef.current]?.songMediaId}`);
             return;
+        } 
+        
+        if ((typeof data !== 'undefined' && data.length === 0) || !hasData || typeof data === 'undefined' || data.length === 0 || audioClips.length === 0) {
+            currentSound.unloadAsync();
         }
     }
 
