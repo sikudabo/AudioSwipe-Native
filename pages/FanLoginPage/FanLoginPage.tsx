@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import { AudioSwipeButton, AudioSwipeText, colors, FormContainer } from '../../components';
+import { ActivityIndicator, Modal, Portal, TextInput } from 'react-native-paper';
+import { colors } from '../../components/colors';
+import { AudioSwipeButton, AudioSwipeText, FormContainer } from '../../components';
 import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
 import LoginHeader from './components/LoginHeader';
 import SignUpHeader from '../FanSignUpPage/components/SignUpHeader';
-import { useShowDialog, useShowModal, useStoreUser, useUserData } from '../../hooks';
+import { useShowDialog, useShowLoader, useShowModal, useStoreUser, useUserData } from '../../hooks';
 import { checkValidEmail } from '../../utils/helpers';
 import { postNonBinaryData } from '../../utils/api';
 const ConcertImage = require('../../assets/app-media/music-fun.jpeg');
@@ -22,9 +23,11 @@ type FanLoginPage_DisplayLayerProps = FanLoginProps & {
     email: string;
     handleEmailChange: (email: string) => void;
     handleForgottenEmailUpdate: (val: string) => void;
+    handleForgotSubmit: () => void;
     handleNavigate: () => void;
     handlePasswordChange: (password: string) => void;
     handleSubmit: () => void;
+    isLoading: boolean;
     isModalOpen: boolean;
     password: string;
     toggleModal: () => void;
@@ -39,13 +42,22 @@ function FanLoginPage_DisplayLayer({
     email,
     handleEmailChange,
     handleForgottenEmailUpdate,
+    handleForgotSubmit,
     handleNavigate,
     handlePasswordChange,
     handleSubmit,
+    isLoading,
     isModalOpen,
     password,
     toggleModal,
 }: FanLoginPage_DisplayLayerProps) {
+    if (isLoading) {
+        return (
+            <View style={styles.loaderContainer}>
+                <ActivityIndicator animating={isLoading} color={colors.hotPink} />
+            </View>
+        )
+    }
     return (
         <View style={styles.container}>
             <AudioSwipeBackgroundContainer
@@ -53,6 +65,55 @@ function FanLoginPage_DisplayLayer({
             >
                 <View style={styles.headerContainer}>
                     <SignUpHeader onPress={() => {}} text="Log In" />
+                </View>
+                <View>
+                    <Portal>
+                        <Modal contentContainerStyle={styles.contentContainer} dismissable={false} visible={isModalOpen} style={styles.modalContainer}>
+                            <View style={styles.topModalTextContainer}>
+                                <AudioSwipeText 
+                                    color={colors.primary}
+                                    text="We can fix this. Enter an email for us to reach you at and we will be in touch soon!"
+                                    weight={900}
+                                />
+                            </View>
+                            <View style={styles.forgotInputContainer}>
+                                <TextInput 
+                                    activeOutlineColor={colors.primary}
+                                    label="Email"
+                                    left={<TextInput.Icon icon="email" />}
+                                    style={styles.textInput}
+                                    mode="outlined"
+                                    onChangeText={handleForgottenEmailUpdate}
+                                    outlineColor={colors.primary}
+                                    placeholder="Email"
+                                />
+                            </View>
+                            <View>
+                                <AudioSwipeButton 
+                                    backgroundColor={colors.primary}
+                                    color={colors.white}
+                                    customStyle={{
+                                        marginTop: 1,
+                                    }}
+                                    onPress={handleForgotSubmit}
+                                    text="Submit"
+                                    fullWidth
+                                />
+                            </View>
+                            <View style={styles.closeModalButtonContainer}>
+                                <AudioSwipeButton 
+                                    backgroundColor={colors.hotPink}
+                                    color={colors.white}
+                                    customStyle={{
+                                        marginTop: 1,
+                                    }}
+                                    onPress={toggleModal}
+                                    text="Close"
+                                    fullWidth
+                                />
+                            </View>
+                        </Modal>
+                    </Portal>
                 </View>
                 <SafeAreaView style={styles.formWrapper}>
                     <ScrollView>
@@ -132,6 +193,7 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
     const { firstName } = fan;
     const [forgotEmail, setForgotEmail] = useState('');
     const { isModalOpen, setModalVisible } = useShowModal();
+    const { isLoading, setIsLoading } = useShowLoader();
 
     useEffect(() => {
         if (typeof firstName !== 'undefined') {
@@ -146,6 +208,34 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
 
     function handlePasswordChange(password: string) {
         setPassword(password);
+    }
+
+    async function handleForgotSubmit() {
+        setIsLoading(true);
+        if (!checkValidEmail(forgotEmail)) {
+            setIsLoading(false);
+            setDialogMessage('Please enter a valid email.');
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        await postNonBinaryData({
+            data: {
+                email: forgotEmail,
+            },
+            url: 'api/forgot-login',
+        }).then(response => {
+            const { message } = response;
+            setIsLoading(false);
+            setModalVisible(false);
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+        }).catch(() => {
+            setIsLoading(false);
+            setModalVisible(false);
+            setDialogMessage('There was an error sending your email! Please try again.');
+            handleDialogMessageChange(true);
+        });
     }
 
     async function handleSubmit() {
@@ -200,9 +290,11 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
         email,
         handleEmailChange,
         handleForgottenEmailUpdate,
+        handleForgotSubmit,
         handleNavigate,
         handlePasswordChange,
         handleSubmit,
+        isLoading,
         isModalOpen,
         password,
         toggleModal,
@@ -219,10 +311,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 20,
     },
+    closeModalButtonContainer: {
+        paddingTop: 10,
+    },
     container: {
         height: '100%',
         padding: 0,
         width: '100%',
+    },
+    forgotInputContainer: {
+        paddingBottom: 20,
     },
     formWrapper: {
         flex: 1,
@@ -234,10 +332,31 @@ const styles = StyleSheet.create({
     headerContainer: {
         paddingBottom: 30,
     },
+    loaderContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        paddingTop: 200,
+        justifyContent: 'center',
+    },
+    modalContainer: {
+        alignItems: 'center',
+        display: 'flex',
+    },
     textInput: {
         width: '100%',
     },
+    topModalTextContainer: {
+        paddingBottom: 10,
+    },
     topTextInputContainer: {
         paddingTop: 20,
-    }
+    },
+    contentContainer: {
+        backgroundColor: colors.white,
+        minHeight: 400,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 20,
+    },
 });
