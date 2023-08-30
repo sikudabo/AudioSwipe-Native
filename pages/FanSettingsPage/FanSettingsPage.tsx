@@ -261,7 +261,7 @@ function useDataLayer({ navigation }: DataLayerProps) {
 
     async function sendContactMessage() {
         setIsLoading(true);
-        if (!contactMessage) {
+        if (!contactMessage || contactMessage.trim().length < 1) {
             setIsLoading(false);
             setModalVisible(false);
             setDialogMessage('You must enter a message!');
