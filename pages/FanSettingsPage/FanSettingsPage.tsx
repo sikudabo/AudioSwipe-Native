@@ -29,8 +29,10 @@ type FanSettingsPageDisplayLayerProps = {
     newFirstName: string;
     newLastName: string;
     newPassword: string;
+    sendContactMessage: () => void;
     takePicture: () => void;
     toggleModalVisible: () => void;
+    updateContactMessage: (val: string) => void;
 }
 
 type DataLayerProps = FanSettingsPageProps;
@@ -56,8 +58,10 @@ function FanSettingsPage_DisplayLayer({
     newFirstName,
     newLastName,
     newPassword,
+    sendContactMessage,
     takePicture,
-    toggleModalVisible
+    toggleModalVisible,
+    updateContactMessage
 }: FanSettingsPageDisplayLayerProps) {
 
     if (isLoading) {
@@ -91,6 +95,35 @@ function FanSettingsPage_DisplayLayer({
                                 color={colors.primary}
                                 text="Contact us with any feedback, questions or concerns!"
                                 weight={900}
+                            />
+                        </View>
+                        <View style={styles.contactInputContainer}>
+                            <TextInput 
+                                activeOutlineColor={colors.primary}
+                                label="Message"
+                                mode="outlined"
+                                onChangeText={updateContactMessage}
+                                placeholder="Messsge"
+                                style={styles.multilineInput}
+                                multiline
+                            />
+                        </View>
+                        <View style={styles.buttonsContainer}>
+                            <AudioSwipeButton 
+                                backgroundColor={colors.primary}
+                                color={colors.white}
+                                onPress={sendContactMessage}
+                                text="Submit"
+                                fullWidth 
+                            />
+                        </View>
+                        <View style={styles.buttonsContainer}>
+                            <AudioSwipeButton 
+                                backgroundColor={colors.hotPink}
+                                color={colors.white}
+                                onPress={toggleModalVisible}
+                                text="Close"
+                                fullWidth 
                             />
                         </View>
                     </Modal>
@@ -216,9 +249,44 @@ function useDataLayer({ navigation }: DataLayerProps) {
     const [uri, setUri] = useState<Blob | any>(null);
     const { isLoading, setIsLoading } = useShowLoader();
     const { isModalOpen, setModalVisible } = useShowModal();
+    const [contactMessage, setContactMessge] = useState<string>('');
 
     function toggleModalVisible() {
         setModalVisible(!isModalOpen);
+    }
+
+    function updateContactMessage(val: string) {
+        setContactMessge(val);
+    }
+
+    async function sendContactMessage() {
+        setIsLoading(true);
+        if (!contactMessage) {
+            setIsLoading(false);
+            setModalVisible(false);
+            setDialogMessage('You must enter a message!');
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        await postNonBinaryData({
+            data: {
+                email,
+                subject: 'General Fan Contact',
+                text: contactMessage,
+            },
+            url: 'api/general-contact',
+        }).then(response => {
+            setIsLoading(false);
+            const { message } = response;
+            setModalVisible(false);
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+        }).catch(() => {
+            setIsLoading(false);
+            setDialogMessage('There was an error sending that message! Please try again.');
+            handleDialogMessageChange(true);
+        });
     }
 
     async function handleDeleteProfile() {
@@ -385,8 +453,10 @@ function useDataLayer({ navigation }: DataLayerProps) {
         newFirstName,
         newLastName,
         newPassword,
+        sendContactMessage,
         takePicture,
         toggleModalVisible,
+        updateContactMessage,
     };
 }
 
@@ -401,6 +471,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         paddingTop: 20,
+    },
+    contactInputContainer: {
+        paddingBottom: 20,
     },
     container: {
         height: '100%',
@@ -437,6 +510,10 @@ const styles = StyleSheet.create({
     modalContainer: {
         alignItems: 'center',
         display: 'flex',
+    },
+    multilineInput: {
+        maxHeight: 100,
+        minHeight: 100,
     },
     settingsHeaderContainer: {
         alignItems: 'center',
