@@ -5,7 +5,7 @@ import { AudioSwipeButton, AudioSwipeText, colors, FormContainer } from '../../c
 import { AudioSwipeBackgroundContainer } from '../../components/backgrounds';
 import LoginHeader from './components/LoginHeader';
 import SignUpHeader from '../FanSignUpPage/components/SignUpHeader';
-import { useShowDialog, useStoreUser, useUserData } from '../../hooks';
+import { useShowDialog, useShowModal, useStoreUser, useUserData } from '../../hooks';
 import { checkValidEmail } from '../../utils/helpers';
 import { postNonBinaryData } from '../../utils/api';
 const ConcertImage = require('../../assets/app-media/music-fun.jpeg');
@@ -21,10 +21,13 @@ export type FanLoginProps = {
 type FanLoginPage_DisplayLayerProps = FanLoginProps & {
     email: string;
     handleEmailChange: (email: string) => void;
+    handleForgottenEmailUpdate: (val: string) => void;
     handleNavigate: () => void;
     handlePasswordChange: (password: string) => void;
     handleSubmit: () => void;
+    isModalOpen: boolean;
     password: string;
+    toggleModal: () => void;
 }
 
 type UseDataLayerProps = {
@@ -35,10 +38,13 @@ type UseDataLayerProps = {
 function FanLoginPage_DisplayLayer({
     email,
     handleEmailChange,
+    handleForgottenEmailUpdate,
     handleNavigate,
     handlePasswordChange,
     handleSubmit,
+    isModalOpen,
     password,
+    toggleModal,
 }: FanLoginPage_DisplayLayerProps) {
     return (
         <View style={styles.container}>
@@ -104,6 +110,7 @@ function FanLoginPage_DisplayLayer({
                                     customStyle={{
                                         marginTop: 1,
                                     }}
+                                    onPress={toggleModal}
                                     text="Forgot?"
                                     fullWidth
                                 />
@@ -123,6 +130,8 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
     const { handleDialogMessageChange, setDialogMessage } = useShowDialog();
     const { fan, setFan } = useUserData();
     const { firstName } = fan;
+    const [forgotEmail, setForgotEmail] = useState('');
+    const { isModalOpen, setModalVisible } = useShowModal();
 
     useEffect(() => {
         if (typeof firstName !== 'undefined') {
@@ -179,13 +188,24 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
         navigation.navigate('FanSignUp');
     }
 
+    function handleForgottenEmailUpdate(val: string) {
+        setForgotEmail(val);
+    }
+
+    function toggleModal() {
+        setModalVisible(!isModalOpen);
+    }
+
     return {
         email,
         handleEmailChange,
+        handleForgottenEmailUpdate,
         handleNavigate,
         handlePasswordChange,
         handleSubmit,
+        isModalOpen,
         password,
+        toggleModal,
     }
 }
 
