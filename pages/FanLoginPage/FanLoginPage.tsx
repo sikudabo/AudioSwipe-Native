@@ -68,7 +68,7 @@ function FanLoginPage_DisplayLayer({
                 </View>
                 <View>
                     <Portal>
-                        <Modal contentContainerStyle={styles.contentContainer} dismissable={false} visible={isModalOpen} style={styles.modalContainer}>
+                        <Modal contentContainerStyle={styles.contentContainer} dismissable={false} style={styles.modalContainer} visible={isModalOpen}>
                             <View style={styles.topModalTextContainer}>
                                 <AudioSwipeText 
                                     color={colors.primary}
@@ -319,6 +319,14 @@ const styles = StyleSheet.create({
         padding: 0,
         width: '100%',
     },
+    contentContainer: {
+        backgroundColor: colors.white,
+        minHeight: 400,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 20,
+    },
     forgotInputContainer: {
         paddingBottom: 20,
     },
@@ -349,14 +357,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     topTextInputContainer: {
-        paddingTop: 20,
-    },
-    contentContainer: {
-        backgroundColor: colors.white,
-        minHeight: 400,
-        paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
         paddingTop: 20,
     },
 });

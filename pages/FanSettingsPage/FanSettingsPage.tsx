@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
-import { NavigationAction  } from '@react-navigation/native';
 import { View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import { ActivityIndicator, Avatar, Surface, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Avatar, Modal, Portal, Surface, TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText, FormContainer } from '../../components';
 import { colors } from '../../components/colors';
-import { useShowDialog, useShowLoader, useUserData } from '../../hooks';
-import { deleteNonBinaryData, postBinaryData, postNonBinaryData } from '../../utils/api';
+import { useShowDialog, useShowLoader, useShowModal, useUserData } from '../../hooks';
+import { deleteNonBinaryData, postNonBinaryData } from '../../utils/api';
 import { baseUrl } from '../../utils/constants';
 import { checkValidEmail } from '../../utils/helpers';
 import * as FileSystem from 'expo-file-system';
@@ -26,11 +24,13 @@ type FanSettingsPageDisplayLayerProps = {
     handleLogout: () => void;
     handleSubmit: () => void;
     isLoading: boolean;
+    isModalOpen: boolean;
     newEmail: string;
     newFirstName: string;
     newLastName: string;
     newPassword: string;
     takePicture: () => void;
+    toggleModalVisible: () => void;
 }
 
 type DataLayerProps = FanSettingsPageProps;
@@ -51,11 +51,13 @@ function FanSettingsPage_DisplayLayer({
     handleLogout,
     handleSubmit,
     isLoading,
+    isModalOpen,
     newEmail,
     newFirstName,
     newLastName,
     newPassword,
-    takePicture
+    takePicture,
+    toggleModalVisible
 }: FanSettingsPageDisplayLayerProps) {
 
     if (isLoading) {
@@ -80,6 +82,19 @@ function FanSettingsPage_DisplayLayer({
                     size={150}
                     source={{ uri: `${baseUrl}api/get-photo/${avatar}` }}
                 />
+            </View>
+            <View>
+                <Portal>
+                    <Modal contentContainerStyle={styles.contentContainer} dismissable={false} style={styles.modalContainer} visible={isModalOpen}>
+                        <View style={styles.topModalTextContainer}>
+                            <AudioSwipeText 
+                                color={colors.primary}
+                                text="Contact us with any feedback, questions or concerns!"
+                                weight={900}
+                            />
+                        </View>
+                    </Modal>
+                </Portal>
             </View>
             <SafeAreaView style={styles.formSectionContainer}>
                 <ScrollView>
@@ -164,6 +179,7 @@ function FanSettingsPage_DisplayLayer({
                         <AudioSwipeButton 
                             backgroundColor={colors.hotPink}
                             color={colors.white}
+                            onPress={toggleModalVisible}
                             text="Contact"
                             fullWidth
                         />
@@ -199,6 +215,11 @@ function useDataLayer({ navigation }: DataLayerProps) {
     const [name, setName] = useState<string>('');
     const [uri, setUri] = useState<Blob | any>(null);
     const { isLoading, setIsLoading } = useShowLoader();
+    const { isModalOpen, setModalVisible } = useShowModal();
+
+    function toggleModalVisible() {
+        setModalVisible(!isModalOpen);
+    }
 
     async function handleDeleteProfile() {
         setIsLoading(true);
@@ -359,11 +380,13 @@ function useDataLayer({ navigation }: DataLayerProps) {
         handleLogout,
         handleSubmit,
         isLoading,
+        isModalOpen,
         newEmail,
         newFirstName,
         newLastName,
         newPassword,
         takePicture,
+        toggleModalVisible,
     };
 }
 
@@ -384,6 +407,14 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         width: '100%',
     },
+    contentContainer: {
+        backgroundColor: colors.white,
+        minHeight: 400,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 20,
+    },
     formContainer: {
         paddingBottom: 10,
         paddingLeft: 10,
@@ -403,6 +434,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 200,
     },
+    modalContainer: {
+        alignItems: 'center',
+        display: 'flex',
+    },
     settingsHeaderContainer: {
         alignItems: 'center',
         display: 'flex',
@@ -411,5 +446,8 @@ const styles = StyleSheet.create({
     },
     textField: {
         marginTop: 20,
+    },
+    topModalTextContainer: {
+        paddingBottom: 10,
     },
 });
