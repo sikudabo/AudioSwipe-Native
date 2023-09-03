@@ -12,6 +12,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { FanLoginPage, FanSignUpPage } from './pages';
 import GlobalContextProciders from './GlobalContextProviders';
 import DiscoverMusicPlayer from './pages/FanDiscoverPage/Discover/DiscoverMusicPlayer';
+import 'react-native-gesture-handler';
 
 
 
@@ -21,15 +22,15 @@ const queryClient = new QueryClient();
 type AppDisplayLayerProps = {
   fontsLoaded: boolean;
   isLoading: boolean;
-};
-
-SplashScreen.preventAutoHideAsync()
+}
 
 const theme = {
   ...DefaultTheme,
   dark: true,
   rippleEffectEnabled: false,
 };
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   return <App_DisplayLayer {...useDataLayer()} />
@@ -39,8 +40,8 @@ export default function App() {
 function App_DisplayLayer({ fontsLoaded, isLoading }: AppDisplayLayerProps) {
 
   const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.hideAsync();
     if (fontsLoaded) {
+      await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 

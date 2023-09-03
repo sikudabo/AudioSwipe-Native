@@ -12,51 +12,7 @@ import useFetchGenre from './hooks/useFetchGenre';
 import { useAudioPlayerRef, useUpdateAudioPlayer } from '../../../contexts/SwipeAudioContext';
 import { Audio } from 'expo-av';
 import { baseUrl } from '../../../utils/constants';
-import ExperimentalDiscoverPlayerCard from './components/ExperimentalDiscoverPlayerCard';
 import axios from 'axios';
-const CeCeCover = require('../../../assets/app-media/cece.jpeg');
-const CeCeMp3 = require('../../../assets/app-media/cece.mp3');
-const JoshuaRogersMp3 = require('../../../assets/app-media/joshuarogers.mp3');
-const JoshuaRogersCover = require('../../../assets/app-media/joshuarogers.jpeg');
-const JMossCover = require('../../../assets/app-media/jmoss.jpeg');
-const JMossMp3 = require('../../../assets/app-media/jmoss.mp3');
-const KirkCover = require('../../../assets/app-media/kirkfranklin.jpeg')
-const KirkMp3 = require('../../../assets/app-media/kirkfranklin.mp3');
-
-const db = [
-  {
-    albumName: 'Unconditional',
-    artistName: 'Joshua Rogers',
-    _id: 4,
-    coverSource: JoshuaRogersCover,
-    songMediaId: JoshuaRogersMp3,
-    songName: 'So Good!',
-  },
-  {
-    albumName: 'Praise Him',
-    artistName: 'J Moss',
-    coverSource: JMossCover,
-    _id: 3,
-    songMediaId: JMossMp3,
-    songName: 'Praise in the Sanctuary',
-  },
-  {
-    albumName: 'God is Good',
-    artistName: 'Kirk Franklin',
-    coverSource: KirkCover,
-    _id: 2,
-    songMediaId: KirkMp3,
-    songName: 'God lifts us up!'
-  },
-  {
-    albumName: 'God is so Good',
-    artistName: 'CeCe Winans',
-    coverSource: CeCeCover,
-    _id: 1,
-    songMediaId: CeCeMp3,
-    songName: 'Praise God',
-  },
-];
 
 type DiscoverMusicPlayerProps = {
     route: any,

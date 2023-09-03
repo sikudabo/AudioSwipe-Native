@@ -4,7 +4,6 @@ import DiscoverAudioCard from './components/DiscoverAudioCard';
 import DiscoverSection from './Layout/DiscoverSection';
 import { colors } from '../../../components/colors';
 import { audiobookGenres, musicGenres, podcastGenres } from '../../../utils/constants';
-import ExperimentalSwipePlayer from '../../../ExperimentalSwipePlayer';
 
 type DiscoverProps = {
     navigation: any;
