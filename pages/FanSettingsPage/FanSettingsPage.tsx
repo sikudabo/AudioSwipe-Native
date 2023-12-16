@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { ActivityIndicator, Avatar, Modal, Portal, Surface, TextInput } from 'react-native-paper';
 import { AudioSwipeButton, AudioSwipeText, FormContainer } from '../../components';
 import { colors } from '../../components/colors';

@@ -271,7 +271,9 @@ function useDataLayer({ navigation }: UseDataLayerProps) {
             handleDialogMessageChange(true);
             navigation.navigate('Dashboard');
             return;
-        });
+        }).catch(e => {
+            console.log(e.message);
+        })
     }
 
     function handleNavigate() {
